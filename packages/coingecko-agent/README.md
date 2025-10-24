@@ -75,7 +75,21 @@ The agent provides structured responses with:
 4. **Data Analysis** - Evaluates risk and performance metrics
 5. **Confident Answer** - Provides actionable insights with reasoning
 
-See [EXAMPLES.md](./EXAMPLES.md) for a complete examples of agent output.
+See [EXAMPLES.md](./EXAMPLES.md) for complete examples of agent output.
+
+### Full Data Examples
+
+Complete JSON response files are available in the [examples](./examples) directory. Each file contains:
+
+```json
+{
+  "question": "string - the original question",
+  "response": {
+    "messages": "array - internal processing steps and tool calls",
+    "structuredResponse": "object - the structured agent analysis and answer"
+  }
+}
+```
 
 ## Development
 
