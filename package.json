@@ -1,0 +1,45 @@
+{
+  "name": "community-agents",
+  "version": "0.0.0",
+  "description": "Warden community agents monorepo with TypeScript packages.",
+  "private": true,
+  "workspaces": ["packages/*"],
+  "type": "module",
+  "devDependencies": {
+    "tsx": "^4.20.6",
+    "@eslint/js": "~9.17",
+    "@types/node": "~20",
+    "@typescript-eslint/parser": "~8.19",
+    "@vitest/coverage-v8": "~2.1",
+    "@vitest/eslint-plugin": "~1.1",
+    "eslint-config-prettier": "~9.1",
+    "eslint": "~9.17",
+    "globals": "~15.14",
+    "prettier": "~3.4",
+    "rimraf": "~6.0",
+    "ts-api-utils": "~2.0",
+    "typescript-eslint": "~8.19",
+    "typescript": "~5.7",
+    "vitest": "~2.1"
+  },
+  "scripts": {
+    "build:all": "yarn workspaces run build",
+    "lint": "eslint .",
+    "test": "yarn workspaces run test",
+    "clean": "yarn workspaces run clean",
+    "prettier": "prettier \"{src,__{tests}__,packages/*/src}/**/*.{ts,mts}\" --config .prettierrc --write",
+    "prettier:check": "prettier \"{src,__{tests}__,packages/*/src}/**/*.{ts,mts}\" --config .prettierrc --check"
+  },
+  "dependencies": {
+    "tslib": "~2.8",
+    "@langchain/core": "^0.3.78",
+    "@langchain/langgraph": "^0.4.9",
+    "@langchain/openai": "^0.6.16",
+    "@langchain/anthropic": "^0.3.31",
+    "@langchain/mcp-adapters": "^0.6.0",
+    "@coingecko/coingecko-mcp": "^2.2.0",
+    "dotenv": "^16.4.7",
+    "langchain": "^0.3.36",
+    "zod": "^3.24.1"
+  }
+}
