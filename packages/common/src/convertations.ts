@@ -2,16 +2,16 @@ import { DynamicStructuredTool } from 'langchain/tools';
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import z from 'zod';
 
-export function convertCGToolToDynamicTool(
-  cgTool: Tool,
+export function convertToDynamicTool(
+  tool: Tool,
   handler: (input: Record<string, any>) => Promise<any>,
 ) {
   return new DynamicStructuredTool({
-    name: cgTool.name,
-    description: cgTool.description,
+    name: tool.name,
+    description: tool.description!,
     schema: z.object(
       Object.fromEntries(
-        Object.entries(cgTool.inputSchema.properties).map(
+        Object.entries(tool.inputSchema.properties!).map(
           ([key, value]: [string, any]) => {
             let zodType: z.ZodTypeAny;
 
@@ -34,7 +34,7 @@ export function convertCGToolToDynamicTool(
             }
 
             // Make optional if not in required array
-            if (!cgTool.inputSchema.required?.includes(key)) {
+            if (!tool.inputSchema.required?.includes(key)) {
               zodType = zodType.optional();
             }
 

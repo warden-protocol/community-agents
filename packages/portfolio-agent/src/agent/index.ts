@@ -5,9 +5,14 @@ import { ChatOpenAI } from '@langchain/openai';
 import { createReactAgent } from '@langchain/langgraph/prebuilt';
 import zod from 'zod';
 import { AgentResponse, Logger } from '@warden-community-agents/common';
+import { getHistoricalPortfolioDataTool } from './tools';
 
-export async function runCoinGeckoAgent(
+export async function runPortfolioAgent(
   questions: string[],
+  walletAddresses: {
+    evm?: string;
+    solana?: string;
+  },
   options: {
     modelName?: string;
     temperature?: number;
@@ -24,7 +29,7 @@ export async function runCoinGeckoAgent(
     delayBetweenQuestionsMs = 500,
   } = options;
 
-  const logger = new Logger('CoinGeckoAgent');
+  const logger = new Logger('PortfolioAgent');
   logger.info('Starting...');
   const mcpClient = new MultiServerMCPClient({
     mcpServers: {
@@ -33,6 +38,13 @@ export async function runCoinGeckoAgent(
         args: ['-y', '@coingecko/coingecko-mcp'],
         env: process.env,
       },
+      alchemy: {
+        command: 'npx',
+        args: ['-y', '@alchemy/mcp-server'],
+        env: {
+          ALCHEMY_API_KEY: process.env.ALCHEMY_API_KEY,
+        },
+      },
     },
   });
   const model = new ChatOpenAI({
@@ -40,9 +52,12 @@ export async function runCoinGeckoAgent(
     temperature,
   });
 
+  const mcpTools = await mcpClient.getTools();
+  const customTools = [getHistoricalPortfolioDataTool];
+
   const agent = createReactAgent({
     llm: model,
-    tools: await mcpClient.getTools(),
+    tools: [...mcpTools, ...customTools],
     responseFormat: responseSchema as any,
   });
 
@@ -61,7 +76,10 @@ export async function runCoinGeckoAgent(
             role: 'system',
             content: systemPrompt,
           },
-          { role: 'user', content: question },
+          {
+            role: 'user',
+            content: `Wallet addresses: EVM: ${walletAddresses.evm || 'Not provided'}, Solana: ${walletAddresses.solana || 'Not provided'}\n\nUser question: ${question}`,
+          },
         ],
       });
       results.push({ question, response });
