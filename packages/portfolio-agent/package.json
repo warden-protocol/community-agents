@@ -22,7 +22,7 @@
     "@langchain/openai": "^0.6.16",
     "@langchain/anthropic": "^0.3.31",
     "@langchain/mcp-adapters": "^0.6.0",
-    "@coingecko/coingecko-mcp": "^2.2.0",
+    "@coingecko/coingecko-typescript": "2.2.0",
     "dotenv": "^16.4.7",
     "langchain": "^0.3.36",
     "zod": "^3.24.1"

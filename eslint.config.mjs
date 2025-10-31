@@ -9,7 +9,12 @@ import tseslint from 'typescript-eslint';
 // You should change it to your needs following the documentation.
 export default tseslint.config(
   {
-    ignores: ['**/build/**', '**/tmp/**', '**/coverage/**', 'packages/*/build/**'],
+    ignores: [
+      '**/build/**',
+      '**/tmp/**',
+      '**/coverage/**',
+      'packages/*/build/**',
+    ],
   },
   eslint.configs.recommended,
   eslintConfigPrettier,
@@ -37,7 +42,7 @@ export default tseslint.config(
       },
 
       parserOptions: {
-        project: './tsconfig.json',
+        project: true,
       },
     },
   },

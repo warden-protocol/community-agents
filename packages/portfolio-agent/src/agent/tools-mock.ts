@@ -1,6 +1,5 @@
 import { DynamicStructuredTool } from '@langchain/core/tools';
 import { z } from 'zod';
-import { getPortfolioService } from '../utils/portfolio';
 
 // const chains = ['eth-mainnet', 'sol-mainnet'];
 
@@ -122,22 +121,47 @@ export const getHistoricalPortfolioDataTool = new DynamicStructuredTool({
         'The time period for historical analysis \n Valid values: daily, weekly, monthly',
       ),
   }),
-  func: async (input: {
-    evmWalletAddress?: string;
-    solanaWalletAddress?: string;
-    timeframe: 'daily' | 'weekly' | 'monthly';
-  }): Promise<string> => {
+  func: async () // {
+  // evmWalletAddress,
+  // solanaWalletAddress,
+  // timeframe,
+  // },
+  : Promise<string> => {
     try {
-      const portfolioService = getPortfolioService();
-      const portfolioChange = await portfolioService.getPortfolioChange(
+      const portfolio = generateStats([
         {
-          evmAddress: input.evmWalletAddress,
-          solanaAddress: input.solanaWalletAddress,
+          symbol: 'ETH',
+          chain: 'ethereum',
+          startPrice: 3800,
+          currentPrice: 4100,
+          balance: 0.5,
         },
-        input.timeframe,
-      );
-
-      return JSON.stringify(portfolioChange);
+        {
+          symbol: 'TRUMP',
+          chain: 'solana',
+          startPrice: 20.1,
+          currentPrice: 8.08,
+          balance: 120,
+        },
+        {
+          symbol: 'WBTC',
+          chain: 'ethereum',
+          startPrice: 109000,
+          currentPrice: 117000,
+          balance: 0.0001,
+        },
+        {
+          symbol: 'LINK',
+          chain: 'ethereum',
+          startPrice: 15.5,
+          currentPrice: 17.28,
+          balance: 100,
+        },
+      ]);
+      return JSON.stringify({
+        ...portfolio,
+        tokens: Object.fromEntries(portfolio.tokens),
+      });
     } catch (error) {
       return JSON.stringify({
         error: `Failed to fetch historical data: ${error.message}`,
@@ -145,3 +169,37 @@ export const getHistoricalPortfolioDataTool = new DynamicStructuredTool({
     }
   },
 });
+
+function generateStats(
+  tokens: {
+    symbol: string;
+    chain: string;
+    startPrice: number;
+    currentPrice: number;
+    balance: number;
+  }[],
+): Portfolio {
+  let startPeriodAmountUsd = 0;
+  let currentTotalAmountUsd = 0;
+  const portfolio = new Map<string, TokenStats>();
+  for (const { symbol, chain, startPrice, currentPrice, balance } of tokens) {
+    startPeriodAmountUsd += startPrice * balance;
+    currentTotalAmountUsd += currentPrice * balance;
+    portfolio.set(symbol, {
+      symbol,
+      name: symbol,
+      chain,
+      amount: balance,
+      amountUsd: currentPrice * balance,
+      currentPrice: currentPrice,
+      startPeriodPrice: startPrice,
+      priceChange: currentPrice - startPrice,
+      priceChangePercent: ((currentPrice - startPrice) / startPrice) * 100,
+    });
+  }
+  return {
+    tokens: portfolio,
+    startPeriodAmountUsd,
+    currentTotalAmountUsd,
+  };
+}

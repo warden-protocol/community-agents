@@ -28,6 +28,7 @@
   "include": [],
   "references": [
     { "path": "./packages/coingecko-agent" },
+    { "path": "./packages/portfolio-agent" },
     { "path": "./packages/common" }
   ]
 }
