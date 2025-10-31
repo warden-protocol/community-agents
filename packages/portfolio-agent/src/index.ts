@@ -21,7 +21,7 @@ export async function runAgentWithSaveResults(
   } = {},
 ): Promise<void> {
   console.log(`\n${'='.repeat(60)}`);
-  console.log(`🔬 Running Agent`);
+  console.log(`🔬 Running Portfolio Agent`);
   console.log(`${'='.repeat(60)}\n`);
 
   const startTime = Date.now();
@@ -43,6 +43,9 @@ export async function runAgentWithSaveResults(
 }
 
 function saveResults(name: string, results: any): void {
+  if (!fs.existsSync('results')) {
+    fs.mkdirSync('results');
+  }
   fs.writeFileSync(
     `results/${name}.json`,
     JSON.stringify(results, null, 2),
@@ -53,10 +56,10 @@ function saveResults(name: string, results: any): void {
 async function main(): Promise<void> {
   // Example usage of the portfolio agent
   const questions = [
-    'Review my portfolio',
+    // 'Review my portfolio',
     'Give me a daily report',
-    'Give me a weekly report',
-    'Give me a monthly report',
+    // 'Give me a weekly report',
+    // 'Give me a monthly report',
   ];
 
   const walletAddresses = {

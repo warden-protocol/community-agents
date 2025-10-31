@@ -1,6 +1,5 @@
 import { SystemPrompt } from './system-prompt';
 import { ResponseSchema } from './output-structure';
-import { MultiServerMCPClient } from '@langchain/mcp-adapters';
 import { ChatOpenAI } from '@langchain/openai';
 import { createReactAgent } from '@langchain/langgraph/prebuilt';
 import zod from 'zod';
@@ -31,33 +30,16 @@ export async function runPortfolioAgent(
 
   const logger = new Logger('PortfolioAgent');
   logger.info('Starting...');
-  const mcpClient = new MultiServerMCPClient({
-    mcpServers: {
-      'coingecko-mcp': {
-        command: 'npx',
-        args: ['-y', '@coingecko/coingecko-mcp'],
-        env: process.env,
-      },
-      alchemy: {
-        command: 'npx',
-        args: ['-y', '@alchemy/mcp-server'],
-        env: {
-          ALCHEMY_API_KEY: process.env.ALCHEMY_API_KEY,
-        },
-      },
-    },
-  });
   const model = new ChatOpenAI({
     modelName,
     temperature,
   });
 
-  const mcpTools = await mcpClient.getTools();
   const customTools = [getHistoricalPortfolioDataTool];
 
   const agent = createReactAgent({
     llm: model,
-    tools: [...mcpTools, ...customTools],
+    tools: customTools,
     responseFormat: responseSchema as any,
   });
 
@@ -100,7 +82,6 @@ export async function runPortfolioAgent(
     }
   }
 
-  await mcpClient.close();
   logger.info('Finished Agent');
   return results;
 }
