@@ -129,8 +129,34 @@ export const getHistoricalPortfolioDataTool = new DynamicStructuredTool({
   : Promise<string> => {
     try {
       const portfolio = generateStats([
-        { symbol: 'ETH', chain: 'ethereum' },
-        { symbol: 'PEPE', chain: 'solana' },
+        {
+          symbol: 'ETH',
+          chain: 'ethereum',
+          startPrice: 3800,
+          currentPrice: 4100,
+          balance: 0.5,
+        },
+        {
+          symbol: 'TRUMP',
+          chain: 'solana',
+          startPrice: 20.1,
+          currentPrice: 8.08,
+          balance: 120,
+        },
+        {
+          symbol: 'WBTC',
+          chain: 'ethereum',
+          startPrice: 109000,
+          currentPrice: 117000,
+          balance: 0.0001,
+        },
+        {
+          symbol: 'LINK',
+          chain: 'ethereum',
+          startPrice: 15.5,
+          currentPrice: 17.28,
+          balance: 100,
+        },
       ]);
       return JSON.stringify({
         ...portfolio,
@@ -144,27 +170,31 @@ export const getHistoricalPortfolioDataTool = new DynamicStructuredTool({
   },
 });
 
-function generateStats(tokens: { symbol: string; chain: string }[]): Portfolio {
+function generateStats(
+  tokens: {
+    symbol: string;
+    chain: string;
+    startPrice: number;
+    currentPrice: number;
+    balance: number;
+  }[],
+): Portfolio {
   let startPeriodAmountUsd = 0;
   let currentTotalAmountUsd = 0;
   const portfolio = new Map<string, TokenStats>();
-  for (const token of tokens) {
-    const startPeriodPrice = 1000 + Math.random() * 200 - 100;
-    const currentPrice = 1000 + Math.random() * 200 - 100;
-    const balance = 100 + Math.random() * 20 - 10;
-    startPeriodAmountUsd += startPeriodPrice * balance;
+  for (const { symbol, chain, startPrice, currentPrice, balance } of tokens) {
+    startPeriodAmountUsd += startPrice * balance;
     currentTotalAmountUsd += currentPrice * balance;
-    portfolio.set(token.symbol, {
-      symbol: token.symbol,
-      name: token.symbol,
-      chain: token.chain,
+    portfolio.set(symbol, {
+      symbol,
+      name: symbol,
+      chain,
       amount: balance,
-      amountUsd: startPeriodPrice * balance,
+      amountUsd: currentPrice * balance,
       currentPrice: currentPrice,
-      startPeriodPrice: startPeriodPrice,
-      priceChange: currentPrice - startPeriodPrice,
-      priceChangePercent:
-        ((currentPrice - startPeriodPrice) / startPeriodPrice) * 100,
+      startPeriodPrice: startPrice,
+      priceChange: currentPrice - startPrice,
+      priceChangePercent: ((currentPrice - startPrice) / startPrice) * 100,
     });
   }
   return {

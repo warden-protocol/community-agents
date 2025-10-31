@@ -19,35 +19,21 @@ import { z } from 'zod';
  * Individual token holding data
  */
 export const TokenHoldingSchema = z.object({
-  tokenId: z.string().describe('CoinGecko token ID'),
-  tokenSymbol: z.string().describe('Token symbol (e.g., BTC, ETH)'),
-  tokenName: z.string().describe('Full token name'),
+  symbol: z.string().describe('Token symbol (e.g., BTC, ETH)'),
+  name: z.string().describe('Full token name'),
+  chain: z.string().describe('Blockchain network (e.g., ethereum, solana)'),
   amount: z.number().describe('Amount of tokens held'),
+  amountUsd: z.number().describe('Amount of tokens held in USD'),
   currentPrice: z.number().describe('Current price in USD'),
-  currentValueUSD: z.number().describe('Current value in USD (amount × currentPrice)'),
   historicalPrice: z.number().describe('Price at start of period in USD'),
-  historicalValueUSD: z.number().describe('Value at start of period in USD'),
-  deltaUSD: z.number().describe('Change in USD value (currentValueUSD - historicalValueUSD)'),
-  deltaPercentage: z.number().describe('Percentage change in value'),
-  portfolioPercentage: z.number().describe('Percentage of total portfolio value'),
-});
-
-/**
- * Portfolio graph data point
- */
-export const GraphDataPointSchema = z.object({
-  timestamp: z.string().describe('ISO timestamp'),
-  totalValueUSD: z.number().describe('Total portfolio value in USD at this time'),
-});
-
-/**
- * Wallet information
- */
-export const WalletInfoSchema = z.object({
-  address: z.string().describe('Wallet address'),
-  chain: z.enum(['evm', 'solana']).describe('Blockchain network'),
-  totalValueUSD: z.number().describe('Total value of this wallet in USD'),
-  tokenCount: z.number().describe('Number of different tokens held'),
+  priceChange: z
+    .number()
+    .describe('Price change in USD (currentPrice - historicalPrice)'),
+  priceChangePercent: z
+    .number()
+    .describe(
+      'Price change percentage (currentPrice - historicalPrice) / historicalPrice',
+    ),
 });
 
 // ============================================================================
@@ -67,19 +53,34 @@ export const ResponseSchema = z
         userQuery: z.string().describe('The original user question'),
         timePeriod: z
           .enum(['daily', 'weekly', 'monthly'])
-          .describe('Extracted time period from user query, default to monthly if not specified'),
+          .describe(
+            'Extracted time period from user query, default to monthly if not specified',
+          ),
         reportType: z
-          .enum(['portfolio_review', 'daily_report', 'weekly_report', 'monthly_report'])
+          .enum([
+            'portfolio_review',
+            'daily_report',
+            'weekly_report',
+            'monthly_report',
+          ])
           .describe('Type of report requested by user'),
         walletAddresses: z
           .object({
-            evm: z.string().nullable().describe('EVM wallet address if provided'),
-            solana: z.string().nullable().describe('Solana wallet address if provided'),
+            evm: z
+              .string()
+              .nullable()
+              .describe('EVM wallet address if provided'),
+            solana: z
+              .string()
+              .nullable()
+              .describe('Solana wallet address if provided'),
           })
           .describe('Wallet addresses to analyze'),
         parsingReasoning: z
           .string()
-          .describe('Explain how you identified the time period and report type from the user query'),
+          .describe(
+            'Explain how you identified the time period and report type from the user query',
+          ),
       })
       .describe(
         'STEP 1 (MANDATORY): Parse user request to extract time period, report type, and wallet addresses. Default to monthly if no time period specified.',
@@ -92,19 +93,22 @@ export const ResponseSchema = z
       .object({
         toolsUsed: z
           .array(z.string())
-          .describe('List of MCP tools and custom tools used (e.g., ["get_historical_portfolio_data", "alchemy_balance", "coingecko_prices"])'),
-        walletData: z
-          .array(WalletInfoSchema)
-          .describe('Data for each wallet analyzed'),
-        tokenHoldings: z
+          .describe(
+            'List of used tools (e.g., ["get_historical_portfolio_data"])',
+          ),
+        porfolio: z
           .array(TokenHoldingSchema)
-          .describe('Complete token holdings data with current and historical values'),
+          .describe(
+            'Complete token holdings data with current and historical values',
+          ),
         fetchingNotes: z
           .string()
-          .describe('Notes about the data fetching process: which tools were used, any issues encountered, data availability'),
+          .describe(
+            'Notes about the data fetching process: which tools were used, any issues encountered, data availability',
+          ),
       })
       .describe(
-        'STEP 2 (MANDATORY): Fetch portfolio data using Alchemy for balances and CoinGecko for prices. Use get_historical_portfolio_data tool for structured historical data.',
+        'STEP 2 (MANDATORY): Call get_historical_portfolio_data tool EXACTLY ONCE using the timeframe from STEP 1. DO NOT call the tool multiple times with different timeframes.',
       ),
 
     // ========================================
@@ -114,29 +118,17 @@ export const ResponseSchema = z
       .object({
         totalPortfolioValue: z
           .number()
-          .describe('Total portfolio value in USD across all wallets'),
-        walletBreakdown: z
-          .array(z.object({
-            wallet: WalletInfoSchema,
-            percentage: z.number().describe('Percentage of total portfolio value'),
-          }))
-          .describe('Breakdown by wallet'),
-        tokenBreakdown: z
-          .array(z.object({
-            token: TokenHoldingSchema,
-            percentage: z.number().describe('Percentage of total portfolio value'),
-          }))
-          .describe('Breakdown by token'),
+          .describe('Total portfolio value in USD across all tokens'),
         topHoldings: z
-          .array(TokenHoldingSchema)
+          .array(z.string())
           .max(5)
-          .describe('Top 5 holdings by value'),
+          .describe('Top 5 tokens by USD value in portfolio'),
         compositionSummary: z
           .string()
           .describe('Summary of portfolio composition and diversification'),
       })
       .describe(
-        'STEP 3 (MANDATORY): Analyze portfolio composition including total value, wallet breakdown, token breakdown, and top holdings.',
+        'STEP 3 (MANDATORY): Analyze portfolio composition including total value, top tokens by USD value in portfolio, and summary of portfolio composition and diversification.',
       ),
 
     // ========================================
@@ -155,15 +147,15 @@ export const ResponseSchema = z
           .describe('Total change in USD value (end - start)'),
         totalDeltaPercentage: z
           .number()
-          .describe('Total percentage change in portfolio value'),
+          .describe('Total percentage change in portfolio USD value'),
         bestPerformers: z
-          .array(TokenHoldingSchema)
+          .array(z.string())
           .max(3)
-          .describe('Top 3 performing tokens by delta USD'),
+          .describe('Top 3 performing tokens by USD value change'),
         worstPerformers: z
-          .array(TokenHoldingSchema)
+          .array(z.string())
           .max(3)
-          .describe('Bottom 3 performing tokens by delta USD'),
+          .describe('Bottom 3 performing tokens by USD value change'),
         performanceSummary: z
           .string()
           .describe('Summary of portfolio performance over the time period'),
@@ -179,22 +171,30 @@ export const ResponseSchema = z
       .object({
         confidence: z
           .enum(['low', 'medium', 'high'])
-          .describe('Confidence level in the analysis based on data completeness'),
-        graphData: z
-          .array(GraphDataPointSchema)
-          .describe('Data points for portfolio value graph over time period'),
-        keyInsights: z
+          .describe(
+            'Confidence level in the analysis based on data completeness',
+          ),
+        error: z
+          .enum(['tool_error', 'llm_error', 'user_error', 'no_error'])
+          .describe(
+            'The type of error that occurred. tool_error=the tool call failed, user_error=the user question contains non-cryptocurrency related content or violates the critical rules, llm_error=all other errors, no_error=no error occurred',
+          ),
+        keyTakeaways: z
           .array(z.string())
-          .describe('3-5 key insights from the portfolio analysis'),
+          .describe('3-5 key takeaways from the portfolio analysis'),
         recommendations: z
           .array(z.string())
-          .describe('Observations about portfolio composition and performance (not investment advice)'),
+          .describe(
+            'Observations about portfolio composition and performance (not investment advice)',
+          ),
         limitations: z
           .array(z.string())
           .describe('Data limitations and analysis constraints'),
-        finalAnswer: z
+        summary: z
           .string()
-          .describe('Comprehensive portfolio report with all findings. Always include "This is not financial advice."'),
+          .describe(
+            'Summary of the portfolio analysis. Always include "This is not financial advice."',
+          ),
       })
       .describe(
         'STEP 5 (MANDATORY): Generate comprehensive portfolio report with graph data, insights, and final analysis. Include confidence assessment and limitations.',
