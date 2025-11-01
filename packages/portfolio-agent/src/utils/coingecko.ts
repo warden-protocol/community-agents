@@ -182,8 +182,8 @@ export class CoingeckoService {
     };
 
     return {
-      topGainers: response.top_gainers.map(convertToTopToken),
-      topLosers: response.top_losers.map(convertToTopToken),
+      topGainers: response.top_gainers.map(convertToTopToken).slice(0, 10),
+      topLosers: response.top_losers.map(convertToTopToken).slice(0, 10),
     };
   }
 }
