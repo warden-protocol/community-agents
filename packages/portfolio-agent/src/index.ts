@@ -2,7 +2,6 @@ import { runPortfolioAgent } from './agent';
 import dotenv from 'dotenv';
 import fs from 'node:fs';
 import zod from 'zod';
-import { UserPortfolioService } from './utils/portfolio';
 
 // Load environment variables
 dotenv.config();

@@ -1,8 +1,6 @@
 import { DynamicStructuredTool } from '@langchain/core/tools';
 import { z } from 'zod';
 
-// const chains = ['eth-mainnet', 'sol-mainnet'];
-
 export interface Portfolio {
   tokens: Map<string, TokenStats>;
   startPeriodAmountUsd: number;
