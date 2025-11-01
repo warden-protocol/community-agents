@@ -32,6 +32,8 @@ export class CoingeckoService {
     this.coingeckoClient = new Coingecko({
       proAPIKey: process.env.COINGECKO_API_KEY,
       environment: 'pro',
+      timeout: 10000,
+      maxRetries: 3,
     });
     this.cachedAt = new Date(0);
     this.cachedCoinsMap = new Map();
