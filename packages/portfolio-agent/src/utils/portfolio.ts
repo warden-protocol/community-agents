@@ -1,5 +1,5 @@
 import { AlchemyClient, AlchemyNetwork } from './alchemy';
-import { CoingeckoService } from './coingecko';
+import { CoingeckoService, PriceChange, Duration } from './coingecko';
 
 export interface PortfolioChange {
   tokens: PortfolioToken[];
@@ -7,6 +7,8 @@ export interface PortfolioChange {
   totalAmountUsd: number;
   totalAmountChange: number;
   totalAmountChangePercent: number;
+  topGainers: TopToken[];
+  topLosers: TopToken[];
 }
 
 export interface PortfolioToken {
@@ -20,6 +22,15 @@ export interface PortfolioToken {
   startPeriodPrice: number;
   priceChange: number;
   priceChangePercent: number;
+}
+
+export interface TopToken {
+  coingeckoId: string;
+  symbol: string;
+  name: string;
+  marketCapRank: number;
+  currentPrice: number;
+  priceChange: number;
 }
 
 type TimeInterval = 'daily' | 'weekly' | 'monthly';
@@ -116,8 +127,7 @@ export class UserPortfolioService {
 
   private async getPortfolioTokens(
     userAddresses: UserAddresses,
-    fromDate: Date,
-    toDate: Date,
+    interval: TimeInterval,
   ): Promise<PortfolioToken[]> {
     const addresses = this.convertToAlchemyAddressesArgs(userAddresses);
 
@@ -171,44 +181,53 @@ export class UserPortfolioService {
         tokenAmount = Number(tokenBalanceRaw) / 10 ** decimals;
       }
 
-      const priceChange = await this.coingeckoService.getCoinPriceChange(
-        cgCoin.id,
-        fromDate.toISOString().split('T')[0], // get date in YYYY-MM-DD format
-        toDate.toISOString().split('T')[0],
-      );
-
-      if (!priceChange) {
-        console.warn(
-          `No price change found for token ${token.tokenAddress} on network ${token.network}`,
-        );
-        continue;
-      }
-
       portfolioTokens.push({
         coingeckoId: cgCoin.id,
         symbol: cgCoin.symbol,
         name: cgCoin.name,
         chain: token.network,
         amount: tokenAmount,
-        amountUsd: tokenAmount * priceChange.lastPriceUsd,
-        currentPrice: priceChange.lastPriceUsd,
-        startPeriodPrice: priceChange.firstPriceUsd,
-        priceChange: priceChange.priceChangeUsd,
-        priceChangePercent: priceChange.priceChangePercent,
+        amountUsd: 0,
+        currentPrice: 0,
+        startPeriodPrice: 0,
+        priceChange: 0,
+        priceChangePercent: 0,
       });
+    }
+
+    const marketChangesMap = new Map<string, PriceChange>();
+    (
+      await this.coingeckoService.getMarketChanges(
+        portfolioTokens.map((t) => t.coingeckoId),
+        this.convertToDuration(interval),
+      )
+    ).forEach((m) => marketChangesMap.set(m.id, m));
+
+    for (const portfolioToken of portfolioTokens) {
+      const marketChange = marketChangesMap.get(portfolioToken.coingeckoId);
+      if (!marketChange) {
+        continue;
+      }
+
+      portfolioToken.amountUsd =
+        marketChange.lastPriceUsd * portfolioToken.amount;
+      portfolioToken.currentPrice = marketChange.lastPriceUsd;
+      portfolioToken.startPeriodPrice = marketChange.firstPriceUsd;
+      portfolioToken.priceChange = marketChange.priceChangeUsd;
+      portfolioToken.priceChangePercent = marketChange.priceChangePercent;
     }
 
     return portfolioTokens;
   }
 
-  private getIntervalStartDate(endDate: Date, interval: TimeInterval): Date {
+  private convertToDuration(interval: TimeInterval): Duration {
     switch (interval) {
       case 'daily':
-        return new Date(endDate.getTime() - 24 * 60 * 60 * 1000);
+        return '24h';
       case 'weekly':
-        return new Date(endDate.getTime() - 7 * 24 * 60 * 60 * 1000);
+        return '7d';
       case 'monthly':
-        return new Date(endDate.getTime() - 30 * 24 * 60 * 60 * 1000);
+        return '30d';
       default:
         throw new Error(`Unsupported interval: ${interval}`);
     }
@@ -224,12 +243,9 @@ export class UserPortfolioService {
       throw new Error('Minimum one address is required');
     }
 
-    const toDate = new Date();
-    const fromDate = this.getIntervalStartDate(toDate, interval);
     const portfolioTokens = await this.getPortfolioTokens(
       userAddresses,
-      fromDate,
-      toDate,
+      interval,
     );
 
     let startPeriodTotalAmountUsd = 0;
@@ -246,12 +262,18 @@ export class UserPortfolioService {
         ? (totalAmountChange / startPeriodTotalAmountUsd) * 100
         : 0;
 
+    const topGainersLosers = await this.coingeckoService.getTopGainersLosers(
+      this.convertToDuration(interval),
+    );
+
     return {
       tokens: portfolioTokens,
       startPeriodTotalAmountUsd,
       totalAmountUsd,
       totalAmountChange,
       totalAmountChangePercent,
+      topGainers: topGainersLosers.topGainers,
+      topLosers: topGainersLosers.topLosers,
     };
   }
 }

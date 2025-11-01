@@ -51,19 +51,11 @@ export const ResponseSchema = z
     step1_requestParsing: z
       .object({
         userQuery: z.string().describe('The original user question'),
-        timePeriod: z
+        timeframe: z
           .enum(['daily', 'weekly', 'monthly'])
           .describe(
             'Extracted time period from user query, default to monthly if not specified',
           ),
-        reportType: z
-          .enum([
-            'portfolio_review',
-            'daily_report',
-            'weekly_report',
-            'monthly_report',
-          ])
-          .describe('Type of report requested by user'),
         walletAddresses: z
           .object({
             evm: z

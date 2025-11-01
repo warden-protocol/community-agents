@@ -2,26 +2,6 @@ import { DynamicStructuredTool } from '@langchain/core/tools';
 import { z } from 'zod';
 import { getPortfolioService } from '../utils/portfolio';
 
-// const chains = ['eth-mainnet', 'sol-mainnet'];
-
-export interface Portfolio {
-  tokens: Map<string, TokenStats>;
-  startPeriodAmountUsd: number;
-  currentTotalAmountUsd: number;
-}
-
-export interface TokenStats {
-  symbol: string;
-  name: string;
-  chain: string;
-  amount: number;
-  amountUsd: number;
-  currentPrice: number;
-  startPeriodPrice: number;
-  priceChange: number;
-  priceChangePercent: number;
-}
-
 /**
  * Custom tool for fetching historical portfolio data
  * This tool combines wallet balance data with historical price data
@@ -36,11 +16,15 @@ export const getHistoricalPortfolioDataTool = new DynamicStructuredTool({
   type: 'object',
   properties: {
     tokens: {
-      type: 'object',
-      description: 'Map of token symbols to their statistics',
-      additionalProperties: {
+      type: 'array',
+      description: 'Array of tokens in the portfolio with their statistics',
+      items: {
         type: 'object',
         properties: {
+          coingeckoId: {
+            type: 'string',
+            description: 'CoinGecko token identifier'
+          },
           symbol: {
             type: 'string',
             description: 'token symbol (e.g., ETH, PEPE)'
@@ -51,7 +35,7 @@ export const getHistoricalPortfolioDataTool = new DynamicStructuredTool({
           },
           chain: {
             type: 'string',
-            description: 'blockchain network (e.g., ethereum, solana)'
+            description: 'blockchain network (e.g., eth-mainnet, base-mainnet, bnb-mainnet, solana-mainnet)'
           },
           amount: {
             type: 'number',
@@ -59,7 +43,7 @@ export const getHistoricalPortfolioDataTool = new DynamicStructuredTool({
           },
           amountUsd: {
             type: 'number',
-            description: 'token balance value in USD at start of period'
+            description: 'current token balance value in USD'
           },
           currentPrice: {
             type: 'number',
@@ -79,6 +63,7 @@ export const getHistoricalPortfolioDataTool = new DynamicStructuredTool({
           }
         },
         required: [
+          'coingeckoId',
           'symbol',
           'name',
           'chain',
@@ -91,19 +76,113 @@ export const getHistoricalPortfolioDataTool = new DynamicStructuredTool({
         ]
       }
     },
-    startPeriodAmountUsd: {
+    startPeriodTotalAmountUsd: {
       type: 'number',
       description: 'total portfolio value in USD at start of period'
     },
-    currentTotalAmountUsd: {
+    totalAmountUsd: {
       type: 'number',
       description: 'current total portfolio value in USD'
+    },
+    totalAmountChange: {
+      type: 'number',
+      description: 'absolute change in portfolio value in USD (current - start)'
+    },
+    totalAmountChangePercent: {
+      type: 'number',
+      description: 'percentage change in portfolio value over the period'
+    },
+    topGainers: {
+      type: 'array',
+      description: 'Array of top gaining tokens in the market during the period',
+      items: {
+        type: 'object',
+        properties: {
+          coingeckoId: {
+            type: 'string',
+            description: 'CoinGecko token identifier'
+          },
+          symbol: {
+            type: 'string',
+            description: 'token symbol'
+          },
+          name: {
+            type: 'string',
+            description: 'token name'
+          },
+          marketCapRank: {
+            type: 'number',
+            description: 'market capitalization rank'
+          },
+          currentPrice: {
+            type: 'number',
+            description: 'current token price in USD'
+          },
+          priceChange: {
+            type: 'number',
+            description: 'price change percentage over the period'
+          }
+        },
+        required: [
+          'coingeckoId',
+          'symbol',
+          'name',
+          'marketCapRank',
+          'currentPrice',
+          'priceChange'
+        ]
+      }
+    },
+    topLosers: {
+      type: 'array',
+      description: 'Array of top losing tokens in the market during the period',
+      items: {
+        type: 'object',
+        properties: {
+          coingeckoId: {
+            type: 'string',
+            description: 'CoinGecko token identifier'
+          },
+          symbol: {
+            type: 'string',
+            description: 'token symbol'
+          },
+          name: {
+            type: 'string',
+            description: 'token name'
+          },
+          marketCapRank: {
+            type: 'number',
+            description: 'market capitalization rank'
+          },
+          currentPrice: {
+            type: 'number',
+            description: 'current token price in USD'
+          },
+          priceChange: {
+            type: 'number',
+            description: 'price change percentage over the period'
+          }
+        },
+        required: [
+          'coingeckoId',
+          'symbol',
+          'name',
+          'marketCapRank',
+          'currentPrice',
+          'priceChange'
+        ]
+      }
     }
   },
   required: [
     'tokens',
-    'startPeriodAmountUsd',
-    'currentTotalAmountUsd'
+    'startPeriodTotalAmountUsd',
+    'totalAmountUsd',
+    'totalAmountChange',
+    'totalAmountChangePercent',
+    'topGainers',
+    'topLosers'
   ]
 }
 \`\`\``,
@@ -119,7 +198,7 @@ export const getHistoricalPortfolioDataTool = new DynamicStructuredTool({
     timeframe: z
       .enum(['daily', 'weekly', 'monthly'])
       .describe(
-        'The time period for historical analysis \n Valid values: daily, weekly, monthly',
+        'The timeframe for historical analysis. Valid values: daily, weekly, monthly',
       ),
   }),
   func: async (input: {
