@@ -36,6 +36,14 @@ export const TokenHoldingSchema = z.object({
     ),
 });
 
+export const TopTokenSchema = z.object({
+  coingeckoId: z.string().describe('CoinGecko token identifier'),
+  symbol: z.string().describe('token symbol'),
+  name: z.string().describe('token name'),
+  marketCapRank: z.number().describe('market capitalization rank'),
+  currentPrice: z.number().describe('current token price in USD'),
+  priceChange: z.number().describe('price change percentage over the period'),
+});
 // ============================================================================
 // 5-Step SGR Schema for Portfolio Analysis
 // ============================================================================
@@ -115,6 +123,14 @@ export const ResponseSchema = z
           .array(z.string())
           .max(5)
           .describe('Top 5 tokens by USD value in portfolio'),
+        topGainers: z
+          .array(TopTokenSchema)
+          .max(10)
+          .describe('Top performing tokens by USD value change'),
+        topLosers: z
+          .array(TopTokenSchema)
+          .max(10)
+          .describe('Bottom performing tokens by USD value change'),
         compositionSummary: z
           .string()
           .describe('Summary of portfolio composition and diversification'),
