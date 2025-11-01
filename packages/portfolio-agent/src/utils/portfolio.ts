@@ -162,7 +162,7 @@ export class UserPortfolioService {
       let tokenAmount = token.scaledTokenBalance;
       if (!tokenAmount) {
         //get metadata
-        let decimals = cgCoin.decimals;
+        let decimals = cgCoin.decimals ?? token.tokenMetadata?.decimals;
         if (!decimals) {
           const metadata = await this.coingeckoService.getCoinMetadataByAddress(
             this.convertToCoingeckoPlatformId(token.network),

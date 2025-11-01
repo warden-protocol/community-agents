@@ -6,9 +6,16 @@ export interface WalletBalanceResponse {
       tokenAddress: string;
       tokenBalance: string;
       scaledTokenBalance: number | undefined;
+      tokenMetadata: TokenMetadata | undefined;
     }[];
+    pageKey?: string;
   };
-  pageKey?: string;
+}
+export interface TokenMetadata {
+  symbol: string | null;
+  decimals: number | null;
+  name: string | null;
+  logo: string | null;
 }
 
 export type AlchemyNetwork =
@@ -22,22 +29,21 @@ export class AlchemyClient {
 
   async getTokenWalletBalance(
     addresses: { address: string; networks: string[] }[],
-    pageKey?: string,
   ): Promise<any> {
     if (addresses.length > 3) {
       throw new Error('Maximum 3 addresses allowed');
     }
 
-    let url = `https://api.g.alchemy.com/data/v1/${this.apiKey}/assets/tokens/balances/by-address?`;
-    if (pageKey) {
-      url += `&pageKey=${pageKey}`;
-    }
+    const url = `https://api.g.alchemy.com/data/v1/${this.apiKey}/assets/tokens/by-address?`;
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         addresses,
       }),
+      includeNativeTokens: 'true',
+      withMetadata: 'true',
+      withPrices: 'false',
     };
 
     try {
