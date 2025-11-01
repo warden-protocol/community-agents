@@ -173,6 +173,14 @@ export const getHistoricalPortfolioDataTool = new DynamicStructuredTool({
           'priceChange'
         ]
       }
+    },
+    createdAt: {
+      type: 'string',
+      description: 'Date and time of the portfolio analysis in ISO format'
+    },
+    interval: {
+      type: 'string',
+      description: 'The timeframe for historical analysis. Valid values: daily, weekly, monthly'
     }
   },
   required: [
@@ -182,7 +190,9 @@ export const getHistoricalPortfolioDataTool = new DynamicStructuredTool({
     'totalAmountChange',
     'totalAmountChangePercent',
     'topGainers',
-    'topLosers'
+    'topLosers',
+    'createdAt',
+    'interval'
   ]
 }
 \`\`\``,

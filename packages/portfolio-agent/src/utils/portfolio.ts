@@ -9,6 +9,8 @@ export interface PortfolioChange {
   totalAmountChangePercent: number;
   topGainers: TopToken[];
   topLosers: TopToken[];
+  createdAt: string;
+  interval: TimeInterval;
 }
 
 export interface PortfolioToken {
@@ -274,6 +276,8 @@ export class UserPortfolioService {
       totalAmountChangePercent,
       topGainers: topGainersLosers.topGainers,
       topLosers: topGainersLosers.topLosers,
+      createdAt: new Date().toISOString(),
+      interval,
     };
   }
 }
