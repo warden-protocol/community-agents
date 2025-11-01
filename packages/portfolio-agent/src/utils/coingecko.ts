@@ -162,7 +162,6 @@ export class CoingeckoService {
     const response = await this.coingeckoClient.coins.topGainersLosers.get({
       vs_currency: 'usd',
       duration,
-      top_coins: '300',
     });
 
     const convertToTopToken = (
