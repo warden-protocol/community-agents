@@ -1,17 +1,13 @@
 import { SystemPrompt } from './system-prompt';
 import { ResponseSchema } from './output-structure';
+import { MultiServerMCPClient } from '@langchain/mcp-adapters';
 import { ChatOpenAI } from '@langchain/openai';
 import { createReactAgent } from '@langchain/langgraph/prebuilt';
 import zod from 'zod';
-import { AgentResponse, Logger } from '@warden-community-agents/common';
-import { getHistoricalPortfolioDataTool } from './tools';
+import { AgentResponse, Logger } from '../common';
 
-export async function runPortfolioAgent(
+export async function runCoinGeckoAgent(
   questions: string[],
-  walletAddresses: {
-    evm?: string;
-    solana?: string;
-  },
   options: {
     modelName?: string;
     temperature?: number;
@@ -28,18 +24,25 @@ export async function runPortfolioAgent(
     delayBetweenQuestionsMs = 500,
   } = options;
 
-  const logger = new Logger('PortfolioAgent');
+  const logger = new Logger('CoinGeckoAgent');
   logger.info('Starting...');
+  const mcpClient = new MultiServerMCPClient({
+    mcpServers: {
+      'coingecko-mcp': {
+        command: 'npx',
+        args: ['-y', '@coingecko/coingecko-mcp'],
+        env: process.env,
+      },
+    },
+  });
   const model = new ChatOpenAI({
     modelName,
     temperature,
   });
 
-  const customTools = [getHistoricalPortfolioDataTool];
-
   const agent = createReactAgent({
     llm: model,
-    tools: customTools,
+    tools: await mcpClient.getTools(),
     responseFormat: responseSchema as any,
   });
 
@@ -58,10 +61,7 @@ export async function runPortfolioAgent(
             role: 'system',
             content: systemPrompt,
           },
-          {
-            role: 'user',
-            content: `Wallet addresses: EVM: ${walletAddresses.evm || 'Not provided'}, Solana: ${walletAddresses.solana || 'Not provided'}\n\nUser question: ${question}`,
-          },
+          { role: 'user', content: question },
         ],
       });
       results.push({ question, response });
@@ -82,6 +82,7 @@ export async function runPortfolioAgent(
     }
   }
 
+  await mcpClient.close();
   logger.info('Finished Agent');
   return results;
 }

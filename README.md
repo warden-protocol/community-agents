@@ -1,45 +1,31 @@
 # Warden Community Agents
 
-A monorepo for Warden community agents built with TypeScript, featuring AI-powered analysis tools.
+A collection of independent Warden community agents built with TypeScript, featuring AI-powered analysis tools.
 
-## 🚀 Getting Started
+## 📚 Documentation
 
-### Prerequisites
+All documentation can be found in the `docs/` directory.
 
-- Node.js 20+
-- Yarn package manager
+## 🤖 Example Agents
 
-### Installation
+Each agent in the `agents/` directory is completely self-sufficient and comes with its own:
+- Dependencies and devDependencies
+- Configuration files (tsconfig.json, eslint.config.mjs, .prettierrc, .editorconfig)
+- Build scripts
+- Tests
 
-```bash
-# Install dependencies
-yarn install
+### Available Agents
 
-# Build all packages
-yarn build
-```
+- **coingecko-agent** - CoinGecko agent for cryptocurrency data analysis
+- **portfolio-agent** - Portfolio agent for cryptocurrency wallet performance analysis
+- **langgraph-quick-start** - LangGraph starter template
 
-## 🛠️ Development
 
-### Available Scripts
+### 📦 Adding a New Agent
 
-```bash
-# Lint all packages
-yarn lint
+TBD
 
-# Run tests across all packages
-yarn test
 
-# Format code
-yarn prettier
+## List of Awesome Agents and Tools
 
-# Check code formatting
-yarn prettier:check
-
-# Clean build artifacts
-yarn clean
-```
-
-## Documentation
-
-For developer guides, see the [`docs`](docs) directory.
+- add your agent here through a PR

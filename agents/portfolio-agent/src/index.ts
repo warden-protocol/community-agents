@@ -1,4 +1,4 @@
-import { writeAgentResult } from '@warden-community-agents/common';
+import { writeAgentResult } from './common';
 import { runPortfolioAgent } from './agent';
 import dotenv from 'dotenv';
 import zod from 'zod';

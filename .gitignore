@@ -5,12 +5,25 @@ npm-debug.log*
 
 # Dependencies
 node_modules/
+yarn.lock
+package-lock.json
 
 # Coverage
 coverage
 
 # Transpiled files
 build/
+dist/
+
+# Compiled TypeScript files in tests directories
+tests/**/*.js
+tests/**/*.js.map
+tests/**/*.d.ts
+tests/**/*.d.ts.map
+__tests__/**/*.js
+__tests__/**/*.js.map
+__tests__/**/*.d.ts
+__tests__/**/*.d.ts.map
 
 # VS Code
 .vscode

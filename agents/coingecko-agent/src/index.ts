@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import { runCoinGeckoAgent } from './agent';
-import { writeAgentResult } from '@warden-community-agents/common';
+import { writeAgentResult } from './common';
 import zod from 'zod';
 
 // Load environment variables from .env file
