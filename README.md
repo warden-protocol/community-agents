@@ -39,3 +39,7 @@ yarn prettier:check
 # Clean build artifacts
 yarn clean
 ```
+
+## Documentation
+
+For developer guides, see the [`docs`](docs) directory.
