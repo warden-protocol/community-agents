@@ -17,29 +17,46 @@ Before you start, complete the following prerequisites:
 - [Get a LangSmith API key](https://docs.langchain.com/langsmith/home).
 - [Get an OpenAI API key](https://help.openai.com/en/articles/4936850-where-do-i-find-my-openai-api-key).
 
-## Step 1. Copy the example Agent
+## Step 1. Set up the example project
 
-You can get started by copying and modifying an example Agent from this repository:
+First, set up the example project:
 
-1. Clone this repository:
+1. Install the LangGraph CLI by running the following command:
+    
+   ```bash
+   npx @langchain/langgraph-cli
+   ```
+
+2. Install the required packages:
+    
+   ```bash
+   npm install @langchain/langgraph@latest
+   npm install @langchain/core@latest
+   npm install @langchain/langgraph-checkpoint@latest
+   npm install langchain@latest
+   npm install @langchain/openai@latest
+   ```
+
+3. Clone this repository:
 
    ```bash
    git clone https://github.com/warden-protocol/community-agents.git
    ```
-2. Create and clone a new repository for your Agent.
 
-3. Copy files from [`packages/laggraph-quick-start`](../packages/langgraph-quick-start) to your repository.
+4. Create and clone a new repository for your Agent.
+
+5. Copy files from [`packages/laggraph-quick-start`](../packages/langgraph-quick-start) to your repository.
 
    **Note**: This example is based on the [LangGraph project template](https://github.com/langchain-ai/new-langgraphjs-project).
 
-4. Navigate to the root directory of your project and install dependencies:
+6. Navigate to the root directory of your project and install dependencies:
    
    ```bash
    cd ROOT_DIRECTORY
    npm install
    ```
     
-5. Duplicate `.env.example` and rename it to `.env`. Add API keys from [Prerequisites](#prerequisites) and enable tracing in LangSmith (a developer environment for debugging your Agents):
+7. Duplicate `.env.example` and rename it to `.env`. Add API keys from [Prerequisites](#prerequisites) and enable tracing in LangSmith (a developer environment for debugging your Agents):
     
    ```bash
    LANGSMITH_API_KEY=LANGSMITH_API_KEY
@@ -50,22 +67,6 @@ You can get started by copying and modifying an example Agent from this reposito
 ## Step 2. Run the Agent locally
 
 Now you can run the example Agent locally:
-
-1. Install the LangGraph CLI by running the following command:
-    
-   ```bash
-   npx @langchain/langgraph-cli
-   ```
-    
-2. Install the required packages:
-    
-   ```bash
-   npm install @langchain/langgraph@latest
-   npm install @langchain/core@latest
-   npm install @langchain/langgraph-checkpoint@latest
-   npm install langchain@latest
-   npm install @langchain/openai@latest
-   ```
 
 1. In your project's root directory, execute the following command to launch LangGraph:
    
