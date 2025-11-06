@@ -22,12 +22,12 @@
     "declarationMap": true,
     "baseUrl": ".",
     "paths": {
-      "@warden-community-agents/*": ["packages/*/src"]
+      "@warden-community-agents/*": ["*/src"]
     }
   },
   "include": [],
   "references": [
-    { "path": "./packages/coingecko-agent" },
-    { "path": "./packages/common" }
+    { "path": "./coingecko-agent" },
+    { "path": "./common" }
   ]
 }
