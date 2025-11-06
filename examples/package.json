@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Warden community agents monorepo with TypeScript packages.",
   "private": true,
-  "workspaces": ["packages/*"],
+  "workspaces": ["*"],
   "type": "module",
   "devDependencies": {
     "tsx": "^4.20.6",
@@ -27,8 +27,8 @@
     "lint": "eslint .",
     "test": "yarn workspaces run test",
     "clean": "yarn workspaces run clean",
-    "prettier": "prettier \"{src,__{tests}__,packages/*/src}/**/*.{ts,mts}\" --config .prettierrc --write",
-    "prettier:check": "prettier \"{src,__{tests}__,packages/*/src}/**/*.{ts,mts}\" --config .prettierrc --check"
+    "prettier": "prettier \"{src,__{tests}__,*/src}/**/*.{ts,mts}\" --config .prettierrc --write",
+    "prettier:check": "prettier \"{src,__{tests}__,*/src}/**/*.{ts,mts}\" --config .prettierrc --check"
   },
   "dependencies": {
     "tslib": "~2.8",

@@ -9,14 +9,14 @@ import tseslint from 'typescript-eslint';
 // You should change it to your needs following the documentation.
 export default tseslint.config(
   {
-    ignores: ['**/build/**', '**/tmp/**', '**/coverage/**', 'packages/*/build/**'],
+    ignores: ['**/build/**', '**/tmp/**', '**/coverage/**', '*/build/**'],
   },
   eslint.configs.recommended,
   eslintConfigPrettier,
   {
     extends: [...tseslint.configs.recommended],
 
-    files: ['**/*.ts', '**/*.mts', 'packages/*/src/**/*.ts'],
+    files: ['**/*.ts', '**/*.mts', '*/src/**/*.ts'],
 
     plugins: {
       '@typescript-eslint': tseslint.plugin,
