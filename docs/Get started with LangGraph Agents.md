@@ -2,9 +2,11 @@
 
 ## Overview
 
-This guide walks you through building a basic [LangGraph Agent](https://langchain-ai.github.io/langgraph/agents/overview/) in **TypeScript**.
+This explains how to quickly get started with creating [LangGraph Agents](https://langchain-ai.github.io/langgraph/agents/overview/) in **TypeScript**.
 
-The sample Agent uses **OpenAI** by default, but you can switch to a different LLM. 
+You'll copy, run, and expand our example Agent: [`packages/laggraph-quick-start`](../packages/langgraph-quick-start).
+
+**Note**: This example uses **OpenAI** by default, but you can switch to a different LLM.
 
 ## Prerequisites
 
@@ -15,11 +17,41 @@ Before you start, complete the following prerequisites:
 - [Get a LangSmith API key](https://docs.langchain.com/langsmith/home).
 - [Get an OpenAI API key](https://help.openai.com/en/articles/4936850-where-do-i-find-my-openai-api-key).
 
-## Step 1. Create an example Agent
+## Step 1. Copy the example Agent
 
-To create a LangGraph Agent, take the following steps:
+You can get started by copying and modifying an example Agent from this repository:
 
-1. Install the LangGraph CLI by running the folowing command:
+1. Clone this repository:
+
+```bash
+git clone https://github.com/warden-protocol/community-agents.git
+```
+2. Create and clone a new repository for your Agent.
+
+3. Copy files from [`packages/laggraph-quick-start`](../packages/langgraph-quick-start) to your repository.
+
+   **Note**: This example is based on the [LangGraph project template](https://github.com/langchain-ai/new-langgraphjs-project).
+
+4. Navigate to the root directory of your project and install dependencies:
+   
+   ```bash
+   cd ROOT_DIRECTORY
+   npm install
+   ```
+    
+5. Duplicate `.env.example` and rename it to `.env`. Add API keys from [Prerequisites](#prerequisites) and enable tracing in LangSmith (a developer environment for debugging your Agents):
+    
+   ```bash
+   LANGSMITH_API_KEY=LANGSMITH_API_KEY
+   OPENAI_API_KEY=OPEN_AI_API_KEY
+   LANGSMITH_PROJECT=ts-agent
+   LANGSMITH_TRACING=true
+   ```
+## Step 2. Run the Agent locally
+
+Now you can run the example Agent locally:
+
+1. Install the LangGraph CLI by running the following command:
     
    ```bash
    npx @langchain/langgraph-cli
@@ -34,52 +66,6 @@ To create a LangGraph Agent, take the following steps:
    npm install langchain@latest
    npm install @langchain/openai@latest
    ```
-
-   **Note**: If you prefer a different LLM instead of OpenAI, install the corresponding package.
-    
-3. Fork the [LangGraph project template](https://github.com/langchain-ai/new-langgraphjs-project) on GitHub. Then clone your fork and navigate to its root directory:
-    
-   ```bash
-   git clone FORK_URL
-   cd ROOT_DIRECTORY
-   ```
-  
-   **Note**: Alternatively, you can create a repository from scratch and copy the template code there.
-    
-4. In `package.json`, make sure there're no mismatches in the `dependencies` section:
-    
-   ```json
-     "dependencies": {
-       "@langchain/core": "^1.0.1",
-       "@langchain/langgraph": "^1.0.0",
-       "@langchain/openai": "^1.0.0"
-     },    
-   ```
-    
-5. Install dependencies:
-   
-   ```bash
-   npm install
-   ```
-    
-6. In the root directory, duplicate `.env.example` and rename it to `.env`. Add API keys from [Prerequisites](https://www.notion.so/Build-a-TypeScript-LangGraph-Agent-292fb9f091ca806f8380c00b85fed494?pvs=21) and enable tracing in LangSmith (a developer environment for debugging your Agents):
-    
-   ```bash
-   LANGSMITH_API_KEY=LANGSMITH_API_KEY
-   OPENAI_API_KEY=OPEN_AI_API_KEY
-   LANGSMITH_PROJECT=ts-agent
-   LANGSMITH_TRACING=true
-    ```
-   
-   **Notes**:
-   - If you prefer a different LLM, provide the corresponding API key.    
-   - Never commit API keys to production. [When publishing the Agent](#step-4-publish-and-share), delete the `.env` file.
-    
-7. Edit the `src/agent/graph.ts` file, which defines the Agent's main logic. You can start with the [example code below](#example-agent-code) and implement your own logic later.
-
-## Step 2. Run the Agent locally
-
-Run your Agent locally to ensure it works as expected:
 
 1. In your project's root directory, execute the following command to launch LangGraph:
    
@@ -105,7 +91,6 @@ Run your Agent locally to ensure it works as expected:
    info:    ▪ Starting server...
    info:    ▪ Initializing storage...
    ```
-    
 2. Visit the following links:
    - [LangSmith Studio](https://smith.langchain.com/studio): A developer environment for visualizing, interacting with, and debugging your Agent
    - [LangGraph API reference](https://langchain-ai.github.io/langgraph/cloud/reference/api/api_ref.html): A public API reference where you can view all available endpoints for interacting with Agents
@@ -151,36 +136,35 @@ Run your Agent locally to ensure it works as expected:
    **Headers**: `Content-Type`: `application/json`  
    **Body**:
         
-        ```json
-        {
-          "assistant_id": "fe096781-5601-53d2-b2f6-0d3403f7e9ca",
-          "input": {
-            "messages": [
-              {
-                "role": "user",
-                "content": "What can you do?"
-              }
-            ]
-          }
-        }
-        ```
-        
-        ```bash
-        curl http://localhost:2024/runs/wait \
-          --request POST \
-          --header 'Content-Type: application/json' \
-          --data '{
-            "assistant_id": "fe096781-5601-53d2-b2f6-0d3403f7e9ca",
-            "input": {
-              "messages": [
-                {
-                  "role": "user",
-                  "content": "What can you do?"
-                }
-              ]
-            }
-          }'
-        ```
+   ```json
+   {
+     "assistant_id": "fe096781-5601-53d2-b2f6-0d3403f7e9ca",
+     "input": {
+       "messages": [
+         {
+           "role": "user",
+           "content": "What can you do?"
+         }
+       ]
+     }
+   }
+   ```        
+   ```bash
+   curl http://localhost:2024/runs/wait \
+     --request POST \
+     --header 'Content-Type: application/json' \
+     --data '{
+       "assistant_id": "fe096781-5601-53d2-b2f6-0d3403f7e9ca",
+       "input": {
+         "messages": [
+           {
+             "role": "user",
+             "content": "What can you do?"
+           }
+         ]
+       }
+     }'
+   ```
    If everything is fine, you'll receive a response including your propmt, assistant's reply, and other data:
         
    ```json
@@ -205,12 +189,14 @@ Run your Agent locally to ensure it works as expected:
      ]
    }
    ```
-        
+           
 5. In addition, you can check logs in [LangSmith](https://smith.langchain.com/studio): navigate to **Tracing Project** in the left menu and select your project. The logs will display data on all threads and runs (Agent invocations).
 
 ## Step 3. Implement custom logic
 
 After testing the example Agent, you can proceed with implementing your custom logic.
+
+If you prefer a different LLM to OpenAI, adjust the example code accordingly and update the `.env` file and dependencies.
 
 To learn more about LangGraph, use the following resources:
 
@@ -227,86 +213,3 @@ Once your Agent is ready, share it with Warden.:
 1. Delete the `.env` file to avoid exposing your secrets.
 2. Push your local changes to GitHub.
 3. Share the link to your repository with Warden.
-
-## Example Agent code
-
-The following code is a basic conversational LangGraph Agent for a quick start:
-
-```tsx
-import { StateGraph } from "@langchain/langgraph";
-import { RunnableConfig } from "@langchain/core/runnables";
-import { StateAnnotation } from "./state.js";
-import { ChatOpenAI } from "@langchain/openai";
-import { HumanMessage } from "@langchain/core/messages";
-
-/**
- * Define a node, these do the work of the graph and should have most of the logic.
- * Must return a subset of the properties set in StateAnnotation.
- * @param state The current state of the graph.
- * @param config Extra parameters passed into the state graph.
- * @returns Some subset of parameters of the graph state, used to update the state
- * for the edges and nodes executed next.
- */
-const callModel = async (
-  state: typeof StateAnnotation.State,
-  _config: RunnableConfig,
-): Promise<typeof StateAnnotation.Update> => {
-  const model = new ChatOpenAI({
-    modelName: "gpt-4o-mini",
-    temperature: 0.7,
-    apiKey: process.env.OPENAI_API_KEY,
-  });
-
-  const response = await model.invoke([
-    {
-      role: "system",
-      content: "You are a helpful assistant that only answers questions about crypto."
-    },
-    new HumanMessage(state.messages[0].content),
-  ]);
-
-  console.log("Model response:", response);
-
-  return {
-    messages: [
-      {
-        role: "assistant",
-        content: response.content,
-      },
-    ],
-  };
-};
-/**
- * Routing function: Determines whether to continue research or end the builder.
- * This function decides if the gathered information is satisfactory or if more research is needed.
- *
- * @param state - The current state of the research builder
- * @returns Either "callModel" to continue research or END to finish the builder
- */
-export const route = (
-  state: typeof StateAnnotation.State,
-): "__end__" | "callModel" => {
-  if (state.messages.length > 0) {
-    return "__end__";
-  }
-  return "callModel";
-};
-
-// Finally, create the graph itself.
-const builder = new StateGraph(StateAnnotation)
-  // Add the nodes to do the work.
-  // Chaining the nodes together in this way
-  // updates the types of the StateGraph instance
-  // so you have static type checking when it comes time
-  // to add the edges.
-  .addNode("callModel", callModel)
-  // Regular edges mean "always transition to node B after node A is done"
-  // The "__start__" and "__end__" nodes are "virtual" nodes that are always present
-  // and represent the beginning and end of the builder.
-  .addEdge("__start__", "callModel")
-  // Conditional edges optionally route to different nodes (or end)
-  .addConditionalEdges("callModel", route);
-
-export const graph = builder.compile();
-graph.name = "New Agent";
-```
