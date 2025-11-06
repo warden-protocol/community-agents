@@ -23,9 +23,9 @@ You can get started by copying and modifying an example Agent from this reposito
 
 1. Clone this repository:
 
-```bash
-git clone https://github.com/warden-protocol/community-agents.git
-```
+   ```bash
+   git clone https://github.com/warden-protocol/community-agents.git
+   ```
 2. Create and clone a new repository for your Agent.
 
 3. Copy files from [`packages/laggraph-quick-start`](../packages/langgraph-quick-start) to your repository.
@@ -189,7 +189,7 @@ Now you can run the example Agent locally:
      ]
    }
    ```
-           
+
 5. In addition, you can check logs in [LangSmith](https://smith.langchain.com/studio): navigate to **Tracing Project** in the left menu and select your project. The logs will display data on all threads and runs (Agent invocations).
 
 ## Step 3. Implement custom logic
