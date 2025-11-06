@@ -18,7 +18,7 @@ A cryptocurrency portfolio analysis agent that uses Schema-Guided Reasoning (SGR
 - Yarn package manager
 - OpenAI API key
 - CoinGecko API key
-- Alchemy API key (for EVM wallet data)
+- Alchemy API key
 
 ## Installation
 
@@ -44,12 +44,6 @@ Then edit `.env` with your actual API keys.
 
 ```bash
 yarn start
-```
-
-or in development mode:
-
-```bash
-yarn dev
 ```
 
 The agent will analyze your wallet portfolio and provide comprehensive reports based on your request.
