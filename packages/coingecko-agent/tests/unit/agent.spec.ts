@@ -1,7 +1,7 @@
 import { describe, it, beforeAll, expect } from 'vitest';
 import { ChatOpenAI } from '@langchain/openai';
 import { createReactAgent } from '@langchain/langgraph/prebuilt';
-import { convertCGToolToDynamicTool } from '../utils/tool-converter';
+import { convertToDynamicTool } from '@warden-community-agents/common';
 import getCoinsMarkets from '@coingecko/coingecko-mcp/tools/coins/markets/get-coins-markets';
 import getCoinsSearch from '@coingecko/coingecko-mcp/tools/search/get-search';
 import { AIMessage, BaseMessage, ToolMessage } from '@langchain/core/messages';
@@ -33,7 +33,7 @@ function createTools() {
     }
     return JSON.stringify(prices);
   };
-  const getCoinsMarketTool = convertCGToolToDynamicTool(
+  const getCoinsMarketTool = convertToDynamicTool(
     getCoinsMarkets.tool,
     getCoinsMarketToolHandler,
   );
@@ -52,7 +52,7 @@ function createTools() {
     }
     return JSON.stringify({});
   };
-  const getCoinsSearchTool = convertCGToolToDynamicTool(
+  const getCoinsSearchTool = convertToDynamicTool(
     getCoinsSearch.tool,
     getCoinsSearchToolHandler,
   );

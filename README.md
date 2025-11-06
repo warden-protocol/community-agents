@@ -16,7 +16,7 @@ A monorepo for Warden community agents built with TypeScript, featuring AI-power
 yarn install
 
 # Build all packages
-yarn build:all
+yarn build
 ```
 
 ## 🛠️ Development

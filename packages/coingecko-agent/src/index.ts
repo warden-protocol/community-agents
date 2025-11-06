@@ -1,8 +1,38 @@
 import dotenv from 'dotenv';
 import { runCoinGeckoAgent } from './agent';
+import { writeAgentResult } from '@warden-community-agents/common';
+import zod from 'zod';
 
 // Load environment variables from .env file
 dotenv.config();
+
+export async function runAgentWithSaveResults(
+  questions: string[],
+  options: {
+    modelName?: string;
+    temperature?: number;
+    systemPrompt?: string;
+    responseSchema?: zod.Schema;
+    delayBetweenQuestionsMs?: number;
+  } = {},
+): Promise<void> {
+  console.log(`\n${'='.repeat(60)}`);
+  console.log(`🔬 Running CoinGecko Agent`);
+  console.log(`${'='.repeat(60)}\n`);
+
+  const startTime = Date.now();
+
+  try {
+    const results = await runCoinGeckoAgent(questions, options);
+    writeAgentResult(startTime, options.modelName || 'gpt-4o-mini', results);
+    const duration = Date.now() - startTime;
+    console.log(`\n✅ Agent completed in ${duration}ms\n`);
+  } catch (error) {
+    const duration = Date.now() - startTime;
+    console.error(`\n❌ Agent failed after ${duration}ms`);
+    throw error;
+  }
+}
 
 async function main(): Promise<void> {
   const questions = [
@@ -15,16 +45,7 @@ async function main(): Promise<void> {
     'Compare bitcoin and ethereum',
   ];
   try {
-    const responses = await runCoinGeckoAgent(questions);
-    console.log(`\nResults: `);
-    for (let i = 0; i < responses.length; i++) {
-      console.log(
-        `[${i + 1}/${responses.length}] Question: ${responses[i].question}`,
-      );
-      console.log(
-        `[${i + 1}/${responses.length}] Response: ${JSON.stringify(responses[i].response.structuredResponse, null, 2)}`,
-      );
-    }
+    await runAgentWithSaveResults(questions);
   } catch (error) {
     console.error('Error running CoinGecko agent:', error);
   }

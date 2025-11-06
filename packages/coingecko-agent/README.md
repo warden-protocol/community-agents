@@ -44,12 +44,6 @@ Then edit `.env` with your actual API keys.
 yarn start
 ```
 
-or in development mode:
-
-```bash
-yarn dev
-```
-
 The agent will process predefined questions about cryptocurrencies and output structured analysis for each.
 
 ### Example Questions
@@ -101,12 +95,6 @@ yarn build
 
 # Run tests
 yarn test
-
-# Run tests with coverage
-yarn test:coverage
-
-# Run tests in watch mode
-yarn test:watch
 
 # Lint code
 yarn lint
