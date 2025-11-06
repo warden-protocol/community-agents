@@ -264,7 +264,9 @@ export const ResponseSchema = z
           ),
         error: z
           .enum(['tool_error', 'llm_error', 'user_error', 'no_error'])
-          .describe('The type of error that occurred. tool_error=the tool call failed, user_error=the user question contains non-cryptocurrency related content or violates the critical rules, llm_error=all other errors, no_error=no error occurred'),
+          .describe(
+            'The type of error that occurred. tool_error=the tool call failed, user_error=the user question contains non-cryptocurrency related content or violates the critical rules, llm_error=all other errors, no_error=no error occurred',
+          ),
         confidenceReasoning: z
           .string()
           .describe(

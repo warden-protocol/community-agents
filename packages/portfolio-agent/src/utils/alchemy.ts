@@ -29,6 +29,7 @@ export class AlchemyClient {
 
   async getTokenWalletBalance(
     addresses: { address: string; networks: string[] }[],
+    pageKey: string | undefined,
   ): Promise<any> {
     if (addresses.length > 3) {
       throw new Error('Maximum 3 addresses allowed');
@@ -44,6 +45,7 @@ export class AlchemyClient {
       includeNativeTokens: 'true',
       withMetadata: 'true',
       withPrices: 'false',
+      pageKey,
     };
 
     try {

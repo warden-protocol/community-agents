@@ -3,6 +3,7 @@ import { CoingeckoService, PriceChange, Duration } from './coingecko';
 
 export interface PortfolioChange {
   tokens: PortfolioToken[];
+  tokensOrderedByPerformance: string[];
   startPeriodTotalAmountUsd: number;
   totalAmountUsd: number;
   totalAmountChange: number;
@@ -10,7 +11,7 @@ export interface PortfolioChange {
   topGainers: TopToken[];
   topLosers: TopToken[];
   createdAt: string;
-  interval: TimeInterval;
+  timeframe: Timeframe;
 }
 
 export interface PortfolioToken {
@@ -35,7 +36,7 @@ export interface TopToken {
   priceChange: number;
 }
 
-type TimeInterval = 'daily' | 'weekly' | 'monthly';
+type Timeframe = 'unknown' | 'daily' | 'weekly' | 'monthly';
 
 type NativeToken = {
   id: string;
@@ -129,7 +130,7 @@ export class UserPortfolioService {
 
   private async getPortfolioTokens(
     userAddresses: UserAddresses,
-    interval: TimeInterval,
+    timeframe: Timeframe,
   ): Promise<PortfolioToken[]> {
     const addresses = this.convertToAlchemyAddressesArgs(userAddresses);
 
@@ -201,7 +202,7 @@ export class UserPortfolioService {
     (
       await this.coingeckoService.getMarketChanges(
         portfolioTokens.map((t) => t.coingeckoId),
-        this.convertToDuration(interval),
+        this.convertToDuration(timeframe),
       )
     ).forEach((m) => marketChangesMap.set(m.id, m));
 
@@ -222,32 +223,33 @@ export class UserPortfolioService {
     return portfolioTokens;
   }
 
-  private convertToDuration(interval: TimeInterval): Duration {
-    switch (interval) {
+  private convertToDuration(timeframe: Timeframe): Duration {
+    switch (timeframe) {
       case 'daily':
         return '24h';
       case 'weekly':
         return '7d';
       case 'monthly':
+      case 'unknown':
         return '30d';
       default:
-        throw new Error(`Unsupported interval: ${interval}`);
+        throw new Error(`Unsupported timeframe: ${timeframe}`);
     }
   }
 
   async getPortfolioChange(
     userAddresses: UserAddresses,
-    interval: TimeInterval,
+    timeframe: Timeframe,
   ): Promise<PortfolioChange> {
+    timeframe = timeframe === 'unknown' ? 'monthly' : timeframe;
     const { evmAddress, solanaAddress } = userAddresses;
-
     if (!evmAddress && !solanaAddress) {
       throw new Error('Minimum one address is required');
     }
 
     const portfolioTokens = await this.getPortfolioTokens(
       userAddresses,
-      interval,
+      timeframe,
     );
 
     let startPeriodTotalAmountUsd = 0;
@@ -265,11 +267,15 @@ export class UserPortfolioService {
         : 0;
 
     const topGainersLosers = await this.coingeckoService.getTopGainersLosers(
-      this.convertToDuration(interval),
+      this.convertToDuration(timeframe),
     );
+    const tokensOrderedByPerformance = portfolioTokens
+      .sort((a, b) => b.priceChange * b.amount - a.priceChange * a.amount)
+      .map((t) => t.symbol);
 
     return {
       tokens: portfolioTokens,
+      tokensOrderedByPerformance,
       startPeriodTotalAmountUsd,
       totalAmountUsd,
       totalAmountChange,
@@ -277,7 +283,7 @@ export class UserPortfolioService {
       topGainers: topGainersLosers.topGainers,
       topLosers: topGainersLosers.topLosers,
       createdAt: new Date().toISOString(),
-      interval,
+      timeframe,
     };
   }
 }

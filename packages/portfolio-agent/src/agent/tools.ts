@@ -2,13 +2,8 @@ import { DynamicStructuredTool } from '@langchain/core/tools';
 import { z } from 'zod';
 import { getPortfolioService } from '../utils/portfolio';
 
-/**
- * Custom tool for fetching historical portfolio data
- * This tool combines wallet balance data with historical price data
- */
-export const getHistoricalPortfolioDataTool = new DynamicStructuredTool({
-  name: 'get_historical_portfolio_data',
-  description: `This endpoint allows you to **query historical portfolio data for EVM and Solana wallets with token balances, prices, and performance metrics**
+export const ToolName = 'get_historical_portfolio_data';
+export const ToolDescription = `This endpoint allows you to **query historical portfolio data for EVM and Solana wallets with token balances, prices, and performance metrics**
 
 # Response Schema
 \`\`\`json
@@ -76,6 +71,14 @@ export const getHistoricalPortfolioDataTool = new DynamicStructuredTool({
         ]
       }
     },
+    tokensPerformanceOrdered: {
+      type: 'array',
+      description: 'Array of token symbols sorted by performance in the portfolio',
+      items: {
+        type: 'string',
+        description: 'token symbol'
+      }
+    },
     startPeriodTotalAmountUsd: {
       type: 'number',
       description: 'total portfolio value in USD at start of period'
@@ -94,7 +97,7 @@ export const getHistoricalPortfolioDataTool = new DynamicStructuredTool({
     },
     topGainers: {
       type: 'array',
-      description: 'Array of top gaining tokens in the market during the period',
+      description: 'Top gaining tokens from the overall cryptocurrency market (NOT from the user portfolio - this is market-wide data for comparison)',
       items: {
         type: 'object',
         properties: {
@@ -135,7 +138,7 @@ export const getHistoricalPortfolioDataTool = new DynamicStructuredTool({
     },
     topLosers: {
       type: 'array',
-      description: 'Array of top losing tokens in the market during the period',
+      description: 'Top losing tokens from the overall cryptocurrency market (NOT from the user portfolio - this is market-wide data for comparison)',
       items: {
         type: 'object',
         properties: {
@@ -178,13 +181,14 @@ export const getHistoricalPortfolioDataTool = new DynamicStructuredTool({
       type: 'string',
       description: 'Date and time of the portfolio analysis in ISO format'
     },
-    interval: {
+    timeframe: {
       type: 'string',
       description: 'The timeframe for historical analysis. Valid values: daily, weekly, monthly'
     }
   },
   required: [
     'tokens',
+    'tokensPerformanceOrdered',
     'startPeriodTotalAmountUsd',
     'totalAmountUsd',
     'totalAmountChange',
@@ -192,29 +196,39 @@ export const getHistoricalPortfolioDataTool = new DynamicStructuredTool({
     'topGainers',
     'topLosers',
     'createdAt',
-    'interval'
+    'timeframe'
   ]
 }
-\`\`\``,
-  schema: z.object({
-    evmWalletAddress: z
-      .string()
-      .describe('The EVM wallet address to analyze (e.g., 0x...)'),
-    solanaWalletAddress: z
-      .string()
-      .describe(
-        'The Solana wallet address to analyze (e.g., base58 encoded address)',
-      ),
-    timeframe: z
-      .enum(['daily', 'weekly', 'monthly'])
-      .describe(
-        'The timeframe for historical analysis. Valid values: daily, weekly, monthly',
-      ),
-  }),
+\`\`\``;
+
+export const ToolSchema = z.object({
+  evmWalletAddress: z
+    .string()
+    .describe('The EVM wallet address to analyze (e.g., 0x...)'),
+  solanaWalletAddress: z
+    .string()
+    .describe(
+      'The Solana wallet address to analyze (e.g., base58 encoded address)',
+    ),
+  timeframe: z
+    .enum(['unknown', 'daily', 'weekly', 'monthly'])
+    .describe(
+      'The timeframe for historical analysis. Valid values: daily, weekly, monthly',
+    ),
+});
+
+/**
+ * Custom tool for fetching historical portfolio data
+ * This tool combines wallet balance data with historical price data
+ */
+export const getHistoricalPortfolioDataTool = new DynamicStructuredTool({
+  name: ToolName,
+  description: ToolDescription,
+  schema: ToolSchema,
   func: async (input: {
     evmWalletAddress?: string;
     solanaWalletAddress?: string;
-    timeframe: 'daily' | 'weekly' | 'monthly';
+    timeframe: 'unknown' | 'daily' | 'weekly' | 'monthly';
   }): Promise<string> => {
     try {
       const portfolioService = getPortfolioService();
@@ -223,7 +237,7 @@ export const getHistoricalPortfolioDataTool = new DynamicStructuredTool({
           evmAddress: input.evmWalletAddress,
           solanaAddress: input.solanaWalletAddress,
         },
-        input.timeframe,
+        input.timeframe === 'unknown' ? 'monthly' : input.timeframe,
       );
 
       return JSON.stringify(portfolioChange);

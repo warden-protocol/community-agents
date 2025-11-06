@@ -1,6 +1,6 @@
+import { writeAgentResult } from '@warden-community-agents/common';
 import { runPortfolioAgent } from './agent';
 import dotenv from 'dotenv';
-import fs from 'node:fs';
 import zod from 'zod';
 
 // Load environment variables
@@ -32,7 +32,7 @@ export async function runAgentWithSaveResults(
       walletAddresses,
       options,
     );
-    await saveResults(`${startTime}`, results);
+    writeAgentResult(startTime, options.modelName || 'gpt-4o-mini', results);
     const duration = Date.now() - startTime;
     console.log(`\n✅ Agent completed in ${duration}ms\n`);
   } catch (error) {
@@ -42,24 +42,15 @@ export async function runAgentWithSaveResults(
   }
 }
 
-function saveResults(name: string, results: any): void {
-  if (!fs.existsSync('results')) {
-    fs.mkdirSync('results');
-  }
-  fs.writeFileSync(
-    `results/${name}.json`,
-    JSON.stringify(results, null, 2),
-    'utf8',
-  );
-}
-
 async function main(): Promise<void> {
   // Example usage of the portfolio agent
   const questions = [
-    // 'Review my portfolio',
+    'Review my portfolio',
     'Give me a daily report',
-    // 'Give me a weekly report',
-    // 'Give me a monthly report',
+    'Analyze my portfolio and show which tokens are underperforming',
+    'How has my portfolio changed in the last 7 days?',
+    'What is my total profit/loss this month?',
+    'Which coins in my portfolio had the highest growth this month?',
   ];
 
   const walletAddresses = {
@@ -78,9 +69,4 @@ async function main(): Promise<void> {
   });
 }
 
-// Run the main function if this file is executed directly
-if (import.meta.url === `file://${process.argv[1]}`) {
-  main();
-}
-
-export { runPortfolioAgent };
+main();

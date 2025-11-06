@@ -12,8 +12,7 @@
     "prebuild": "npm run lint",
     "build": "tsc -p tsconfig.json",
     "lint": "eslint src",
-    "test": "vitest run unit --config tests/vitest.config.ts",
-    "test:coverage": "vitest run unit --config tests/vitest.config.ts --coverage.enabled --coverage.all"
+    "test": "vitest run unit --config tests/vitest.config.ts"
   },
   "dependencies": {
     "@warden-community-agents/common": "^1.0.0",

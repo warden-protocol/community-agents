@@ -102,12 +102,6 @@ yarn build
 # Run tests
 yarn test
 
-# Run tests with coverage
-yarn test:coverage
-
-# Run tests in watch mode
-yarn test:watch
-
 # Lint code
 yarn lint
 

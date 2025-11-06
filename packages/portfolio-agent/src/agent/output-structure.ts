@@ -60,9 +60,9 @@ export const ResponseSchema = z
       .object({
         userQuery: z.string().describe('The original user question'),
         timeframe: z
-          .enum(['daily', 'weekly', 'monthly'])
+          .enum(['unknown', 'daily', 'weekly', 'monthly'])
           .describe(
-            'Extracted time period from user query, default to monthly if not specified',
+            'Extracted time period from user query, default to "unknown" if not specified',
           ),
         walletAddresses: z
           .object({
@@ -83,7 +83,7 @@ export const ResponseSchema = z
           ),
       })
       .describe(
-        'STEP 1 (MANDATORY): Parse user request to extract time period, report type, and wallet addresses. Default to monthly if no time period specified.',
+        'STEP 1 (MANDATORY): Parse user request to extract time period, report type, and wallet addresses. Default to unknown if no time period specified.',
       ),
 
     // ========================================
@@ -116,13 +116,15 @@ export const ResponseSchema = z
     // ========================================
     step3_compositionAnalysis: z
       .object({
-        totalPortfolioValue: z
+        totalAmountUsd: z
           .number()
           .describe('Total portfolio value in USD across all tokens'),
         topHoldings: z
           .array(z.string())
           .max(5)
-          .describe('Top 5 tokens by USD value in portfolio'),
+          .describe(
+            'Top 5 tokens in portfolio, sorted by USD value in descending order',
+          ),
         topGainers: z
           .array(TopTokenSchema)
           .max(10)
@@ -156,14 +158,11 @@ export const ResponseSchema = z
         totalDeltaPercentage: z
           .number()
           .describe('Total percentage change in portfolio USD value'),
-        bestPerformers: z
+        tokensOrderedByPerformance: z
           .array(z.string())
-          .max(3)
-          .describe('Top 3 performing tokens by USD value change'),
-        worstPerformers: z
-          .array(z.string())
-          .max(3)
-          .describe('Bottom 3 performing tokens by USD value change'),
+          .describe(
+            'Array of token symbols sorted by decreasing performance in the portfolio by USD value change. ONLY include tokens that are in the portfolio.',
+          ),
         performanceSummary: z
           .string()
           .describe('Summary of portfolio performance over the time period'),
