@@ -46,7 +46,7 @@ yarn start
 
 The agent will process predefined questions about cryptocurrencies and output structured analysis for each.
 
-### Example 1uestions
+### Example questions
 
 The default questions in `src/index.ts`:
 - "What is the price of the BTC?"
