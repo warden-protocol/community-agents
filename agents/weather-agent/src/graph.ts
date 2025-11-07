@@ -27,7 +27,8 @@ function getWeatherTools(apiKey: string) {
     schema: z.object({
       location: z.string().describe('The city name, e.g. London'),
     }),
-    func: async ({ location }) => {
+    func: async (input: { location: string }) => {
+      const { location } = input;
       const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${encodeURIComponent(location)}`;
       const response = await fetch(url);
       const data = await response.json();
@@ -48,7 +49,8 @@ Wind: ${data.current.wind_kph} km/h`;
       location: z.string().describe('The city name, e.g. London'),
       days: z.number().optional().describe('Number of days (1-14), defaults to 3'),
     }),
-    func: async ({ location, days }) => {
+    func: async (input: { location: string; days?: number }) => {
+      const { location, days } = input;
       const numDays = days || 3;
       const url = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${encodeURIComponent(location)}&days=${numDays}`;
       const response = await fetch(url);
