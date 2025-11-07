@@ -1,10 +1,10 @@
-# Get started with Python LangGraph Agents
+# Get started with Python LangGraph agents
 
 ## Overview
 
-This explains how to quickly get started with creating [LangGraph Agents](https://langchain-ai.github.io/langgraph/agents/overview/) with [A2A support](https://docs.langchain.com/langsmith/server-a2a) in **Python**.
+This explains how to quickly get started with creating [LangGraph agents](https://langchain-ai.github.io/langgraph/agents/overview/) with [A2A support](https://docs.langchain.com/langsmith/server-a2a) in **Python**.
 
-You'll copy, run, and expand our example Agent: [`agents/laggraph-quick-start-py`](../agents/langgraph-quick-start-py).
+You'll copy, run, and expand our example agent: [`agents/laggraph-quick-start-py`](../agents/langgraph-quick-start-py).
 
 **Note**: This example uses **OpenAI** by default, but you can switch to a different LLM.
 
@@ -39,7 +39,7 @@ First, set up the example project:
    git clone https://github.com/warden-protocol/community-agents.git
    ```
 
-4. Create and clone a new repository for your Agent.
+4. Create and clone a new repository for your agent.
 
 5. Copy files from [`agents/laggraph-quick-start-py`](../agents/langgraph-quick-start-py) to your repository.
 
@@ -52,7 +52,7 @@ First, set up the example project:
    pip install -e .
    ```
     
-7. Duplicate `.env.example` and rename it to `.env`. Add API keys from [Prerequisites](#prerequisites) and enable tracing in LangSmith (a developer environment for debugging your Agents):
+7. Duplicate `.env.example` and rename it to `.env`. Add API keys from [Prerequisites](#prerequisites) and enable tracing in LangSmith (a developer environment for debugging your agents):
     
    ```bash
    LANGSMITH_API_KEY=LANGSMITH_API_KEY
@@ -60,9 +60,9 @@ First, set up the example project:
    LANGSMITH_PROJECT=py-agent
    LANGSMITH_TRACING=true
    ```
-## Step 2. Run the Agent locally
+## Step 2. Run the agent locally
 
-Now you can run the example Agent locally:
+Now you can run the example agent locally:
 
 1. In your project's root directory, execute the following command to launch LangGraph:
    
@@ -90,11 +90,11 @@ Now you can run the example Agent locally:
    2025-10-15T09:39:33.294531Z [info     ] Starting In-Memory runtime with langgraph-api=0.4.37 and in-memory runtime=0.14.1 [langgraph_runtime_inmem.lifespan] api_variant=local_dev langgraph_api_version=0.4.37 langgraph_runtime_inmem_version=0.14.1 thread_name=asyncio_0 version=0.4.37
    ```
 2. Visit the following links:
-   - [LangSmith Studio](https://smith.langchain.com/studio): A local developer environment for visualizing, interacting with, and debugging your Agent
-   - [LangGraph API reference](https://langchain-ai.github.io/langgraph/cloud/reference/api/api_ref.html): A public API reference where you can view all available endpoints for interacting with Agents
+   - [LangSmith Studio](https://smith.langchain.com/studio): A local developer environment for visualizing, interacting with, and debugging your agent
+   - [LangGraph API reference](https://langchain-ai.github.io/langgraph/cloud/reference/api/api_ref.html): A public API reference where you can view all available endpoints for interacting with agents
    - http://localhost:2024/docs: An API reference on your localhost where you can test all endpoints
 
-3. Run the [Search Assistants](https://langchain-ai.github.io/langgraph/cloud/reference/api/api_ref.html#tag/assistants/post/assistants/search) endpoint to get your Agent ID:
+3. Run the [Search Assistants](https://langchain-ai.github.io/langgraph/cloud/reference/api/api_ref.html#tag/assistants/post/assistants/search) endpoint to get your agent's ID:
         
    **POST** `http://localhost:2024/assistants/search`  
    **Headers**: `Content-Type`: `application/json`  
@@ -306,11 +306,11 @@ Now you can run the example Agent locally:
    }
    ```
 
-6. In addition, you can check logs in [LangSmith](https://smith.langchain.com/studio): navigate to **Tracing Project** in the left menu and select your project. The logs will display data on all threads and runs (Agent invocations).
+6. In addition, you can check logs in [LangSmith](https://smith.langchain.com/studio): navigate to **Tracing Project** in the left menu and select your project. The logs will display data on all threads and runs (agent invocations).
 
 ## Step 3. Implement custom logic
 
-After testing the example Agent, you can proceed with implementing your custom logic.
+After testing the example agent, you can proceed with implementing your custom logic.
 
 If you prefer a different LLM to OpenAI, adjust the example code accordingly and update the `.env` file and dependencies.
 
@@ -320,13 +320,13 @@ To learn more about LangGraph, use the following resources:
     - [Quickstart](https://docs.langchain.com/oss/python/langgraph/quickstart): Learn the basics
     - [Thinking in LangGraph](https://docs.langchain.com/oss/python/langgraph/thinking-in-langgraph) and other articles: Dive deeper
     - [A2A endpoint in LangGraph Server](https://docs.langchain.com/langgraph-platform/server-a2a): Learn more about the A2A compatibility
-- [LangGraph Platform API Reference](https://langchain-ai.github.io/langgraph/cloud/reference/api/api_ref.html#tag/assistants/post/assistants/search): Explore the endpoints for interacting with Agents
+- [LangGraph Platform API Reference](https://langchain-ai.github.io/langgraph/cloud/reference/api/api_ref.html#tag/assistants/post/assistants/search): Explore the endpoints for interacting with agents
 - [LangGraph Python SDK](https://langchain-ai.github.io/langgraph/cloud/reference/sdk/python_sdk_ref/): Install the SDK for interacting with the API
 
 ## Step 4. Publish and share
 
-Once your Agent is ready, share it with Warden.:
+Once your agent is ready, share it with Warden.:
 
 1. Delete the `.env` file to avoid exposing your secrets.
 2. Push your local changes to GitHub.
-3. Share the link to your repository with Warden.
+3. Add your agent to the list of [Warden Community Agents](../readme.md#community-agents-and-tools) through a PR.

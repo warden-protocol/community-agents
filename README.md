@@ -1,31 +1,37 @@
 # Warden Community Agents
 
-A collection of independent Warden community agents built with TypeScript, featuring AI-powered analysis tools.
+A collection of independent **Warden Community Agents** built with TypeScript, featuring AI-powered analysis tools.
 
 ## 📚 Documentation
 
-All documentation can be found in the `docs/` directory.
+All documentation can be found in the [`docs/`](docs) directory.
 
-## 🤖 Example Agents
+## 🤖 Example agents
 
-Each agent in the `agents/` directory is completely self-sufficient and comes with its own:
+Each agent in the [`agents/`](agents) directory is completely self-sufficient and comes with its own:
 - Dependencies and devDependencies
-- Configuration files (tsconfig.json, eslint.config.mjs, .prettierrc, .editorconfig)
+- Configuration files
 - Build scripts
-- Tests
+- Tests  (excluding starter templates)
 
-### Available Agents
+### ✔️ Available Agents
 
-- **coingecko-agent** - CoinGecko agent for cryptocurrency data analysis
-- **portfolio-agent** - Portfolio agent for cryptocurrency wallet performance analysis
-- **langgraph-quick-start** - LangGraph starter template
+- **[langgraph-quick-start](agents/langgraph-quick-start)**: LangGraph starter template in TypeScript (easiest)
+- **[`langgraph-quick-start-py`](agents/langgraph-quick-start-py)**: LangGraph starter template in Python (easiest)
+- **[weather-agent](agents/weather-agent)**: Beginner-friendly weather agent (less complex)
+- **[coingecko-agent](agents/coingecko-agent)**: CoinGecko agent for cryptocurrency data analysis (more complex)
+- **[portfolio-agent](agents/portfolio-agent)**: Portfolio agent for cryptocurrency wallet performance analysis (more complex)
 
+## 🌟 Community agents and tools
 
-### 📦 Adding a New Agent
+Awesome agents and tools built by the community! Add yours by submitting a PR to this README file.
 
-TBD
+**Format:** `[Project Name](link) - Short description`
 
+### Agents
 
-## List of Awesome Agents and Tools
+- [Your Agent](https://github.com/username/repo) - Description of what your agent does
 
-- add your agent here through a PR
+### Tools & resources
+
+- [Your Tool](https://github.com/username/repo) - Description of what your tool does

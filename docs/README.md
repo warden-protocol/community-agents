@@ -1,6 +1,6 @@
 # Introduction
 
-This documentation provides guides to help you get started with developing different types of Agents.
+This documentation provides guides to help you get started with developing different types of agents.
 
 To quickly start building with LangGraph, see the following guides:
 
