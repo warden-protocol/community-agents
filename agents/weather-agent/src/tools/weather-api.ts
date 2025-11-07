@@ -242,10 +242,6 @@ async function getForecastWeather(
  * Creates LangChain tools for WeatherAPI
  */
 export function createWeatherTools(apiKey: string): DynamicStructuredTool[] {
-  if (!apiKey) {
-    throw new Error('WEATHER_API_KEY is required');
-  }
-
   const currentWeatherTool = new DynamicStructuredTool({
     name: 'get_current_weather',
     description:

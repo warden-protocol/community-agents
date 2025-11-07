@@ -8,6 +8,7 @@
   "types": "build/index.d.ts",
   "scripts": {
     "start": "tsx src/index.ts",
+    "dev": "npx @langchain/langgraph-cli dev",
     "clean": "rimraf build",
     "prebuild": "yarn lint",
     "build": "tsc -p tsconfig.json",
@@ -24,7 +25,7 @@
     "@langchain/anthropic": "^0.3.31",
     "dotenv": "^16.4.7",
     "langchain": "^0.3.36",
-    "zod": "^3.24.1"
+    "zod": "^4.0.10"
   },
   "devDependencies": {
     "tsx": "^4.20.6",
