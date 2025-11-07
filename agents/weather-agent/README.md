@@ -121,7 +121,7 @@ This flowchart is called a "graph" in LangGraph!
 
 ### The Weather Tools
 
-The agent has two tools (like apps on your phone):
+The agent has two tools:
 
 **Tool 1: `get_current_weather`**
 - Gets current weather for a location
@@ -219,13 +219,9 @@ Almost anything:
 - Make sure your `.env` file exists in the `weather-agent` directory
 - Check that you copied the API key correctly (no spaces or quotes)
 
-**"Rate limit exceeded"**
-- You've used up your free API calls
-- Wait until next month or upgrade your WeatherAPI plan
-
 **Agent gives weird responses**
 - Try lowering the `TEMPERATURE` in `.env` (set it to 0)
-- Make sure you're using a good model like `gpt-4o-mini`
+- Make sure you're using a model like `gpt-4o-mini` that is good with tool calling
 
 **"Cannot find module" errors**
 - Run `yarn install` again
@@ -241,7 +237,7 @@ Almost anything:
 
 ### Customize Your Agent
 
-1. **Add More Tools**: Create tools for other APIs (news, stocks, etc.)
+1. **Add More Tools**: Create tools for other APIs (news, local events, etc.)
 2. **Change Personality**: Edit the system prompt to make it funny, serious, or professional
 3. **Add Memory**: Make it remember previous conversations
 4. **Deploy It**: Put it online so anyone can use it
