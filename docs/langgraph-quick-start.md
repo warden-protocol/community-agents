@@ -1,10 +1,10 @@
-# Get started with LangGraph Agents
+# Get started with TypeScript LangGraph agents
 
 ## Overview
 
 This explains how to quickly get started with creating [LangGraph Agents](https://langchain-ai.github.io/langgraph/agents/overview/) in **TypeScript**.
 
-You'll copy, run, and expand our example Agent: [`packages/laggraph-quick-start`](../packages/langgraph-quick-start).
+You'll copy, run, and expand our example agent: [`agents/laggraph-quick-start`](../agents/langgraph-quick-start).
 
 **Note**: This example uses **OpenAI** by default, but you can switch to a different LLM.
 
@@ -43,9 +43,9 @@ First, set up the example project:
    git clone https://github.com/warden-protocol/community-agents.git
    ```
 
-4. Create and clone a new repository for your Agent.
+4. Create and clone a new repository for your agent.
 
-5. Copy files from [`packages/laggraph-quick-start`](../packages/langgraph-quick-start) to your repository.
+5. Copy files from [`agents/laggraph-quick-start`](../agents/langgraph-quick-start) to your repository.
 
    **Note**: This example is based on the [LangGraph project template](https://github.com/langchain-ai/new-langgraphjs-project).
 
@@ -56,7 +56,7 @@ First, set up the example project:
    npm install
    ```
     
-7. Duplicate `.env.example` and rename it to `.env`. Add API keys from [Prerequisites](#prerequisites) and enable tracing in LangSmith (a developer environment for debugging your Agents):
+7. Duplicate `.env.example` and rename it to `.env`. Add API keys from [Prerequisites](#prerequisites) and enable tracing in LangSmith (a developer environment for debugging your agents):
     
    ```bash
    LANGSMITH_API_KEY=LANGSMITH_API_KEY
@@ -64,9 +64,9 @@ First, set up the example project:
    LANGSMITH_PROJECT=ts-agent
    LANGSMITH_TRACING=true
    ```
-## Step 2. Run the Agent locally
+## Step 2. Run the agent locally
 
-Now you can run the example Agent locally:
+Now you can run the example agent locally:
 
 1. In your project's root directory, execute the following command to launch LangGraph:
    
@@ -93,9 +93,9 @@ Now you can run the example Agent locally:
    info:    ▪ Initializing storage...
    ```
 2. Visit the following links:
-   - [LangSmith Studio](https://smith.langchain.com/studio): A developer environment for visualizing, interacting with, and debugging your Agent
-   - [LangGraph API reference](https://langchain-ai.github.io/langgraph/cloud/reference/api/api_ref.html): A public API reference where you can view all available endpoints for interacting with Agents
-3. Run the [Search Assistants](https://langchain-ai.github.io/langgraph/cloud/reference/api/api_ref.html#tag/assistants/post/assistants/search) endpoint to get your Agent ID:
+   - [LangSmith Studio](https://smith.langchain.com/studio): A developer environment for visualizing, interacting with, and debugging your agent
+   - [LangGraph API reference](https://langchain-ai.github.io/langgraph/cloud/reference/api/api_ref.html): A public API reference where you can view all available endpoints for interacting with agents
+3. Run the [Search Assistants](https://langchain-ai.github.io/langgraph/cloud/reference/api/api_ref.html#tag/assistants/post/assistants/search) endpoint to get your agent's ID:
         
    **POST** `http://localhost:2024/assistants/search`  
    **Headers**: `Content-Type`: `application/json`  
@@ -131,7 +131,7 @@ Now you can run the example Agent locally:
    ```    
    The ID will be returned in the `assistant_id` field. Typically, it's `fe096781-5601-53d2-b2f6-0d3403f7e9ca`.
     
-4. Then interact with your Agent using the following endpoint: [Create Run, Wait for Output](https://langchain-ai.github.io/langgraph/cloud/reference/api/api_ref.html#tag/stateless-runs/post/runs/wait).
+4. Then interact with your agent using the following endpoint: [Create Run, Wait for Output](https://langchain-ai.github.io/langgraph/cloud/reference/api/api_ref.html#tag/stateless-runs/post/runs/wait).
       
    **POST** `http://localhost:2024/runs/wait`  
    **Headers**: `Content-Type`: `application/json`  
@@ -191,11 +191,11 @@ Now you can run the example Agent locally:
    }
    ```
 
-5. In addition, you can check logs in [LangSmith](https://smith.langchain.com/studio): navigate to **Tracing Project** in the left menu and select your project. The logs will display data on all threads and runs (Agent invocations).
+5. In addition, you can check logs in [LangSmith](https://smith.langchain.com/studio): navigate to **Tracing Project** in the left menu and select your project. The logs will display data on all threads and runs (agent invocations).
 
 ## Step 3. Implement custom logic
 
-After testing the example Agent, you can proceed with implementing your custom logic.
+After testing the example agent, you can proceed with implementing your custom logic.
 
 If you prefer a different LLM to OpenAI, adjust the example code accordingly and update the `.env` file and dependencies.
 
@@ -204,13 +204,13 @@ To learn more about LangGraph, use the following resources:
 - [LangGraph TypeScript documentation](https://docs.langchain.com/oss/javascript/langgraph/overview):
     - [Quickstart](https://docs.langchain.com/oss/javascript/langgraph/quickstart): Learn the basics
     - [Thinking in LangGraph](https://docs.langchain.com/oss/javascript/langgraph/thinking-in-langgraph) and other articles: Dive deeper
-- [LangGraph Platform API Reference](https://langchain-ai.github.io/langgraph/cloud/reference/api/api_ref.html#tag/assistants/post/assistants/search): Explore the endpoints for interacting with Agents
+- [LangGraph Platform API Reference](https://langchain-ai.github.io/langgraph/cloud/reference/api/api_ref.html#tag/assistants/post/assistants/search): Explore the endpoints for interacting with agents
 - [LangGraph JS/TS SDK](https://reference.langchain.com/javascript/modules/_langchain_langgraph-sdk.html?_gl=1*1a31yho*_gcl_au*ODIzMzk4MTQuMTc1OTIyMjc4NQ..*_ga*MTU4OTIwMTQ0Ni4xNzU5MjIyNzg3*_ga_47WX3HKKY2*czE3NjEwMjQ0NTMkbzMzJGcxJHQxNzYxMDI2NDI3JGo1JGwwJGgw): Install the SDK for interacting with the API
 
 ## Step 4. Publish and share
 
-Once your Agent is ready, share it with Warden.:
+Once your agent is ready, share it with Warden.:
 
 1. Delete the `.env` file to avoid exposing your secrets.
 2. Push your local changes to GitHub.
-3. Share the link to your repository with Warden.
+3. Add your agent to the list of [Warden Community Agents](../readme.md#community-agents-and-tools) through a PR.
