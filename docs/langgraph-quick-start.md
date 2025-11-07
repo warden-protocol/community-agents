@@ -4,7 +4,7 @@
 
 This explains how to quickly get started with creating [LangGraph Agents](https://langchain-ai.github.io/langgraph/agents/overview/) in **TypeScript**.
 
-You'll copy, run, and expand our example Agent: [`packages/laggraph-quick-start`](../packages/langgraph-quick-start).
+You'll copy, run, and expand our example Agent: [`agents/laggraph-quick-start`](../agents/langgraph-quick-start).
 
 **Note**: This example uses **OpenAI** by default, but you can switch to a different LLM.
 
@@ -45,7 +45,7 @@ First, set up the example project:
 
 4. Create and clone a new repository for your Agent.
 
-5. Copy files from [`packages/laggraph-quick-start`](../packages/langgraph-quick-start) to your repository.
+5. Copy files from [`agents/laggraph-quick-start`](../agents/langgraph-quick-start) to your repository.
 
    **Note**: This example is based on the [LangGraph project template](https://github.com/langchain-ai/new-langgraphjs-project).
 
