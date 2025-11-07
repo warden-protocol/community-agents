@@ -14,10 +14,10 @@ Each agent in the [`agents/`](agents) directory is completely self-sufficient an
 - Build scripts
 - Tests  (excluding starter templates)
 
-### ✔️ Available Agents
+### ✔️ Available agents
 
 - **[langgraph-quick-start](agents/langgraph-quick-start)**: LangGraph starter template in TypeScript (easiest)
-- **[`langgraph-quick-start-py`](agents/langgraph-quick-start-py)**: LangGraph starter template in Python (easiest)
+- **[langgraph-quick-start-py](agents/langgraph-quick-start-py)**: LangGraph starter template in Python (easiest)
 - **[weather-agent](agents/weather-agent)**: Beginner-friendly weather agent (less complex)
 - **[coingecko-agent](agents/coingecko-agent)**: CoinGecko agent for cryptocurrency data analysis (more complex)
 - **[portfolio-agent](agents/portfolio-agent)**: Portfolio agent for cryptocurrency wallet performance analysis (more complex)
