@@ -1,0 +1,81 @@
+services:
+  # Redis for task orchestration and streaming
+  redis:
+    image: redis:7-alpine
+    container_name: weather-agent-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+
+  # PostgreSQL for persistent storage
+  postgres:
+    image: postgres:15-alpine
+    container_name: weather-agent-postgres
+    environment:
+      POSTGRES_DB: langgraph
+      POSTGRES_USER: langgraph
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-langgraph_password}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U langgraph"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+
+  # LangGraph API Server
+  weather-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: weather-agent-api
+    ports:
+      - "8000:8000"
+    environment:
+      # Database connections
+      REDIS_URI: redis://redis:6379
+      POSTGRES_URI: postgresql://langgraph:${POSTGRES_PASSWORD:-langgraph_password}@postgres:5432/langgraph
+
+      # API Keys (from .env file)
+      WEATHER_API_KEY: ${WEATHER_API_KEY}
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+
+      # Optional: Model configuration
+      MODEL_NAME: ${MODEL_NAME:-gpt-4o-mini}
+      TEMPERATURE: ${TEMPERATURE:-0}
+
+      # Optional: LangSmith tracing
+      LANGSMITH_API_KEY: ${LANGSMITH_API_KEY:-}
+      LANGSMITH_PROJECT: ${LANGSMITH_PROJECT:-weather-agent}
+      LANGSMITH_TRACING: ${LANGSMITH_TRACING:-false}
+
+      # Server configuration
+      NODE_ENV: production
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  redis_data:
+    driver: local
+  postgres_data:
+    driver: local

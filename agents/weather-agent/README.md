@@ -75,6 +75,23 @@ yarn start
 
 You'll see the agent answer weather questions!
 
+## Self-Hosting with Docker
+
+Want to deploy this agent on your own server? Check out the **[Self-Hosting Guide](SELF-HOSTING.md)** for:
+
+- 🐳 **Quick Start** - Deploy with Docker in 3 commands (no databases needed!)
+- 💾 **Persistent History** - Add Redis + PostgreSQL for conversation storage
+- 🔒 **Production Setup** - Security, scaling, and monitoring best practices
+
+**Quick deploy:**
+```bash
+cp .env.example .env  # Add your API keys
+docker compose up -d  # Start the agent
+# Open Studio: https://smith.langchain.com/studio → Connect to http://localhost:8000
+```
+
+See **[SELF-HOSTING.md](SELF-HOSTING.md)** for complete documentation.
+
 ## How to Use the Interactive UI
 
 Want to chat with your agent in a nice web interface? Use **LangSmith Studio**:
