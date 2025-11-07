@@ -14,7 +14,7 @@ Each agent in the [`agents/`](agents) directory is completely self-sufficient an
 - Build scripts
 - Tests  (excluding starter templates)
 
-### ✔️ Available agents
+## ✔️ Available agents
 
 - **[langgraph-quick-start](agents/langgraph-quick-start)**: LangGraph starter template in TypeScript (easiest)
 - **[langgraph-quick-start-py](agents/langgraph-quick-start-py)**: LangGraph starter template in Python (easiest)
@@ -31,7 +31,15 @@ Awesome agents and tools built by the community! Add yours by submitting a PR to
 ### Agents
 
 - [Your Agent](https://github.com/username/repo) - Description of what your agent does
+<<<<<<< HEAD
 
 ### Tools & resources
 
 - [Your Tool](https://github.com/username/repo) - Description of what your tool does
+=======
+
+### Tools & Resources
+
+- [Your Tool](https://github.com/username/repo) - Description of what your tool does
+
+>>>>>>> origin

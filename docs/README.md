@@ -4,7 +4,7 @@ This documentation provides guides to help you get started with developing diffe
 
 To quickly start building with LangGraph, see the following guides:
 
-- [Get started with TypeScript LangGraph Agents](langgraph-quick-start.md)
-- [Get started with Python LangGraph Agents](langgraph-quick-start-py.md)
+- [Get started with TypeScript LangGraph agents](langgraph-quick-start.md)
+- [Get started with Python LangGraph agents](langgraph-quick-start-py.md)
 
 More content coming soon!
