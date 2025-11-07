@@ -16,16 +16,22 @@ Each agent in the `agents/` directory is completely self-sufficient and comes wi
 
 ### Available Agents
 
-- **coingecko-agent** - CoinGecko agent for cryptocurrency data analysis
-- **portfolio-agent** - Portfolio agent for cryptocurrency wallet performance analysis
-- **langgraph-quick-start** - LangGraph starter template
+- **[langgraph-quick-start](agents/langgraph-quick-start)** - LangGraph starter template (easiest)
+- **[coingecko-agent](agents/coingecko-agent)** - CoinGecko agent for cryptocurrency data analysis (more complex)
+- **[portfolio-agent](agents/portfolio-agent)** - Portfolio agent for cryptocurrency wallet performance analysis (more complex)
+- **[weather-agent](agents/weather-agent)** - Beginner-friendly weather agent (less complex)
 
+## 🌟 Community Agents and Tools
 
-### 📦 Adding a New Agent
+Awesome agents and tools built by the community! Add yours by submitting a PR to this README file.
 
-TBD
+**Format:** `[Project Name](link) - Short description`
 
+### Agents
 
-## List of Awesome Agents and Tools
+- [Your Agent](https://github.com/username/repo) - Description of what your agent does
 
-- add your agent here through a PR
+### Tools & Resources
+
+- [Your Tool](https://github.com/username/repo) - Description of what your tool does
+
