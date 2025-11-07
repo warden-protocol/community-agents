@@ -1,7 +1,7 @@
 import { describe, it, beforeAll, expect } from 'vitest';
 import { ChatOpenAI } from '@langchain/openai';
 import { createReactAgent } from '@langchain/langgraph/prebuilt';
-import { convertToDynamicTool } from '@warden-community-agents/common';
+import { convertToDynamicTool } from '../../src/common';
 import getCoinsMarkets from '@coingecko/coingecko-mcp/tools/coins/markets/get-coins-markets';
 import getCoinsSearch from '@coingecko/coingecko-mcp/tools/search/get-search';
 import { AIMessage, BaseMessage, ToolMessage } from '@langchain/core/messages';
