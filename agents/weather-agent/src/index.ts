@@ -104,8 +104,8 @@ export async function runAgentWithSaveResults(
 async function main(): Promise<void> {
   const questions = [
     'What is the current weather in London?',
-    // 'What will the weather be like in New York over the next 3 days?',
-    // 'Should I bring an umbrella in Paris today?',
+    'What will the weather be like in New York over the next 3 days?',
+    'Should I bring an umbrella in Paris today?',
     // 'What is the temperature in Tokyo right now?',
     // 'Give me a 5-day weather forecast for San Francisco',
     // 'Is it a good day for outdoor activities in Sydney?',

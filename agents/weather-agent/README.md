@@ -16,7 +16,7 @@ The agent will:
 2. ✅ Fetch real weather data from WeatherAPI
 3. ✅ Give you friendly answers with recommendations
 
-## Quick Start (5 minutes)
+## Quick Start (2 minutes)
 
 ### Step 1: Get Your API Keys
 
