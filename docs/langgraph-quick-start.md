@@ -1,4 +1,4 @@
-# Get started with LangGraph Agents
+# Get started with TypeScript LangGraph Agents
 
 ## Overview
 

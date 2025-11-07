@@ -93,7 +93,7 @@ Now you can run the example Agent locally:
    - [LangSmith Studio](https://smith.langchain.com/studio): A local developer environment for visualizing, interacting with, and debugging your Agent
    - http://localhost:2024/docs: An API reference on your localhost where you can view and test all available endpoints for interacting with your Agent
 
-  **Note**: The API reference is also publicly available here: [LangGraph API reference](https://langchain-ai.github.io/langgraph/cloud/reference/api/api_ref.html)
+     **Note**: The API reference is also publicly available here: [LangGraph API reference](https://langchain-ai.github.io/langgraph/cloud/reference/api/api_ref.html)
 
 3. Run the [Search Assistants](https://langchain-ai.github.io/langgraph/cloud/reference/api/api_ref.html#tag/assistants/post/assistants/search) endpoint to get your Agent ID:
         
