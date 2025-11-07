@@ -31,13 +31,7 @@ Awesome agents and tools built by the community! Add yours by submitting a PR to
 ### Agents
 
 - [Your Agent](https://github.com/username/repo): Description of what your agent does
-<<<<<<< HEAD
 
 ### Tools & resources
-
-- [Your Tool](https://github.com/username/repo): Description of what your tool does
-=======
-
-### Tools & Resources
 
 - [Your Tool](https://github.com/username/repo): Description of what your tool does
