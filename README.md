@@ -17,9 +17,9 @@ Each agent in the `agents/` directory is completely self-sufficient and comes wi
 ### Available Agents
 
 - **[langgraph-quick-start](agents/langgraph-quick-start)** - LangGraph starter template (easiest)
+- **[weather-agent](agents/weather-agent)** - Beginner-friendly weather agent (less complex)
 - **[coingecko-agent](agents/coingecko-agent)** - CoinGecko agent for cryptocurrency data analysis (more complex)
 - **[portfolio-agent](agents/portfolio-agent)** - Portfolio agent for cryptocurrency wallet performance analysis (more complex)
-- **[weather-agent](agents/weather-agent)** - Beginner-friendly weather agent (less complex)
 
 ## 🌟 Community Agents and Tools
 
