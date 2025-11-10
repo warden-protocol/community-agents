@@ -50,6 +50,9 @@ services:
       WEATHER_API_KEY: ${WEATHER_API_KEY}
       OPENAI_API_KEY: ${OPENAI_API_KEY}
 
+      # Agent API Key (for authentication)
+      AGENT_API_KEY: ${AGENT_API_KEY}
+
       # Optional: Model configuration
       MODEL_NAME: ${MODEL_NAME:-gpt-4o-mini}
       TEMPERATURE: ${TEMPERATURE:-0}

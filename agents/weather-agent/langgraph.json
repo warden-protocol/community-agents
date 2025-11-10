@@ -3,6 +3,9 @@
   "graphs": {
     "weather_agent": "./src/graph.ts:graph"
   },
+  "auth": {
+    "path": "./src/auth.ts:auth"
+  },
   "env": ".env",
   "dependencies": ["."]
 }

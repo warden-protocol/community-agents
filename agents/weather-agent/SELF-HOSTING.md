@@ -26,6 +26,15 @@ This agent responds to instant requests without needing persistent conversation 
    ```bash
    WEATHER_API_KEY=your_actual_weather_api_key
    OPENAI_API_KEY=your_actual_openai_api_key
+   AGENT_API_KEY=your_secure_agent_api_key
+   ```
+
+   **Generate a secure API key:**
+   ```bash
+   # On macOS/Linux
+   openssl rand -base64 32
+
+   # Or use a strong random password
    ```
 
 2. **Start the agent:**
@@ -37,6 +46,9 @@ This agent responds to instant requests without needing persistent conversation 
    - Go to [https://smith.langchain.com/studio](https://smith.langchain.com/studio)
    - Click "Connect to Server"
    - Enter: `http://localhost:8000`
+   - **Add authentication header:**
+     - Click on "Headers" or "Advanced"
+     - Add header: `x-api-key: your_secure_agent_api_key`
    - Start asking weather questions!
 
 ### Managing Your Deployment
@@ -104,6 +116,26 @@ docker compose -f docker-compose.full.yml exec -T postgres psql \
 
 ---
 
+## Security
+
+### API Key Authentication
+
+The agent is protected with API key authentication. All requests must include the `x-api-key` header:
+
+```bash
+# Test with curl
+curl -H "x-api-key: your_secure_agent_api_key" http://localhost:8000/
+```
+
+**Security Best Practices:**
+- ✅ Generate a strong, random API key (use `openssl rand -base64 32`)
+- ✅ Keep your API key secret (never commit `.env` to git)
+- ✅ Rotate keys periodically
+- ✅ Use HTTPS in production (not covered in this setup)
+- ⚠️ If `AGENT_API_KEY` is not set, authentication is disabled (not recommended!)
+
+---
+
 ## Configuration
 
 All configuration via `.env` file:
@@ -112,6 +144,7 @@ All configuration via `.env` file:
 # Required
 WEATHER_API_KEY=your_weather_api_key_here
 OPENAI_API_KEY=your_openai_api_key_here
+AGENT_API_KEY=your_secure_agent_api_key  # For protecting your agent
 
 # Optional
 MODEL_NAME=gpt-4o-mini              # AI model (gpt-4o, gpt-3.5-turbo)
@@ -142,10 +175,11 @@ ports:
   - "8001:8000"
 ```
 
-### Cannot Connect to Studio
+### Cannot Connect to the Agent
 1. Check container is running: `docker compose ps`
 2. Check logs: `docker compose logs weather-agent`
-3. Test connection: `curl http://localhost:8000/`
+3. Test connection: `curl -H "x-api-key: your_api_key" http://localhost:8000/`
+4. Verify you're providing the correct `x-api-key` header
 
 ### Build Failures
 ```bash

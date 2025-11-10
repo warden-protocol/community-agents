@@ -3,6 +3,7 @@
     "target": "es2022",
     "module": "ESNext",
     "lib": ["ES2022", "DOM"],
+    "types": ["node"],
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "importHelpers": true,
