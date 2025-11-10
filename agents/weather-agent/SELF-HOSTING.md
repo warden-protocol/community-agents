@@ -125,6 +125,13 @@ The agent is protected with API key authentication. All requests must include th
 ```bash
 # Test with curl
 curl -H "x-api-key: your_secure_agent_api_key" http://localhost:8000/
+404 Not Found # this is normal!
+```
+
+If you do not provide the API key header, you should see a message like:
+
+```
+Invalid or missing API key. Please provide a valid 'x-api-key' header.
 ```
 
 **Security Best Practices:**
@@ -144,7 +151,7 @@ All configuration via `.env` file:
 # Required
 WEATHER_API_KEY=your_weather_api_key_here
 OPENAI_API_KEY=your_openai_api_key_here
-AGENT_API_KEY=your_secure_agent_api_key  # For protecting your agent
+AGENT_API_KEY=your_secure_agent_api_key  # To protect your agent
 
 # Optional
 MODEL_NAME=gpt-4o-mini              # AI model (gpt-4o, gpt-3.5-turbo)
