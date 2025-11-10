@@ -1,6 +1,6 @@
 # Warden Community Agents
 
-A collection of independent **Warden Community Agents** built with TypeScript, featuring AI-powered analysis tools.
+A collection of **Warden Community Agents and Tools** built with TypeScript or Python.
 
 ## 📚 Documentation
 
