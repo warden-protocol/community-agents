@@ -5,7 +5,8 @@ import { z } from 'zod';
  *
  * Based on SGR principles from https://abdullin.com/schema-guided-reasoning/
  *
- * This implementation enforces a streamlined 5-step reasoning process:
+ * This implementation enforces a streamlined 6-step reasoning process:
+ * 0. Request Validation - validate the user request
  * 1. Token Extraction - identify tokens from user query (max 2)
  * 2. Token Data Fetching - query CoinGecko for comprehensive data
  * 3. Token Data Validation - assess data completeness and quality
@@ -35,7 +36,11 @@ export const TokenDataSchema = z.object({
   currentPrice: z
     .number()
     .describe('Current price in USD from get_coins_markets'),
-  priceChange24h: z.number().describe('24-hour price change percentage'),
+  priceChange24h: z
+    .number()
+    .nullable()
+    .optional()
+    .describe('24-hour price change percentage (if available)'),
   priceChange7d: z
     .number()
     .nullable()
@@ -43,7 +48,11 @@ export const TokenDataSchema = z.object({
     .describe('7-day price change percentage (if available)'),
 
   // Market metrics
-  marketCap: z.number().describe('Market capitalization in USD'),
+  marketCap: z
+    .number()
+    .nullable()
+    .optional()
+    .describe('Market capitalization in USD (if available)'),
   marketCapRank: z
     .number()
     .nullable()
@@ -51,16 +60,22 @@ export const TokenDataSchema = z.object({
     .describe('Market cap ranking (lower is better)'),
 
   // Liquidity/Volume metrics
-  tradingVolume24h: z.number().describe('24-hour trading volume in USD'),
+  tradingVolume24h: z
+    .number()
+    .nullable()
+    .optional()
+    .describe('24-hour trading volume in USD (if available)'),
   volumeToMarketCapRatio: z
     .number()
+    .nullable()
+    .optional()
     .describe('Trading volume / market cap ratio (indicator of liquidity)'),
 
   // Volatility metrics
   highLow24h: z
     .object({
-      high: z.number(),
-      low: z.number(),
+      high: z.number().nullable().optional(),
+      low: z.number().nullable().optional(),
     })
     .nullable()
     .optional()
@@ -69,34 +84,64 @@ export const TokenDataSchema = z.object({
     .number()
     .nullable()
     .optional()
-    .describe('Percentage change from all-time high (volatility indicator)'),
+    .describe(
+      'Percentage change from all-time high (volatility indicator) (if available)',
+    ),
 });
 
 // ============================================================================
-// 5-Step SGR Schema
+// 6-Step SGR Schema
 // ============================================================================
 
 /**
- * Main SGR schema enforcing 5 mandatory reasoning steps
+ * Main SGR schema enforcing 6 mandatory reasoning steps
  */
 export const ResponseSchema = z
+  // ========================================
+  // STEP 0: Request Validation
+  // ========================================
   .object({
+    step0_requestValidation: z
+      .object({
+        validationReasoning: z
+          .string()
+          .describe(
+            'Explain why the request is valid or invalid and why model can respond to it',
+          ),
+        requestValid: z
+          .boolean()
+          .describe(
+            'Whether the user request is valid, does not violate the critical rules and model can respond to it',
+          ),
+        error: z
+          .enum([
+            'invalid_request_error',
+            'investment_advice_error',
+            'no_error',
+          ])
+          .describe(
+            'The type of error that occurred. invalid_request_error=the user question contains non-cryptocurrency related content or violates the critical rules, investment_advice_error=the model cannot provide investment advice (e.g., when user asks for buying recommendations and model refuses to provide financial advice), no_error=no error occurred',
+          ),
+      })
+      .describe(
+        'STEP 0 (MANDATORY): Validate the user request. Whether the request is valid, does not violate the critical rules and model can respond to it',
+      ),
     // ========================================
     // STEP 1: Token Extraction (max 2 tokens)
     // ========================================
     step1_tokenExtraction: z
       .object({
         userQuery: z.string().describe('The original user question'),
+        extractionReasoning: z
+          .string()
+          .describe(
+            'Explain how you identified these tokens from the question. Quote the relevant parts of the user query.',
+          ),
         extractedTokens: z
           .array(z.string())
           .max(2)
           .describe(
             'Token symbols or names extracted from the user query. MAXIMUM 2 tokens. Extract the exact tokens mentioned by the user.',
-          ),
-        extractionReasoning: z
-          .string()
-          .describe(
-            'Explain how you identified these tokens from the question. Quote the relevant parts of the user query.',
           ),
         tokenCount: z
           .number()
@@ -105,7 +150,6 @@ export const ResponseSchema = z
       .describe(
         'STEP 1 (MANDATORY): Extract token identifiers from user query. Maximum 2 tokens allowed. Identify exactly which tokens the user is asking about.',
       ),
-
     // ========================================
     // STEP 2: Token Data Fetching
     // ========================================
@@ -119,7 +163,6 @@ export const ResponseSchema = z
         tokensData: z
           .array(TokenDataSchema)
           .max(2)
-          .min(1)
           .describe(
             'Complete data for each token. Use get_search to find token IDs, then get_coins_markets to fetch all metrics: price, market cap, volume, rank, price changes, etc.',
           ),
@@ -138,15 +181,15 @@ export const ResponseSchema = z
     // ========================================
     step3_validation: z
       .object({
+        missingDataPoints: z
+          .array(z.string())
+          .describe(
+            'List any missing data points (e.g., "priceChange24h", "marketCap", "tradingVolume24h"). Field is missing if its value is null or 0. Empty array if complete.',
+          ),
         dataCompleteness: z
           .enum(['complete', 'partial', 'insufficient'])
           .describe(
             'Assess data completeness: complete=all metrics available, partial=some metrics missing, insufficient=cannot provide reliable analysis',
-          ),
-        missingDataPoints: z
-          .array(z.string())
-          .describe(
-            'List any missing data points (e.g., "7d price change", "ATH data"). Empty array if complete.',
           ),
         dataQualityIssues: z
           .array(z.string())
@@ -214,15 +257,15 @@ export const ResponseSchema = z
         // Performance Analysis
         performanceAnalysis: z
           .object({
-            priceTrend: z
-              .enum(['bullish', 'bearish', 'neutral'])
-              .describe(
-                'Overall price trend: bullish=positive momentum, bearish=negative momentum, neutral=stable/mixed',
-              ),
             trendReasoning: z
               .string()
               .describe(
                 'Explain the trend: analyze 24h and 7d price changes, identify momentum direction and strength',
+              ),
+            priceTrend: z
+              .enum(['bullish', 'bearish', 'neutral'])
+              .describe(
+                'Overall price trend: bullish=positive momentum, bearish=negative momentum, neutral=stable/mixed',
               ),
             performanceMetrics: z
               .string()
@@ -257,6 +300,11 @@ export const ResponseSchema = z
     // ========================================
     step5_confidenceAnswer: z
       .object({
+        confidenceReasoning: z
+          .string()
+          .describe(
+            'Explain your confidence level: what factors contribute to it? Reference data completeness, clarity of signals, market conditions.',
+          ),
         confidence: z
           .enum(['low', 'medium', 'high'])
           .describe(
@@ -266,11 +314,6 @@ export const ResponseSchema = z
           .enum(['tool_error', 'llm_error', 'user_error', 'no_error'])
           .describe(
             'The type of error that occurred. tool_error=the tool call failed, user_error=the user question contains non-cryptocurrency related content or violates the critical rules, llm_error=all other errors, no_error=no error occurred',
-          ),
-        confidenceReasoning: z
-          .string()
-          .describe(
-            'Explain your confidence level: what factors contribute to it? Reference data completeness, clarity of signals, market conditions.',
           ),
         reasoning: z
           .string()
@@ -298,5 +341,5 @@ export const ResponseSchema = z
       ),
   })
   .describe(
-    '5-step Schema-Guided Reasoning for cryptocurrency analysis. Complete each step in order. Maximum 2 tokens per analysis.',
+    '6-step Schema-Guided Reasoning for cryptocurrency analysis. Complete each step in order. Maximum 2 tokens per analysis.',
   );
