@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 /**
- * Schema-Guided Reasoning (SGR) for Cryptocurrency Analysis - Version 3
+ * Schema-Guided Reasoning (SGR) for Cryptocurrency Analysis
  *
  * Based on SGR principles from https://abdullin.com/schema-guided-reasoning/
  *
@@ -36,12 +36,12 @@ export const TokenDataSchema = z.object({
   currentPrice: z
     .number()
     .describe('Current price in USD from get_coins_markets'),
-  priceChange24h: z
+  priceChangePercentage24h: z
     .number()
     .nullable()
     .optional()
     .describe('24-hour price change percentage (if available)'),
-  priceChange7d: z
+  priceChangePercentage7d: z
     .number()
     .nullable()
     .optional()
@@ -86,6 +86,11 @@ export const TokenDataSchema = z.object({
     .optional()
     .describe(
       'Percentage change from all-time high (volatility indicator) (if available)',
+    ),
+  missingDataPoints: z
+    .array(z.string())
+    .describe(
+      'List any missing data points (e.g., "priceChange24h", "priceChange7d", "marketCap", "marketCapRank", "tradingVolume24h", "volumeToMarketCapRatio"). Field is missing if its value is null or zero. Empty array if complete.',
     ),
 });
 
@@ -181,11 +186,6 @@ export const ResponseSchema = z
     // ========================================
     step3_validation: z
       .object({
-        missingDataPoints: z
-          .array(z.string())
-          .describe(
-            'List any missing data points (e.g., "priceChange24h", "marketCap", "tradingVolume24h"). Field is missing if its value is null or 0. Empty array if complete.',
-          ),
         dataCompleteness: z
           .enum(['complete', 'partial', 'insufficient'])
           .describe(
@@ -215,33 +215,39 @@ export const ResponseSchema = z
         riskAnalysis: z
           .object({
             volatilityRisk: z.object({
-              level: z
-                .enum(['low', 'medium', 'high'])
-                .describe('Volatility risk level based on price changes'),
               reasoning: z
                 .string()
                 .describe(
-                  'Explain volatility: analyze 24h/7d price changes, price swings. High volatility = >5% daily changes, Medium = 2-5%, Low = <2%',
+                  'Explain volatility: analyze 24h/7d price changes, price swings. High volatility = >5% daily changes, Medium = 2-5%, Low = <2%. Do not make any assumptions if no data available',
+                ),
+              level: z
+                .enum(['low', 'medium', 'high', 'unknown'])
+                .describe(
+                  'Volatility risk level based on price changes. Use unknown if required data is missing.',
                 ),
             }),
             liquidityRisk: z.object({
-              level: z
-                .enum(['low', 'medium', 'high'])
-                .describe('Liquidity risk level based on volume/market cap'),
               reasoning: z
                 .string()
                 .describe(
-                  'Explain liquidity: analyze volume to market cap ratio. High liquidity (low risk) = >5%, Medium = 1-5%, Low liquidity (high risk) = <1%',
+                  'Explain liquidity: analyze volume to market cap ratio. High liquidity (low risk) = >5%, Medium = 1-5%, Low liquidity (high risk) = <1%. Do not make any assumptions if no data available.',
+                ),
+              level: z
+                .enum(['low', 'medium', 'high', 'unknown'])
+                .describe(
+                  'Liquidity risk level based on volume/market cap. Use unknown if required data is missing.',
                 ),
             }),
             marketCapRisk: z.object({
-              level: z
-                .enum(['low', 'medium', 'high'])
-                .describe('Market cap risk level'),
               reasoning: z
                 .string()
                 .describe(
-                  'Explain market cap risk: larger market caps = lower risk (more established), smaller = higher risk (more volatile/speculative)',
+                  'Explain market cap risk: larger market caps = lower risk (more established), smaller = higher risk (more volatile/speculative). Do not make any assumptions if no data available.',
+                ),
+              level: z
+                .enum(['low', 'medium', 'high', 'unknown'])
+                .describe(
+                  'Market cap risk level. Use unknown if required data is missing.',
                 ),
             }),
             overallRiskAssessment: z
@@ -263,9 +269,9 @@ export const ResponseSchema = z
                 'Explain the trend: analyze 24h and 7d price changes, identify momentum direction and strength',
               ),
             priceTrend: z
-              .enum(['bullish', 'bearish', 'neutral'])
+              .enum(['bullish', 'bearish', 'neutral', 'unknown'])
               .describe(
-                'Overall price trend: bullish=positive momentum, bearish=negative momentum, neutral=stable/mixed',
+                'Overall price trend: bullish=positive momentum, bearish=negative momentum, neutral=stable/mixed. Use unknown if no data available.',
               ),
             performanceMetrics: z
               .string()
@@ -303,12 +309,12 @@ export const ResponseSchema = z
         confidenceReasoning: z
           .string()
           .describe(
-            'Explain your confidence level: what factors contribute to it? Reference data completeness, clarity of signals, market conditions.',
+            'Explain your confidence level: do you have all the data needed to answer this specific question? What factors affect confidence?',
           ),
         confidence: z
           .enum(['low', 'medium', 'high'])
           .describe(
-            'Confidence level: high=complete data + clear insights, medium=good data but mixed signals or uncertainty, low=incomplete data or unclear situation',
+            'Confidence level based ONLY on data needed for THIS question: high=have all required data, medium=mixed signals in available data, low=missing data needed for THIS answer. Missing optional/unrelated data should NOT lower confidence.',
           ),
         error: z
           .enum(['tool_error', 'llm_error', 'user_error', 'no_error'])
