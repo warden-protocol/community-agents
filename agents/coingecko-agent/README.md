@@ -36,7 +36,7 @@ cp .env.example .env
 
 Then edit `.env` with your actual API keys.
 
-## Running the Agent
+## Running the agent
 
 ### Start the agent
 
@@ -46,7 +46,7 @@ yarn start
 
 The agent will process predefined questions about cryptocurrencies and output structured analysis for each.
 
-### Example Questions
+### Example questions
 
 The default questions in `src/index.ts`:
 - "What is the price of the BTC?"
@@ -59,7 +59,7 @@ The default questions in `src/index.ts`:
 
 You can modify these questions in `src/index.ts`.
 
-## Output Structure
+## Output structure
 
 The agent provides structured responses with:
 
@@ -71,7 +71,7 @@ The agent provides structured responses with:
 
 See [EXAMPLES.md](./EXAMPLES.md) for complete examples of agent output.
 
-### Full Data Examples
+### Full data examples
 
 Complete JSON response files are available in the [examples](./examples) directory. Each file contains:
 
@@ -87,7 +87,7 @@ Complete JSON response files are available in the [examples](./examples) directo
 
 ## Development
 
-### Available Commands
+### Available commands
 
 ```bash
 # Build the package
@@ -113,14 +113,14 @@ yarn test
 
 Tests are located in the `tests/` directory and use Vitest.
 
-## Technology Stack
+## Technology stack
 
 - **TypeScript** - Type-safe JavaScript
 - **LangChain** - AI application framework
 - **OpenAI API** - Language models
 - **CoinGecko MCP** - Cryptocurrency data provider
 
-## Important Notes
+## Important notes
 
 - The agent analyzes a maximum of 2 cryptocurrencies per request
 - Only tokens explicitly mentioned in questions are analyzed

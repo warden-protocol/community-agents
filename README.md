@@ -1,37 +1,37 @@
 # Warden Community Agents
 
-A collection of independent Warden community agents built with TypeScript, featuring AI-powered analysis tools.
+A collection of **Warden Community Agents and Tools** built with TypeScript or Python.
 
 ## 📚 Documentation
 
-All documentation can be found in the `docs/` directory.
+All documentation can be found in the [`docs/`](docs) directory.
 
-## 🤖 Example Agents
+## 🤖 Example agents
 
-Each agent in the `agents/` directory is completely self-sufficient and comes with its own:
+Each agent in the [`agents/`](agents) directory is completely self-sufficient and comes with its own:
 - Dependencies and devDependencies
 - Configuration files
 - Build scripts
-- Tests
+- Tests  (excluding starter templates)
 
-### Available Agents
+## Available agents
 
-- **[langgraph-quick-start](agents/langgraph-quick-start)** - LangGraph starter template (easiest)
-- **[weather-agent](agents/weather-agent)** - Beginner-friendly weather agent (less complex)
-- **[coingecko-agent](agents/coingecko-agent)** - CoinGecko agent for cryptocurrency data analysis (more complex)
-- **[portfolio-agent](agents/portfolio-agent)** - Portfolio agent for cryptocurrency wallet performance analysis (more complex)
+- **[langgraph-quick-start](agents/langgraph-quick-start)**: LangGraph starter template in TypeScript (easiest)
+- **[langgraph-quick-start-py](agents/langgraph-quick-start-py)**: LangGraph starter template in Python (easiest)
+- **[weather-agent](agents/weather-agent)**: Beginner-friendly weather agent (less complex)
+- **[coingecko-agent](agents/coingecko-agent)**: CoinGecko agent for cryptocurrency data analysis (more complex)
+- **[portfolio-agent](agents/portfolio-agent)**: Portfolio agent for cryptocurrency wallet performance analysis (more complex)
 
-## 🌟 Community Agents and Tools
+## 🌟 Community agents and tools
 
 Awesome agents and tools built by the community! Add yours by submitting a PR to this README file.
 
-**Format:** `[Project Name](link) - Short description`
+**Format:** `[Project Name](link): Short description`
 
 ### Agents
 
-- [Your Agent](https://github.com/username/repo) - Description of what your agent does
+- [Your Agent](https://github.com/username/repo): Description of what your agent does
 
-### Tools & Resources
+### Tools & resources
 
-- [Your Tool](https://github.com/username/repo) - Description of what your tool does
-
+- [Your Tool](https://github.com/username/repo): Description of what your tool does

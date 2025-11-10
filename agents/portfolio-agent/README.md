@@ -38,7 +38,7 @@ cp .env.example .env
 
 Then edit `.env` with your actual API keys.
 
-## Running the Agent
+## Running the agent
 
 ### Start the agent
 
@@ -48,7 +48,7 @@ yarn start
 
 The agent will analyze your wallet portfolio and provide comprehensive reports based on your request.
 
-### Example Usage
+### Example usage
 
 In `src/index.ts`, configure your wallet addresses and questions:
 
@@ -68,10 +68,9 @@ const questions = [
 ];
 ```
 
-
 You can modify the wallet addresses and questions in `src/index.ts`.
 
-## Output Structure
+## Output structure
 
 The agent provides structured responses with a 5-step analysis process:
 
@@ -83,7 +82,7 @@ The agent provides structured responses with a 5-step analysis process:
 
 See [EXAMPLES.md](./EXAMPLES.md) for complete examples of agent output.
 
-### Full Data Examples
+### Full data examples
 
 Complete JSON response files are available in the [examples](./examples) directory. Each file contains:
 
@@ -99,7 +98,7 @@ Complete JSON response files are available in the [examples](./examples) directo
 
 ## Development
 
-### Available Commands
+### Available commands
 
 ```bash
 # Build the package
@@ -125,7 +124,7 @@ yarn test
 
 Tests are located in the `tests/` directory and use Vitest.
 
-## Technology Stack
+## Technology stack
 
 - **TypeScript** - Type-safe JavaScript
 - **LangChain** - AI application framework
@@ -133,7 +132,7 @@ Tests are located in the `tests/` directory and use Vitest.
 - **CoinGecko API** - Cryptocurrency price data
 - **Alchemy API** - EVM wallet balance and transaction data
 
-## Important Notes
+## Important notes
 
 - The agent analyzes complete portfolio holdings across EVM and Solana wallets
 - Supports daily, weekly, and monthly performance tracking
