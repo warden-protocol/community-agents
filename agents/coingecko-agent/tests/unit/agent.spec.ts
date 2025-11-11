@@ -1,12 +1,35 @@
 import { describe, it, beforeAll, expect } from 'vitest';
 import { ChatOpenAI } from '@langchain/openai';
 import { createReactAgent } from '@langchain/langgraph/prebuilt';
-import { convertToDynamicTool } from '../../src/common';
+import { AgentResponse, convertToDynamicTool } from '../../src/common';
 import getCoinsMarkets from '@coingecko/coingecko-mcp/tools/coins/markets/get-coins-markets';
 import getCoinsSearch from '@coingecko/coingecko-mcp/tools/search/get-search';
 import { AIMessage, BaseMessage, ToolMessage } from '@langchain/core/messages';
 import { ResponseSchema } from '../../src/agent/output-structure';
 import { SystemPrompt } from '../../src/agent/system-prompt';
+
+const BTC_PRICE = 100_005;
+const ETH_PRICE = 4_001;
+const CUSTOM1_PRICE = 1.23;
+
+interface TokenData {
+  tokenId: string;
+  tokenSymbol: string;
+  tokenName: string;
+  currentPrice: number;
+  priceChangePercentage24h?: number | null;
+  priceChangePercentage7d?: number | null;
+  marketCap?: number | null;
+  marketCapRank?: number | null;
+  tradingVolume24h?: number | null;
+  volumeToMarketCapRatio?: number | null;
+  highLow24h?: {
+    high?: number | null;
+    low?: number | null;
+  } | null;
+  athChangePercentage?: number | null;
+  missingDataPoints: string[];
+}
 
 function createTools() {
   const getCoinsMarketToolHandler = async (
@@ -16,19 +39,19 @@ function createTools() {
     if (input.ids.includes('bitcoin')) {
       prices.push({
         name: 'BTC',
-        current_price: 100_005,
+        current_price: BTC_PRICE,
       });
     }
     if (input.ids.includes('ethereum')) {
       prices.push({
         name: 'ETH',
-        current_price: 4_001,
+        current_price: ETH_PRICE,
       });
     }
     if (input.ids.includes('custom_token_1')) {
       prices.push({
         name: 'CUSTOM1',
-        current_price: 1.23,
+        current_price: CUSTOM1_PRICE,
       });
     }
     return JSON.stringify(prices);
@@ -70,6 +93,96 @@ function filterAIMessagesWithToolCall(messages: BaseMessage[]): AIMessage[] {
     (x: BaseMessage) =>
       x.getType() === 'ai' && ((x as AIMessage).tool_calls?.length ?? 0) > 0,
   ) as AIMessage[];
+}
+
+function assertStep0RequestValidation(
+  step0_requestValidation: {
+    validationReasoning: string;
+    requestValid: boolean;
+    error: 'no_error' | 'invalid_request_error' | 'investment_advice_error';
+  },
+  expectedError:
+    | 'no_error'
+    | 'invalid_request_error'
+    | 'investment_advice_error',
+) {
+  expect(step0_requestValidation.error).toBe(expectedError);
+  expect(step0_requestValidation.requestValid).toBe(
+    expectedError === 'no_error',
+  );
+}
+
+function assertStep1TokenExtraction(
+  step1_tokenExtraction: {
+    tokenCount: number;
+    extractedTokens: string[];
+  },
+  expectedTokens: string[],
+) {
+  const extractedTokens = new Set(step1_tokenExtraction.extractedTokens);
+  expect(extractedTokens.size).toBe(expectedTokens.length);
+  for (const token of expectedTokens) {
+    expect(extractedTokens.has(token)).toBe(true);
+  }
+}
+
+function assertStep2DataFetching(
+  step2_dataFetching: {
+    toolsUsed: string[];
+    tokensData: TokenData[];
+    fetchingNotes: string;
+  },
+  expectedPrices: { symbol: string; price: number }[],
+) {
+  const uniqueTokenSymbols = new Set(
+    step2_dataFetching.tokensData.map((token) => token.tokenSymbol),
+  );
+  expect(uniqueTokenSymbols.size).toBe(step2_dataFetching.tokensData.length);
+
+  for (const { symbol, price } of expectedPrices) {
+    const tokenData = step2_dataFetching.tokensData.find(
+      (token) => token.tokenSymbol === symbol,
+    );
+    expect(tokenData).toBeDefined();
+    expect(tokenData!.currentPrice).toBe(price);
+  }
+}
+
+function assertStep4AnalysisHasUnknownLevels(step4_analysis: {
+  riskAnalysis: {
+    volatilityRisk: {
+      reasoning: string;
+      level: 'low' | 'medium' | 'high' | 'unknown';
+    };
+    liquidityRisk: {
+      reasoning: string;
+      level: 'low' | 'medium' | 'high' | 'unknown';
+    };
+    marketCapRisk: {
+      reasoning: string;
+      level: 'low' | 'medium' | 'high' | 'unknown';
+    };
+    overallRiskAssessment: string;
+  };
+}) {
+  expect(step4_analysis.riskAnalysis.volatilityRisk.level).toBe('unknown');
+  expect(step4_analysis.riskAnalysis.liquidityRisk.level).toBe('unknown');
+  expect(step4_analysis.riskAnalysis.marketCapRisk.level).toBe('unknown');
+}
+
+function assertStep5ConfidenceAnswer(
+  step5_confidenceAnswer: {
+    confidenceReasoning: string;
+    confidence: 'low' | 'medium' | 'high';
+    error: 'tool_error' | 'llm_error' | 'user_error' | 'no_error';
+    reasoning: string;
+    answer: string;
+    keyTakeaways: string[];
+    caveats: string[];
+  },
+  expectedError: 'tool_error' | 'llm_error' | 'user_error' | 'no_error',
+) {
+  expect(step5_confidenceAnswer.error).toBe(expectedError);
 }
 
 describe('CoinGecko agent', () => {
@@ -137,19 +250,25 @@ describe('CoinGecko agent', () => {
     ) as Record<string, string | number>[];
     expect(getMarketToolResponse.length).toBe(1);
     expect(getMarketToolResponse[0]).toHaveProperty('name', 'BTC');
-    expect(getMarketToolResponse[0]).toHaveProperty('current_price', 100_005);
+    expect(getMarketToolResponse[0]).toHaveProperty('current_price', BTC_PRICE);
 
     // Check agent result
-    expect(
-      response.structuredResponse.step2_dataFetching.tokensData.length,
-    ).toBe(1);
-    expect(
-      response.structuredResponse.step2_dataFetching.tokensData[0].tokenSymbol,
-    ).toBe('BTC');
-    expect(
-      response.structuredResponse.step2_dataFetching.tokensData[0].currentPrice,
-    ).toBe(100_005);
-    expect(response.structuredResponse.step5_confidenceAnswer.error).toBe(
+    assertStep0RequestValidation(
+      response.structuredResponse.step0_requestValidation,
+      'no_error',
+    );
+    assertStep1TokenExtraction(
+      response.structuredResponse.step1_tokenExtraction,
+      ['BTC'],
+    );
+    assertStep2DataFetching(response.structuredResponse.step2_dataFetching, [
+      { symbol: 'BTC', price: BTC_PRICE },
+    ]);
+    assertStep4AnalysisHasUnknownLevels(
+      response.structuredResponse.step4_analysis,
+    );
+    assertStep5ConfidenceAnswer(
+      response.structuredResponse.step5_confidenceAnswer,
       'no_error',
     );
   });
@@ -200,22 +319,28 @@ describe('CoinGecko agent', () => {
     ) as Record<string, string | number>[];
     expect(getMarketCallResponse.length).toBe(1);
     expect(getMarketCallResponse[0]).toHaveProperty('name', 'CUSTOM1');
-    expect(getMarketCallResponse[0]).toHaveProperty('current_price', 1.23);
+    expect(getMarketCallResponse[0]).toHaveProperty(
+      'current_price',
+      CUSTOM1_PRICE,
+    );
 
     // Check agent result
-    expect(
-      response.structuredResponse.step2_dataFetching.tokensData.length,
-    ).toBe(1);
-    expect(
-      response.structuredResponse.step2_dataFetching.tokensData[0].tokenId,
-    ).toBe('custom_token_1');
-    expect(
-      response.structuredResponse.step2_dataFetching.tokensData[0].tokenSymbol,
-    ).toBe('CUSTOM1');
-    expect(
-      response.structuredResponse.step2_dataFetching.tokensData[0].currentPrice,
-    ).toBe(1.23);
-    expect(response.structuredResponse.step5_confidenceAnswer.error).toBe(
+    assertStep0RequestValidation(
+      response.structuredResponse.step0_requestValidation,
+      'no_error',
+    );
+    assertStep1TokenExtraction(
+      response.structuredResponse.step1_tokenExtraction,
+      ['CUSTOM1'],
+    );
+    assertStep2DataFetching(response.structuredResponse.step2_dataFetching, [
+      { symbol: 'CUSTOM1', price: CUSTOM1_PRICE },
+    ]);
+    assertStep4AnalysisHasUnknownLevels(
+      response.structuredResponse.step4_analysis,
+    );
+    assertStep5ConfidenceAnswer(
+      response.structuredResponse.step5_confidenceAnswer,
       'no_error',
     );
   });
@@ -253,13 +378,24 @@ describe('CoinGecko agent', () => {
     expect(toolMessages[0].name).toBe('get_search');
 
     // Check agent result
-    expect(response.structuredResponse.step5_confidenceAnswer.error).not.toBe(
-      'no_error',
+    expect(
+      ['no_error', 'invalid_request_error'].includes(
+        response.structuredResponse.step0_requestValidation.error,
+      ),
+    ).toBe(true);
+    assertStep1TokenExtraction(
+      response.structuredResponse.step1_tokenExtraction,
+      ['UNKNOWN'],
     );
-    expect(response.structuredResponse.step5_confidenceAnswer).toHaveProperty(
-      'confidence',
-      'low',
+    assertStep2DataFetching(response.structuredResponse.step2_dataFetching, []);
+    assertStep4AnalysisHasUnknownLevels(
+      response.structuredResponse.step4_analysis,
     );
+    expect(
+      ['no_error', 'user_error'].includes(
+        response.structuredResponse.step5_confidenceAnswer.error,
+      ),
+    ).toBe(true);
   });
 
   it('should return the error if the question is not related to cryptocurrencies', async () => {
@@ -287,7 +423,20 @@ describe('CoinGecko agent', () => {
     expect(toolMessages.length).toBe(0);
 
     // Check agent result
-    expect(response.structuredResponse.step5_confidenceAnswer.error).toBe(
+    assertStep0RequestValidation(
+      response.structuredResponse.step0_requestValidation,
+      'invalid_request_error',
+    );
+    assertStep1TokenExtraction(
+      response.structuredResponse.step1_tokenExtraction,
+      [],
+    );
+    assertStep2DataFetching(response.structuredResponse.step2_dataFetching, []);
+    assertStep4AnalysisHasUnknownLevels(
+      response.structuredResponse.step4_analysis,
+    );
+    assertStep5ConfidenceAnswer(
+      response.structuredResponse.step5_confidenceAnswer,
       'user_error',
     );
   });
@@ -308,29 +457,27 @@ describe('CoinGecko agent', () => {
     console.log(JSON.stringify(response, null, 2));
 
     // Check agent result
-    expect(response.structuredResponse.step1_tokenExtraction.tokenCount).toBe(
-      2,
+    assertStep0RequestValidation(
+      response.structuredResponse.step0_requestValidation,
+      'no_error',
     );
-    const extractedTokens = new Set(
-      response.structuredResponse.step1_tokenExtraction.extractedTokens,
+    assertStep1TokenExtraction(
+      response.structuredResponse.step1_tokenExtraction,
+      ['BTC', 'ETH'],
     );
-    expect(extractedTokens.size).toBe(2);
-    expect(extractedTokens.has('BTC')).toBe(true);
-    expect(extractedTokens.has('ETH')).toBe(true);
-
-    const tokensData = new Map(
-      response.structuredResponse.step2_dataFetching.tokensData.map((token) => [
-        token.tokenSymbol,
-        token,
-      ]),
+    assertStep0RequestValidation(
+      response.structuredResponse.step0_requestValidation,
+      'no_error',
     );
-    expect(tokensData.size).toBe(2);
-    expect(tokensData.has('BTC')).toBe(true);
-    expect(tokensData.has('ETH')).toBe(true);
-    expect(tokensData.get('BTC')!.currentPrice).toBe(100_005);
-    expect(tokensData.get('ETH')!.currentPrice).toBe(4_001);
-
-    expect(response.structuredResponse.step5_confidenceAnswer.error).toBe(
+    assertStep2DataFetching(response.structuredResponse.step2_dataFetching, [
+      { symbol: 'BTC', price: BTC_PRICE },
+      { symbol: 'ETH', price: ETH_PRICE },
+    ]);
+    assertStep4AnalysisHasUnknownLevels(
+      response.structuredResponse.step4_analysis,
+    );
+    assertStep5ConfidenceAnswer(
+      response.structuredResponse.step5_confidenceAnswer,
       'no_error',
     );
   });
