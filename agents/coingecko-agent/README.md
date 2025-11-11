@@ -63,6 +63,7 @@ You can modify these questions in `src/index.ts`.
 
 The agent provides structured responses with:
 
+0. **Request Validation** - Validates the user request and ensures it's cryptocurrency-related
 1. **Token Extraction** - Identifies tokens from the question
 2. **Data Fetching** - Retrieves comprehensive data from CoinGecko
 3. **Data Validation** - Assesses data completeness and quality
