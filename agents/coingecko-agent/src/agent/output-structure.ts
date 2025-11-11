@@ -170,6 +170,12 @@ export const ResponseSchema = z
           .max(2)
           .describe(
             'Complete data for each token. Use get_search to find token IDs, then get_coins_markets to fetch all metrics: price, market cap, volume, rank, price changes, etc.',
+          )
+          .transform((data) =>
+            data.filter(
+              (token, index, arr) =>
+                arr.findIndex((t) => t.tokenId === token.tokenId) === index,
+            ),
           ),
         fetchingNotes: z
           .string()
