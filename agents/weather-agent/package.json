@@ -16,7 +16,7 @@
     "test": "vitest run unit --config tests/vitest.config.ts",
     "prettier": "prettier \"src/**/*.{ts,mts}\" --write",
     "prettier:check": "prettier \"src/**/*.{ts,mts}\" --check",
-    "docker:up": "docker compose up -d",
+    "docker:up": "docker compose up -d --build",
     "docker:down": "docker compose down",
     "docker:logs": "docker compose logs -f",
     "docker:full:up": "docker compose -f docker-compose.full.yml up -d",

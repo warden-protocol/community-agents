@@ -26,6 +26,9 @@ WORKDIR /app
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile --production
 
+# Install TypeScript and type definitions needed for LangGraph CLI
+RUN yarn add --dev typescript @types/node
+
 # Copy built code from builder stage
 COPY --from=builder /app/build ./build
 COPY --from=builder /app/src ./src

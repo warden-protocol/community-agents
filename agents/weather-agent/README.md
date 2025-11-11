@@ -2,8 +2,6 @@
 
 A beginner-friendly agent that shows you how to build AI agents using **LangGraph** and **TypeScript**. This agent fetches real-time weather data and provides helpful recommendations.
 
-> **New to AI agents?** This project is designed as a learning resource. The code is simple, well-commented, and easy to understand!
-
 ## What Does This Agent Do?
 
 Ask questions like:
