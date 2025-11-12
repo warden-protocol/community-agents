@@ -30,7 +30,7 @@ In this example, there is only one node, which calls OpenAI.
 
 ### The Agent's Main Logic
 
-The agent logic is defined in [`src/agent/graph.py`](src/agent/graph.ts):
+The agent logic is defined in [`src/agent/graph.py`](src/agent/graph.py):
 
 - The code imports the `langgraph.graph` and `langgraph.runtime` components for building and running the agent.
 - `Context` is a class defining configurable parameters accessible to the runtime.
