@@ -9,7 +9,7 @@ Register now and get paid for building agents! Up to $10,000 in incentives for e
 
 All documentation can be found in the [`docs/`](docs) directory.
 
-If you get stuck or you need to get in touch, join the `#developers` channel on our [Discord server](https://discord.gg/wardenprotocol).
+If you get stuck or you need to get in touch, join the [`#developers`](https://discord.com/channels/1199357852666560654/1222892775876333629) channel on our [Discord server](https://discord.gg/wardenprotocol).
 
 ## 🤖 Example Agents
 
