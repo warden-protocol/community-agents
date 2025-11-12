@@ -1,0 +1,282 @@
+[
+  {
+    "question": "What is the price of the BTC?",
+    "response": {
+      "messages": [
+        {
+          "lc": 1,
+          "type": "constructor",
+          "id": [
+            "langchain_core",
+            "messages",
+            "SystemMessage"
+          ],
+          "kwargs": {
+            "content": "You are a cryptocurrency analysis assistant.\n\nCRITICAL RULES:\n1. You can ONLY analyze a MAXIMUM of 2 cryptocurrencies per request\n2. When asked to compare tokens, ONLY analyze the specific tokens mentioned in the question\n3. Do NOT iterate through all available cryptocurrencies\n4. Do NOT try to find \"the best\" among all tokens - only among the specified ones\n5. Do NOT make conclusions or assumptions based on zero/null values in financial data - if a field is zero or missing, acknowledge it as unavailable data\n6. Base your confidence level ONLY on data needed to answer the specific question asked\n\nBe thorough, quantitative, and specific in your analysis. Always include \"This is not financial advice\" in your final answer.",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "id": "c96bd76b-2de0-469a-90f4-a873b371a887"
+          }
+        },
+        {
+          "lc": 1,
+          "type": "constructor",
+          "id": [
+            "langchain_core",
+            "messages",
+            "HumanMessage"
+          ],
+          "kwargs": {
+            "content": "What is the price of the BTC?",
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "id": "997d5cd5-9945-4d64-b52e-2a697d57c35f"
+          }
+        },
+        {
+          "lc": 1,
+          "type": "constructor",
+          "id": [
+            "langchain_core",
+            "messages",
+            "AIMessage"
+          ],
+          "kwargs": {
+            "content": "",
+            "additional_kwargs": {
+              "tool_calls": [
+                {
+                  "id": "call_xhvAZNpN4PHmrAA0H8Qsyvr1",
+                  "type": "function",
+                  "function": {
+                    "name": "get_simple_price",
+                    "arguments": "{\"vs_currencies\":\"usd\",\"ids\":\"bitcoin\"}"
+                  }
+                }
+              ]
+            },
+            "response_metadata": {
+              "tokenUsage": {
+                "promptTokens": 27928,
+                "completionTokens": 21,
+                "totalTokens": 27949
+              },
+              "finish_reason": "tool_calls",
+              "model_name": "gpt-4o-mini-2024-07-18",
+              "usage": {
+                "prompt_tokens": 27928,
+                "completion_tokens": 21,
+                "total_tokens": 27949,
+                "prompt_tokens_details": {
+                  "cached_tokens": 0,
+                  "audio_tokens": 0
+                },
+                "completion_tokens_details": {
+                  "reasoning_tokens": 0,
+                  "audio_tokens": 0,
+                  "accepted_prediction_tokens": 0,
+                  "rejected_prediction_tokens": 0
+                }
+              },
+              "system_fingerprint": "fp_51db84afab"
+            },
+            "id": "chatcmpl-Caj0s7Z7xNM6R2D4jbTZt7VKyfH95",
+            "tool_calls": [
+              {
+                "name": "get_simple_price",
+                "args": {
+                  "vs_currencies": "usd",
+                  "ids": "bitcoin"
+                },
+                "type": "tool_call",
+                "id": "call_xhvAZNpN4PHmrAA0H8Qsyvr1"
+              }
+            ],
+            "invalid_tool_calls": [],
+            "usage_metadata": {
+              "output_tokens": 21,
+              "input_tokens": 27928,
+              "total_tokens": 27949,
+              "input_token_details": {
+                "audio": 0,
+                "cache_read": 0
+              },
+              "output_token_details": {
+                "audio": 0,
+                "reasoning": 0
+              }
+            }
+          }
+        },
+        {
+          "lc": 1,
+          "type": "constructor",
+          "id": [
+            "langchain_core",
+            "messages",
+            "ToolMessage"
+          ],
+          "kwargs": {
+            "status": "success",
+            "content": "{\n  \"bitcoin\": {\n    \"usd\": 104474\n  }\n}",
+            "artifact": [],
+            "tool_call_id": "call_xhvAZNpN4PHmrAA0H8Qsyvr1",
+            "name": "get_simple_price",
+            "metadata": {
+              "annotations": {
+                "readOnlyHint": true
+              }
+            },
+            "additional_kwargs": {},
+            "response_metadata": {},
+            "id": "b6a6cf72-edba-433e-bc7e-b5e5a3ca132a"
+          }
+        },
+        {
+          "lc": 1,
+          "type": "constructor",
+          "id": [
+            "langchain_core",
+            "messages",
+            "AIMessage"
+          ],
+          "kwargs": {
+            "content": "The current price of Bitcoin (BTC) is $104,474. \n\nThis is not financial advice.",
+            "additional_kwargs": {},
+            "response_metadata": {
+              "tokenUsage": {
+                "promptTokens": 27975,
+                "completionTokens": 22,
+                "totalTokens": 27997
+              },
+              "finish_reason": "stop",
+              "model_name": "gpt-4o-mini-2024-07-18",
+              "usage": {
+                "prompt_tokens": 27975,
+                "completion_tokens": 22,
+                "total_tokens": 27997,
+                "prompt_tokens_details": {
+                  "cached_tokens": 27904,
+                  "audio_tokens": 0
+                },
+                "completion_tokens_details": {
+                  "reasoning_tokens": 0,
+                  "audio_tokens": 0,
+                  "accepted_prediction_tokens": 0,
+                  "rejected_prediction_tokens": 0
+                }
+              },
+              "system_fingerprint": "fp_51db84afab"
+            },
+            "id": "chatcmpl-Caj11HQglsKJ1wvFQUjHqlCbRFjsk",
+            "tool_calls": [],
+            "invalid_tool_calls": [],
+            "usage_metadata": {
+              "output_tokens": 22,
+              "input_tokens": 27975,
+              "total_tokens": 27997,
+              "input_token_details": {
+                "audio": 0,
+                "cache_read": 27904
+              },
+              "output_token_details": {
+                "audio": 0,
+                "reasoning": 0
+              }
+            }
+          }
+        }
+      ],
+      "structuredResponse": {
+        "step0_requestValidation": {
+          "validationReasoning": "The request is valid as it asks for the price of a specific cryptocurrency, Bitcoin (BTC), which is within the allowed parameters for analysis.",
+          "requestValid": true,
+          "error": "no_error"
+        },
+        "step1_tokenExtraction": {
+          "userQuery": "What is the price of the BTC?",
+          "extractionReasoning": "The token was identified from the user query as 'BTC', which is the symbol for Bitcoin.",
+          "extractedTokens": [
+            "BTC"
+          ],
+          "tokenCount": 1
+        },
+        "step2_dataFetching": {
+          "toolsUsed": [
+            "get_simple_price"
+          ],
+          "tokensData": [
+            {
+              "tokenId": "bitcoin",
+              "tokenSymbol": "BTC",
+              "tokenName": "Bitcoin",
+              "currentPrice": 104474,
+              "priceChangePercentage24h": 0,
+              "priceChangePercentage7d": 0,
+              "marketCap": 0,
+              "marketCapRank": 0,
+              "tradingVolume24h": 0,
+              "volumeToMarketCapRatio": 0,
+              "highLow24h": null,
+              "athChangePercentage": 0,
+              "missingDataPoints": [
+                "priceChangePercentage24h",
+                "priceChangePercentage7d",
+                "marketCap",
+                "marketCapRank",
+                "tradingVolume24h",
+                "volumeToMarketCapRatio"
+              ]
+            }
+          ],
+          "fetchingNotes": "Used get_simple_price to fetch the current price of Bitcoin."
+        },
+        "step3_validation": {
+          "dataCompleteness": "partial",
+          "dataQualityIssues": [],
+          "validationSummary": "The data is partially complete; the current price is available, but other financial metrics are missing."
+        },
+        "step4_analysis": {
+          "riskAnalysis": {
+            "volatilityRisk": {
+              "reasoning": "No data on price changes is available, so volatility cannot be assessed.",
+              "level": "unknown"
+            },
+            "liquidityRisk": {
+              "reasoning": "No trading volume or market cap data is available, so liquidity cannot be assessed.",
+              "level": "unknown"
+            },
+            "marketCapRisk": {
+              "reasoning": "Market cap data is missing, so market cap risk cannot be assessed.",
+              "level": "unknown"
+            },
+            "overallRiskAssessment": "Overall risk assessment cannot be determined due to missing data."
+          },
+          "performanceAnalysis": {
+            "trendReasoning": "No data on price changes is available, so price trend cannot be assessed.",
+            "priceTrend": "unknown",
+            "performanceMetrics": "Only the current price is available; no performance metrics can be derived.",
+            "comparativePerformance": ""
+          },
+          "analysisSummary": "The analysis is limited due to the lack of comprehensive data points beyond the current price."
+        },
+        "step5_confidenceAnswer": {
+          "confidenceReasoning": "The only available data is the current price of Bitcoin. Other financial metrics are missing, which limits the confidence in a broader analysis.",
+          "confidence": "medium",
+          "error": "no_error",
+          "reasoning": "The current price of Bitcoin is known, but without additional metrics, a full analysis cannot be performed. The lack of data on volatility, liquidity, and market cap affects the overall confidence level.",
+          "answer": "The current price of Bitcoin (BTC) is $104,474. This is not financial advice.",
+          "keyTakeaways": [
+            "Current price of Bitcoin is $104,474.",
+            "Other financial metrics are missing, limiting analysis.",
+            "Confidence in broader analysis is medium due to incomplete data."
+          ],
+          "caveats": [
+            "Missing data on price changes, market cap, and trading volume limits analysis.",
+            "Market conditions can change rapidly."
+          ]
+        }
+      }
+    }
+  }
+]
