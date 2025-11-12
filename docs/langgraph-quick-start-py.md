@@ -1,12 +1,12 @@
-# Get started with Python LangGraph agents
+# Get started with Python LangGraph Agents
 
 ## Overview
 
-This explains how to quickly get started with creating [LangGraph agents](https://langchain-ai.github.io/langgraph/agents/overview/) with [A2A support](https://docs.langchain.com/langsmith/server-a2a) in **Python**.
+This guide explains how to quickly get started with building [LangGraph agents](https://langchain-ai.github.io/langgraph/agents/overview/) with [A2A support](https://docs.langchain.com/langsmith/server-a2a) in **Python**.
 
-You'll copy, run, and expand our example agent: [`agents/laggraph-quick-start-py`](../agents/langgraph-quick-start-py).
+You'll copy, run, and extend our template: [`agents/laggraph-quick-start-py`](../agents/langgraph-quick-start-py). It's a **single-node** chatbot that answer questions about cryptocurrencies: receives a message, calls an **OpenAI** model, and returns an assistant response.
 
-**Note**: This example uses **OpenAI** by default, but you can switch to a different LLM.
+**Note**: This guide focuses on the essentials (how to deploy and test your agent locally) rather than on real-world agent logic.
 
 ## Prerequisites
 
@@ -16,7 +16,7 @@ Before you start, complete the following prerequisites:
 - [Get a LangSmith API key](https://docs.langchain.com/langsmith/home).
 - [Get an OpenAI API key](https://help.openai.com/en/articles/4936850-where-do-i-find-my-openai-api-key).
 
-## Step 1. Set up the example project
+## Step 1. Set Up the Example Project
 
 First, set up the example project:
 
@@ -60,7 +60,7 @@ First, set up the example project:
    LANGSMITH_PROJECT=py-agent
    LANGSMITH_TRACING=true
    ```
-## Step 2. Run the agent locally
+## Step 2. Run the Agent Locally
 
 Now you can run the example agent locally:
 
@@ -247,7 +247,7 @@ Now you can run the example agent locally:
        }
      }'
    ```
-   If everything is fine, you'll receive a response including your propmt, assistant's reply, and other data:
+   If everything is fine, you'll receive a response including your prompt, assistant's reply, and other data:
         
    ```json
    {
@@ -308,11 +308,15 @@ Now you can run the example agent locally:
 
 6. In addition, you can check logs in [LangSmith](https://smith.langchain.com/studio): navigate to **Tracing Project** in the left menu and select your project. The logs will display data on all threads and runs (agent invocations).
 
-## Step 3. Implement custom logic
+## Step 3. Implement Custom Logic
 
-After testing the example agent, you can proceed with implementing your custom logic.
+The logic of the template agent is explained in its [README](../agents/langgraph-quick-start-py/README.md).
 
-If you prefer a different LLM to OpenAI, adjust the example code accordingly and update the `.env` file and dependencies.
+After testing the agent, you can proceed with implementing your custom logic:
+- If you prefer a different LLM to OpenAI, adjust the example code accordingly and update the `.env` file and dependencies.
+- Add new nodes—for example, a node calling a crypto API or a summarize node using another model.
+- Integrate memory to store conversation history or facts across sessions.
+- Customize the state: add fields for context like topics, confidence, or source URLs.
 
 To learn more about LangGraph, use the following resources:
 
@@ -323,7 +327,7 @@ To learn more about LangGraph, use the following resources:
 - [LangGraph Platform API Reference](https://langchain-ai.github.io/langgraph/cloud/reference/api/api_ref.html#tag/assistants/post/assistants/search): Explore the endpoints for interacting with agents
 - [LangGraph Python SDK](https://langchain-ai.github.io/langgraph/cloud/reference/sdk/python_sdk_ref/): Install the SDK for interacting with the API
 
-## Step 4. Publish and share
+## Step 4. Publish and Share
 
 Once your agent is ready, share it with Warden.:
 

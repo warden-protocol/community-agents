@@ -1,4 +1,4 @@
-# Weather Agent - Your First LangGraph Agent
+# Weather Agent: Your First LangGraph Agent
 
 A beginner-friendly agent that shows you how to build AI agents using **LangGraph** and **TypeScript**. This agent fetches real-time weather data and provides helpful recommendations.
 
@@ -160,10 +160,10 @@ The agent has two tools:
 ```
 weather-agent/
 ├── src/
-│   └── graph.ts           # Main agent code (the whole agent in one file!)
-├── .env                   # Your API keys (you create this)
-├── .env.example          # Template for .env
-├── package.json          # Dependencies
+│   └── graph.ts         # Main agent code (the whole agent in one file!)
+├── .env                 # Your API keys (you create this)
+├── .env.example         # Template for .env
+├── package.json         # Dependencies
 └── README.md            # This file
 ```
 
