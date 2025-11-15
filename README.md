@@ -35,7 +35,7 @@ Format: [Project Name](link): Short agent description
 
 **Agents**
 
-- [Recurring Executor Agent](https://github.com/savagelysubtle/Hackathon2): AI-powered DeFi portfolio automation with natural language control. Features autonomous rebalancing, price-based triggers, 24/7 monitoring, interactive web dashboard, agent chat, multi-user wallet connection, and real-time updates. Built with LangGraph + Warden Agent Kit + Next.js. [Live Demo](https://hackathon2-agent-lfytdqudv-steves-projects-4a5bdace.vercel.app/) ✅
+- [Recurring Executor Agent](https://github.com/savagelysubtle/Hackathon2): AI-powered DeFi portfolio automation with natural language control. Features autonomous rebalancing, price-based triggers, 24/7 monitoring, interactive web dashboard, agent chat, multi-user wallet connection, and real-time updates. Built with LangGraph + Warden Agent Kit + Next.js. [Live Demo](https://hackathon2-agent.vercel.app) ✅
 
 **Tools & Resources**
 
