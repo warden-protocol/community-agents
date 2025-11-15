@@ -1,42 +1,42 @@
 # Warden Community Agents
 
-A collection of **Warden Community Agents and Tools** built with TypeScript or Python.
+A collection of Warden Community Agents and Tools built with TypeScript or Python.
 
-💫 The [Agent Builder Incentive Programme](https://wardenprotocol.org/blog/agent-builder-incentive-programme) is live! 
-Register now and get paid for building agents! Up to $10,000 in incentives for each agent in the Top 10 in the first month.
+💫 The Agent Builder Incentive Programme is live! Register now and get paid for building agents! Up to $10,000 in incentives for each agent in the Top 10 in the first month.
 
-## 📚 Documentation
+📚 Documentation
 
-All documentation can be found in the [`docs/`](docs) directory.
+All documentation can be found in the docs/ directory.
 
-If you get stuck or you need to get in touch, join the `#developers` channel on our [Discord server](https://discord.gg/wardenprotocol).
+If you get stuck or you need to get in touch, join the #developers channel on our Discord server.
 
-## 🤖 Example Agents
+🤖 Example Agents
 
-Each agent in the [`agents/`](agents) directory is completely self-sufficient and comes with its own:
+Each agent in the agents/ directory is completely self-sufficient and comes with its own:
+
 - Dependencies and devDependencies
 - Configuration files
 - Build scripts
-- Tests  (excluding starter templates)
+- Tests (excluding starter templates)
 
-## Available Agents
+Available Agents
 
-- **[langgraph-quick-start](agents/langgraph-quick-start)**: LangGraph starter template in TypeScript (easiest)
-- **[langgraph-quick-start-py](agents/langgraph-quick-start-py)**: LangGraph starter template in Python (easiest)
-- **[weather-agent](agents/weather-agent)**: Beginner-friendly weather agent (less complex) **<- recommended for new agent developers**
-- **[coingecko-agent](agents/coingecko-agent)**: CoinGecko agent for cryptocurrency data analysis (more complex)
-- **[portfolio-agent](agents/portfolio-agent)**: Portfolio agent for cryptocurrency wallet performance analysis (more complex)
+- langgraph-quick-start: LangGraph starter template in TypeScript (easiest)
+- langgraph-quick-start-py: LangGraph starter template in Python (easiest)
+- weather-agent: Beginner-friendly weather agent (less complex) <- recommended for new agent developers
+- coingecko-agent: CoinGecko agent for cryptocurrency data analysis (more complex)
+- portfolio-agent: Portfolio agent for cryptocurrency wallet performance analysis (more complex)
 
-## 🌟 Community Agents and Tools
+🌟 Community Agents and Tools
 
 Awesome agents and tools built by the community! Add yours by submitting a PR to this README file.
 
-**Format:** `[Project Name](link): Short agent description`
+Format: [Project Name](link): Short agent description
 
-### Agents
+**Agents**
 
-- [Your Agent](https://github.com/username/repo): Description of what your agent does
+- [Recurring Executor Agent](https://github.com/savagelysubtle/Hackathon2): AI-powered DeFi portfolio automation with natural language control. Features autonomous rebalancing, price-based triggers, 24/7 monitoring, interactive web dashboard, agent chat, multi-user wallet connection, and real-time updates. Built with LangGraph + Warden Agent Kit + Next.js. [Live Demo](https://hackathon2-agent-lfytdqudv-steves-projects-4a5bdace.vercel.app/) ✅
 
-### Tools & Resources
+**Tools & Resources**
 
-- [Your Tool](https://github.com/username/repo): Description of what your tool does
+- Your Tool: Description of what your tool does
