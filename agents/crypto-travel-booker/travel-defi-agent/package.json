@@ -1,0 +1,19 @@
+{
+  "name": "travel-defi-agent",
+  "version": "1.0.0",
+  "description": "A LangGraph agent designed to manage travel planning and expenses using DeFi strategies and smart contracts.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Joshua15310/travel-defi-agent.git"
+  },
+  "keywords": [
+    "warden",
+    "agent",
+    "langgraph",
+    "defi",
+    "travel"
+  ],
+  "author": "Joshua15310",
+  "license": "ISC",
+  "homepage": "https://github.com/Joshua15310/travel-defi-agent#readme"
+}
