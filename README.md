@@ -35,7 +35,7 @@ Awesome agents and tools built by the community! Add yours by submitting a PR to
 
 ### Agents
 
-- [Your Agent](https://github.com/username/repo): Description of what your agent does
+- [Crypto Travel Booker](https://github.com/Joshua15310/travel-defi-agent): LangGraph agent for travel planning and expense optimization using DeFi strategies.
 
 ### Tools & Resources
 
