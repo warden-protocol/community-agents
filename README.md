@@ -40,6 +40,6 @@ Awesome agents and tools built by the community! Add yours by submitting a PR to
 
 ### Tools & Resources
 
-- [Warden DeFi Swap Utility](https://github.com/Joshua15310/warden-defi-swap-utility): Python module for finding optimal token swap routes via 1inch API for Warden Agents.
-- [Warden Agent Starter Template](https://github.com/Joshua15310/warden-agent-starter-template): Boilerplate Python repository with CI/CD and LangGraph structure for fast Agent development.
+- [[Warden DeFi Swap Utility](https://github.com/Joshua15310/warden-defi-swap-utility](https://github.com/Joshua15310/travel-defi-agent/tree/main/warden-defi-swap-utility)): Python module for finding optimal token swap routes via 1inch API for Warden Agents.
+- [[Warden Agent Starter Template](https://github.com/Joshua15310/warden-agent-starter-template](https://github.com/Joshua15310/travel-defi-agent/tree/main/warden-agent-starter-template)): Boilerplate Python repository with CI/CD and LangGraph structure for fast Agent development.
 - [Warden Agent Kit](https://github.com/warden-protocol/agent-kit): The official core toolkit (TypeScript) for integrating on-chain capabilities like Keychain, Spaces, and Rules.
