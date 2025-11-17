@@ -1,12 +1,12 @@
-# Get started with TypeScript LangGraph agents
+# Get Started with TypeScript LangGraph Agents
 
 ## Overview
 
-This explains how to quickly get started with creating [LangGraph Agents](https://langchain-ai.github.io/langgraph/agents/overview/) in **TypeScript**.
+This guide explains how to quickly get started with building [LangGraph Agents](https://langchain-ai.github.io/langgraph/agents/overview/) in **TypeScript**
 
-You'll copy, run, and expand our example agent: [`agents/laggraph-quick-start`](../agents/langgraph-quick-start).
+You'll copy, run, and extend our template: [`agents/laggraph-quick-start`](../agents/langgraph-quick-start). It's a **single-node** chatbot that answer questions about cryptocurrencies: receives a message, calls an **OpenAI** model, and returns an assistant response.
 
-**Note**: This example uses **OpenAI** by default, but you can switch to a different LLM.
+**Note**: This guide focuses on the essentials: how to deploy and test your agent locally. If you'd rather skip setup details and dive straight into building real-world agent logic, check out the [Weather Agent example](../agents/weather-agent).
 
 ## Prerequisites
 
@@ -17,7 +17,7 @@ Before you start, complete the following prerequisites:
 - [Get a LangSmith API key](https://docs.langchain.com/langsmith/home).
 - [Get an OpenAI API key](https://help.openai.com/en/articles/4936850-where-do-i-find-my-openai-api-key).
 
-## Step 1. Set up the example project
+## Step 1. Set Up the Example Project
 
 First, set up the example project:
 
@@ -64,7 +64,7 @@ First, set up the example project:
    LANGSMITH_PROJECT=ts-agent
    LANGSMITH_TRACING=true
    ```
-## Step 2. Run the agent locally
+## Step 2. Run the Agent Locally
 
 Now you can run the example agent locally:
 
@@ -92,9 +92,11 @@ Now you can run the example agent locally:
    info:    ▪ Starting server...
    info:    ▪ Initializing storage...
    ```
+
 2. Visit the following links:
    - [LangSmith Studio](https://smith.langchain.com/studio): A developer environment for visualizing, interacting with, and debugging your agent
    - [LangGraph API reference](https://langchain-ai.github.io/langgraph/cloud/reference/api/api_ref.html): A public API reference where you can view all available endpoints for interacting with agents
+
 3. Run the [Search Assistants](https://langchain-ai.github.io/langgraph/cloud/reference/api/api_ref.html#tag/assistants/post/assistants/search) endpoint to get your agent's ID:
         
    **POST** `http://localhost:2024/assistants/search`  
@@ -166,7 +168,7 @@ Now you can run the example agent locally:
        }
      }'
    ```
-   If everything is fine, you'll receive a response including your propmt, assistant's reply, and other data:
+   If everything is fine, you'll receive a response including your prompt, assistant's reply, and other data:
         
    ```json
    {
@@ -193,11 +195,17 @@ Now you can run the example agent locally:
 
 5. In addition, you can check logs in [LangSmith](https://smith.langchain.com/studio): navigate to **Tracing Project** in the left menu and select your project. The logs will display data on all threads and runs (agent invocations).
 
-## Step 3. Implement custom logic
+## Step 3. Implement Custom Logic
 
-After testing the example agent, you can proceed with implementing your custom logic.
+The logic of the template agent is explained in its [README](../agents/langgraph-quick-start/README.md).
 
-If you prefer a different LLM to OpenAI, adjust the example code accordingly and update the `.env` file and dependencies.
+After testing the agent, you can proceed with implementing your custom logic:
+- If you prefer a different LLM to OpenAI, adjust the example code accordingly and update the `.env` file and dependencies.
+- Add new nodes—for example, a node calling a crypto API or a summarize node using another model.
+- Integrate memory to store conversation history or facts across sessions.
+- Customize the state: add fields for context like topics, confidence, or source URLs.
+
+Alternatively, you can switch to the [Weather Agent example](../agents/weather-agent), which demonstrates how to build real-world agent logic.
 
 To learn more about LangGraph, use the following resources:
 
@@ -207,7 +215,7 @@ To learn more about LangGraph, use the following resources:
 - [LangGraph Platform API Reference](https://langchain-ai.github.io/langgraph/cloud/reference/api/api_ref.html#tag/assistants/post/assistants/search): Explore the endpoints for interacting with agents
 - [LangGraph JS/TS SDK](https://reference.langchain.com/javascript/modules/_langchain_langgraph-sdk.html?_gl=1*1a31yho*_gcl_au*ODIzMzk4MTQuMTc1OTIyMjc4NQ..*_ga*MTU4OTIwMTQ0Ni4xNzU5MjIyNzg3*_ga_47WX3HKKY2*czE3NjEwMjQ0NTMkbzMzJGcxJHQxNzYxMDI2NDI3JGo1JGwwJGgw): Install the SDK for interacting with the API
 
-## Step 4. Publish and share
+## Step 4. Publish and Share
 
 Once your agent is ready, share it with Warden.:
 
