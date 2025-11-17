@@ -40,10 +40,7 @@ Awesome agents and tools built by the community! Add yours by submitting a PR to
 
 ### Tools & Resources
 
-LangChain: Python framework used to structure prompts and model calls.
-
-LangGraph: Graph-based workflow system used in agent for state, nodes, and multi-step logic.
-
-Requests: Handles API calls inside the swap logic and travel search.
-
-python-dotenv: Loads environment variables from your .env file.
+- [LangChain](https://github.com/langchain-ai/langchain): Python framework you use to structure prompts and model calls.
+- [LangGraph](https://github.com/langchain-ai/langgraph): Graph based workflow system used in your agent for state, nodes, and multi step logic.
+- [Warden Agent Kit](https://github.com/warden-protocol/agent-kit): The official core toolkit for integrating on-chain capabilities like Keychain, Spaces, and Rules.
+- [python-dotenv](https://github.com/theskumar/python-dotenv): Loads environment variables from your .env file.
