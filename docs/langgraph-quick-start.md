@@ -219,7 +219,8 @@ To learn more about LangGraph, use the following resources:
 
 Once your agent is ready, share it with Warden:
 
-1. Delete the `.env` file to avoid exposing your secrets. **Important**: Never commit your API keys to production.
+1. Delete the `.env` file to avoid exposing your secrets.
+   **Important**: Never commit your API keys to production.
 2. Push your local changes to GitHub.
 3. Deploy your agent, as explained here: [Deploy Your Agent](deploy-an-agent.md).
 4. Add your agent to the list of [Warden Community Agents](../readme.md#community-agents-and-tools) through a PR.

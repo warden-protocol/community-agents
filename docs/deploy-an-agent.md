@@ -18,7 +18,8 @@ You can learn more in LangGraph official documentation:
 
 To deploy your agent, simply take these steps:
 
-1. Keep your API keys in a safe space and delete the `.env` file. Then push local changes to GitHub. **Important**: Never commit your API keys to production.
+1. Keep your API keys in a safe space and delete the `.env` file. Then push local changes to GitHub.
+   **Important**: Never commit your API keys to production.
 
 2. In [LangSmith](https://smith.langchain.com/studio), click **Deployments** in the left menu, then click **New Deployment**.
 
@@ -137,17 +138,16 @@ curl AGENT_API_URL/a2a/fe096781-5601-53d2-b2f6-0d3403f7e9ca \
 
 ## Option 2: Self-Hosting
 
-You can also **self-host the LangGraph runtime**. While this setup doesn't include LangSmith, the LangGraph Server API remains fully accessible.
-
-You can use **any hosting stack**.
+You can also **self-host the LangGraph runtime** using **any hosting stack**. While this setup doesn't include LangSmith, the LangGraph Server API remains fully accessible.
 
 For a simple example walkthrough, check out this video tutorial: [Deploy ANY Langgraph AI Agent in Minutes!](https://youtu.be/SGt786ne_Mk?si=ALlsNJwzSNSECUr-)
 
-If you choose the self-hosting option, here are the main steps to take:
+Here are the main steps to take:
 
 1. Create a [Dockerfile](https://docs.docker.com/build/concepts/dockerfile/).
 
-2. Keep your API keys in a safe space and delete the `.env` file. Then push local changes to GitHub. **Important**: Never commit your API keys to production.
+2. Keep your API keys in a safe space and delete the `.env` file. Then push local changes to GitHub.
+   **Important**: Never commit your API keys to production.
     
 3. Get environment variables for your Postgres database and key-value storage.
 
