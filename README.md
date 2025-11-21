@@ -33,9 +33,10 @@ Awesome agents and tools built by the community! Add yours by submitting a PR to
 
 **Format:** `[Project Name](link): Short agent description`
 
-**Agents**
 
-- [Recurring Executor Agent](https://github.com/savagelysubtle/Hackathon2): AI-powered DeFi portfolio automation with natural language control. Features autonomous rebalancing, price-based triggers, 24/7 monitoring, interactive web dashboard, agent chat, multi-user wallet connection, and real-time updates. Built with LangGraph + Warden Agent Kit + Next.js. [Live Demo](https://hackathon2-agent.vercel.app) ✅
+### Agents
+
+- [Travel DeFi Agent](https://github.com/Joshua15310/travel-defi-agent): LangGraph agent for travel planning and expense optimization using Gemini AI and DeFi strategies.
 
 **Tools & Resources**
 
