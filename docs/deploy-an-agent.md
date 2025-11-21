@@ -19,6 +19,7 @@ You can learn more in LangGraph official documentation:
 To deploy your agent, simply take these steps:
 
 1. Keep your API keys in a safe space and delete the `.env` file. Then push local changes to GitHub.
+
    **Important**: Never commit your API keys to production.
 
 2. In [LangSmith](https://smith.langchain.com/studio), click **Deployments** in the left menu, then click **New Deployment**.
@@ -147,6 +148,7 @@ Here are the main steps to take:
 1. Create a [Dockerfile](https://docs.docker.com/build/concepts/dockerfile/).
 
 2. Keep your API keys in a safe space and delete the `.env` file. Then push local changes to GitHub.
+
    **Important**: Never commit your API keys to production.
     
 3. Get environment variables for your Postgres database and key-value storage.
