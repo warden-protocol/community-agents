@@ -45,7 +45,7 @@ First, set up the example project:
 
    **Note**: This example is based on the [LangGraph project template](https://github.com/langchain-ai/new-langgraph-project).
 
-6. Navigate to the root directory of your project and install dependencies in the editable mode. When you run a LangGraph server locally, it’ll automatically pick up any code edits.
+6. Navigate to the root directory of your project and install dependencies in the editable mode. When you run a LangGraph server locally, it'll automatically pick up any code edits.
    
    ```bash
    cd ROOT_DIRECTORY

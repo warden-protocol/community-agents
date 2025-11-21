@@ -4,8 +4,9 @@ This documentation provides guides to help you get started with developing diffe
 
 To quickly start building with LangGraph, see the following guides:
 
-- [Get started with TypeScript LangGraph agents](langgraph-quick-start.md)
-- [Get started with Python LangGraph agents](langgraph-quick-start-py.md)
+- [Get Started with TypeScript LangGraph Agents](langgraph-quick-start.md)
+- [Get Started with Python LangGraph Agents](langgraph-quick-start-py.md)
+- [Deploy an Agent](langgraph-deploy-an-agent.md)
 
 **Note**: These guides focus on the essentials: how to deploy and test your agent locally. If you'd rather skip setup details and dive straight into building real-world agent logic, check out the [Weather Agent example](../agents/weather-agent).
 
