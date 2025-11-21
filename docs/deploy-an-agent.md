@@ -4,8 +4,8 @@
 
 This guide explains how to deploy a LangGraph agent. There are two options:
 
-- LangGraph Cloud
-- Self-hosting
+- [LangGraph Cloud](#option-1-langgraph-cloud)
+- [Self-hosting](#option-2-self-hosting)
 
 ## Option 1: LangGraph Cloud
 
@@ -150,6 +150,7 @@ If you choose the self-hosting option, here are the main steps to take:
 3. Get environment variables for your Postgres database and key-value storage.
 
 4. Set up a hosting:
+
    - Add environment variables
    - Set up a key-value storage
    - Connect to your GitHub project
