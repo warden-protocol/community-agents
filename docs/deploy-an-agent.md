@@ -34,9 +34,9 @@ To deploy your agent, simply take these steps:
 
 8. Now you can interact with your agent:
 
-  - Use you **agent's API URL** as the base URL for the calls.
-  - The assistant will have the same ID as locally: `fe096781-5601-53d2-b2f6-0d3403f7e9ca`.
-  - All production API calls require the `x-api-key` header for authorization. In this header, pass your **LangSmith API key**.
+   - Use you **agent's API URL** as the base URL for the calls.
+   - The assistant will have the same ID as locally: `fe096781-5601-53d2-b2f6-0d3403f7e9ca`.
+   - All production API calls require the `x-api-key` header for authorization. In this header, pass your **LangSmith API key**.
 
 ### Example Call 1
 
@@ -137,7 +137,9 @@ curl AGENT_API_URL/a2a/fe096781-5601-53d2-b2f6-0d3403f7e9ca \
 
 ## Option 2: Self-Hosting
 
-You can also **self-host the LangGraph runtime**.  While this setup doesn't include LangSmith, the LangGraph Server API remains fully accessible. You can use **any hosting stack**.
+You can also **self-host the LangGraph runtime**. While this setup doesn't include LangSmith, the LangGraph Server API remains fully accessible.
+
+You can use **any hosting stack**.
 
 For a simple example walkthrough, check out this video tutorial: [Deploy ANY Langgraph AI Agent in Minutes!](https://youtu.be/SGt786ne_Mk?si=ALlsNJwzSNSECUr-)
 
