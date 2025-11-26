@@ -45,7 +45,7 @@ First, set up the example project:
 
    **Note**: This example is based on the [LangGraph project template](https://github.com/langchain-ai/new-langgraph-project).
 
-6. Navigate to the root directory of your project and install dependencies in the editable mode. When you run a LangGraph server locally, it’ll automatically pick up any code edits.
+6. Navigate to the root directory of your project and install dependencies in the editable mode. When you run a LangGraph server locally, it'll automatically pick up any code edits.
    
    ```bash
    cd ROOT_DIRECTORY
@@ -329,8 +329,10 @@ To learn more about LangGraph, use the following resources:
 
 ## Step 4. Publish and Share
 
-Once your agent is ready, share it with Warden.:
+Once your agent is ready, share it with Warden:
 
-1. Delete the `.env` file to avoid exposing your secrets.
+1. Delete the `.env` file to avoid exposing your secrets.  
+   **Important**: Never commit your API keys to production.
 2. Push your local changes to GitHub.
-3. Add your agent to the list of [Warden Community Agents](../readme.md#community-agents-and-tools) through a PR.
+3. Deploy your agent, as explained here: [Deploy Your Agent](deploy-an-agent.md).
+4. Add your agent to the list of [Warden Community Agents](../readme.md#community-agents-and-tools) through a PR.
