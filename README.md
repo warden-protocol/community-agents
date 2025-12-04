@@ -1,6 +1,8 @@
 # Warden Community Agents
 
-A collection of **Warden Community Agents and Tools** built with TypeScript or Python.
+## Overview
+
+This is a collection of **Warden Community Agents and Tools** built with TypeScript or Python.
 
 💫 The [Agent Builder Incentive Programme](https://wardenprotocol.org/blog/agent-builder-incentive-programme) is live! 
 [Register now](https://docs.google.com/forms/d/e/1FAIpQLSdwTR0BL8-T3LLbJt6aIyjuEYjMAmJPMdwffwHcyW6gskDQsg/viewform) and get paid for building agents! Up to $10,000 in incentives for each agent in the Top 10 in the first month.
