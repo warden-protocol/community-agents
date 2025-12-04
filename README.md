@@ -3,7 +3,7 @@
 A collection of **Warden Community Agents and Tools** built with TypeScript or Python.
 
 💫 The [Agent Builder Incentive Programme](https://wardenprotocol.org/blog/agent-builder-incentive-programme) is live! 
-Register now and get paid for building agents! Up to $10,000 in incentives for each agent in the Top 10 in the first month.
+[Register now](https://docs.google.com/forms/d/e/1FAIpQLSdwTR0BL8-T3LLbJt6aIyjuEYjMAmJPMdwffwHcyW6gskDQsg/viewform) and get paid for building agents! Up to $10,000 in incentives for each agent in the Top 10 in the first month.
 
 ## 📚 Documentation
 
@@ -26,6 +26,21 @@ Each agent in the [`agents/`](agents) directory is completely self-sufficient an
 - **[weather-agent](agents/weather-agent)**: Beginner-friendly weather agent (less complex) **<- recommended for new agent developers**
 - **[coingecko-agent](agents/coingecko-agent)**: CoinGecko agent for cryptocurrency data analysis (more complex)
 - **[portfolio-agent](agents/portfolio-agent)**: Portfolio agent for cryptocurrency wallet performance analysis (more complex)
+
+## Requirements and Limitations
+
+When building your agent for the incentive programme, please keep in mind the following requirements and technical limitations:
+
+- Make sure that your agent is accessible through an API. **No UI is required**.
+- At the moment, you can use only [LangGraph](https://www.langchain.com/langgraph). However, support for more agent frameworks is coming soon.
+- Make sure that you only have **one agent per LangGraph instance** to keep your agents separated.
+- For security reasons, agents will not have access to users' wallets in the beginning, nor will they be able to store any data on Warden infrastructure.
+
+We'll soon launch our developer toolkit, **Warden Studio**. Once it's available, you'll be able to register your Agent directly through the Studio, providing just the following:
+
+- Your agent's API URL and API key
+- The name, description, and skills
+- The avatar
 
 ## 🌟 Community Agents and Tools
 
