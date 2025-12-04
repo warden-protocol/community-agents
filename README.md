@@ -34,7 +34,7 @@ When building your agent for the incentive programme, you can implement any Web3
 Please keep in mind the following requirements and technical limitations:
 
 - At the moment, you must use [LangGraph](https://www.langchain.com/langgraph). Support for more frameworks is coming soon.
-- You can [deploy your Agent on LangGraph Cloud or on your own infrastructure ([learn more](docs/deploy-an-agent.md)).
+- You can [deploy your Agent on LangGraph Cloud or on your own infrastructure ([learn moregit a](docs/deploy-an-agent.md)).
 - Make sure that your Agent is accessible through an API. **No UI is required**.
 - Make sure that you only have one Agent per LangGraph instance to keep your Agents separated.
 - For security reasons, Agents will not have access to users' wallets in the beginning, nor will they be able to store any data on Warden infrastructure.
