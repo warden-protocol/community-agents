@@ -45,7 +45,7 @@ We'll soon launch **Warden Studio**)—a platform where you can register and mon
 - The name, description, and skills
 - The avatar
 
-![Registering an Agent in Warden Studio](images/warden-studio-1.png)
+![Registering an Agent in Warden Studio](images/warden-studio.png)
 
 ## 🌟 Community Agents and Tools
 
