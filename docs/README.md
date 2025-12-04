@@ -8,7 +8,7 @@ To quickly start building with LangGraph, see the following guides:
 - [Get Started with Python LangGraph Agents](langgraph-quick-start-py.md)
 - [Deploy an Agent](langgraph-deploy-an-agent.md)
 
-**Note**: These guides focus on the essentials: how to deploy and test your agent locally. If you'd rather skip setup details and dive straight into building real-world agent logic, check out the [Weather Agent example](../agents/weather-agent).
+**Note**: These guides focus on the essentials: how to deploy and run an agent using LangGraph. If you'd rather skip setup details and dive straight into building real-world agent logic, check out the [Weather Agent example](../agents/weather-agent).
 
 More content coming soon!
 
