@@ -1,9 +1,9 @@
 # Warden Community Agents
 
-A collection of **Warden Community Agents and Tools** built with TypeScript or Python.
+This is a collection of **Warden Community Agents and Tools** built with TypeScript or Python.
 
 💫 The [Agent Builder Incentive Programme](https://wardenprotocol.org/blog/agent-builder-incentive-programme) is live! 
-Register now and get paid for building agents! Up to $10,000 in incentives for each agent in the Top 10 in the first month.
+[Register now](https://docs.google.com/forms/d/e/1FAIpQLSdwTR0BL8-T3LLbJt6aIyjuEYjMAmJPMdwffwHcyW6gskDQsg/viewform) and get paid for building agents! Up to $10,000 in incentives for each agent in the Top 10 in the first month.
 
 ## 📚 Documentation
 
@@ -26,6 +26,26 @@ Each agent in the [`agents/`](agents) directory is completely self-sufficient an
 - **[weather-agent](agents/weather-agent)**: Beginner-friendly weather agent (less complex) **<- recommended for new agent developers**
 - **[coingecko-agent](agents/coingecko-agent)**: CoinGecko agent for cryptocurrency data analysis (more complex)
 - **[portfolio-agent](agents/portfolio-agent)**: Portfolio agent for cryptocurrency wallet performance analysis (more complex)
+
+## Requirements
+
+When building your agent for the incentive programme, you can implement any Web3 or Web2 workflowand any custom functionality. Your Agent can connect to APIs, use databases, tools, and so on.
+
+Please keep in mind the following requirements and technical limitations:
+
+- At the moment, you must use [LangGraph](https://www.langchain.com/langgraph). Support for more frameworks is coming soon.
+- You can [deploy your Agent on LangGraph Cloud or on your own infrastructure ([learn moregit a](docs/deploy-an-agent.md)).
+- Make sure that your Agent is accessible through an API. **No UI is required**.
+- Make sure that you only have one Agent per LangGraph instance to keep your Agents separated.
+- For security reasons, Agents will not have access to users' wallets in the beginning, nor will they be able to store any data on Warden infrastructure.
+
+We'll soon launch **Warden Studio**—a platform where you can register and monetize your Agent. Once it's available, you'll be able to add your Agent directly there, providing just the following:
+
+- Your agent's API URL and API key
+- The name, description, and skills
+- The avatar
+
+![Registering an Agent in Warden Studio](images/warden-studio.png)
 
 ## 🌟 Community Agents and Tools
 
