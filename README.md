@@ -31,7 +31,7 @@ Each agent in the [`agents/`](agents) directory is completely self-sufficient an
 
 When building your agent for the incentive programme, you can implement any Web3 or Web2 workflowand any custom functionality. Your Agent can connect to APIs, use databases, tools, and so on.
 
-**To qualify for the programme**, please keep in mind the following requirements and technical limitations:
+**To qualify for rewards**, please keep in mind the following requirements and technical limitations:
 
 - At the moment, you must use [LangGraph](https://www.langchain.com/langgraph). Support for more frameworks is coming soon.
 - You can deploy your Agent on LangGraph Cloud or on your own infrastructure ([learn more](docs/deploy-an-agent.md)).
