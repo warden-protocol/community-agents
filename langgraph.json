@@ -1,0 +1,18 @@
+{
+  "runtime": "python",
+  "python_version": "3.11",
+  "project_root": "agents/onchain-risk-monitor-agent",
+  "dependencies": [
+    "fastapi",
+    "uvicorn",
+    "requests",
+    "langgraph",
+    "langchain-core"
+  ],
+  "graphs": {
+    "onchain_risk_monitor": {
+      "path": "src.agent.graph:build_graph"
+    }
+  },
+  "entrypoint": "agents.onchain-risk-monitor-agent.src.agent.server:app"
+}
