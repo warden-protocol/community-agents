@@ -1,0 +1,13 @@
+xxhash-3.6.0.dist-info/INSTALLER,sha256=zuuue4knoyJ-UwPPXg8fezS7VCrXJQrAP7zeNuwvFQg,4
+xxhash-3.6.0.dist-info/METADATA,sha256=mPxw1RoX3qQxbuYGaGeu-Oi04-y7D3HFycbAhyHToAg,13721
+xxhash-3.6.0.dist-info/RECORD,,
+xxhash-3.6.0.dist-info/WHEEL,sha256=JLOMsP7F5qtkAkINx5UnzbFguf8CqZeraV8o04b0I8I,101
+xxhash-3.6.0.dist-info/licenses/LICENSE,sha256=s8YgrcmogSzAw8f8CVZ_qamTDTVG3pVd-5VbFoz5iaw,1313
+xxhash-3.6.0.dist-info/top_level.txt,sha256=1PPSBP-gnjG59E5bigzMTzmT6BVWjHwnpzMiisPWZ5I,15
+xxhash/__init__.py,sha256=mPEdihxDMU0rjLWum3FrU9Ua2jQ-rzfewYgIg-J-Jlc,1147
+xxhash/__init__.pyi,sha256=wtUIx1kTqei5PRPbaSfCrax9v9E3GoGHa5UN5s_1Jyc,1899
+xxhash/__pycache__/__init__.cpython-311.pyc,,
+xxhash/__pycache__/version.cpython-311.pyc,,
+xxhash/_xxhash.cp311-win_amd64.pyd,sha256=kJRiP7Q0WmruFHSpglxTOBBY1-mA7ORXFEj69d5gsg0,59904
+xxhash/py.typed,sha256=47DEQpj8HBSa-_TImW-5JCeuQeRkm5NMpJWZG3hSuFU,0
+xxhash/version.py,sha256=mAU8_8ohXNGl5LtYt2yUduSKweEkEK0R3U_-zZXyHNI,101

@@ -1,0 +1,136 @@
+Metadata-Version: 2.4
+Name: langgraph-api
+Version: 0.6.8
+Author-email: Will Fu-Hinthorn <will@langchain.dev>, Josh Rogers <josh@langchain.dev>, Parker Rule <parker@langchain.dev>
+License: Elastic-2.0
+License-File: LICENSE
+Requires-Python: >=3.11
+Requires-Dist: cloudpickle>=3.0.0
+Requires-Dist: cryptography<47.0,>=42.0.0
+Requires-Dist: grpcio-tools==1.75.1
+Requires-Dist: grpcio<2.0.0,>=1.75.0
+Requires-Dist: httpx>=0.25.0
+Requires-Dist: jsonschema-rs<0.30,>=0.20.0
+Requires-Dist: langchain-core>=0.3.64
+Requires-Dist: langgraph-checkpoint<5,>=3.0.1
+Requires-Dist: langgraph-runtime-inmem<0.21.0,>=0.20.0
+Requires-Dist: langgraph-sdk>=0.3.0
+Requires-Dist: langgraph<2,>=0.4.10
+Requires-Dist: langsmith>=0.3.45
+Requires-Dist: opentelemetry-api>=1.37.0
+Requires-Dist: opentelemetry-exporter-otlp-proto-http>=1.37.0
+Requires-Dist: opentelemetry-sdk>=1.37.0
+Requires-Dist: orjson>=3.9.7
+Requires-Dist: protobuf<7.0.0,>=6.32.1
+Requires-Dist: pyjwt>=2.9.0
+Requires-Dist: sse-starlette<2.2.0,>=2.1.0
+Requires-Dist: starlette>=0.38.6
+Requires-Dist: structlog<26,>=24.1.0
+Requires-Dist: tenacity>=8.0.0
+Requires-Dist: truststore>=0.1
+Requires-Dist: uuid-utils>=0.12.0
+Requires-Dist: uvicorn>=0.26.0
+Requires-Dist: watchfiles>=0.13
+Description-Content-Type: text/markdown
+
+# LangGraph API
+
+This package implements the LangGraph API for rapid development and testing. Build and iterate on LangGraph agents with a tight feedback loop. The server is backed by a predominently in-memory data store that is persisted to local disk when the server is restarted.
+
+For production use, see the various [deployment options](https://langchain-ai.github.io/langgraph/concepts/deployment_options/) for the LangGraph API, which are backed by a production-grade database.
+
+## Installation
+
+Install the `langgraph-cli` package with the `inmem` extra. Your CLI version must be no lower than `0.1.55`.
+
+```bash
+pip install -U langgraph-cli[inmem]
+```
+
+## Quickstart
+
+1. (Optional) Clone a starter template:
+
+   ```bash
+   langgraph new --template new-langgraph-project-python ./my-project
+   cd my-project
+   ```
+
+   (Recommended) Use a virtual environment and install dependencies:
+
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate
+   python -m pip install .
+   ```
+
+2. Start the development server:
+
+   ```shell
+   langgraph dev --config ./langgraph.json
+   ```
+
+3. The server will launch, opening a browser window with the graph UI. Interact with your graph or make code edits; the server automatically reloads on changes.
+
+## Usage
+
+Start the development server:
+
+```bash
+langgraph dev
+```
+
+Your agent's state (threads, runs, assistants) persists in memory while the server is running - perfect for development and testing. Each run's state is tracked and can be inspected, making it easy to debug and improve your agent's behavior.
+
+## How-To
+
+#### Attaching a debugger
+Debug mode lets you attach your IDE's debugger to the LangGraph API server to set breakpoints and step through your code line-by-line.
+
+1. Install debugpy:
+
+   ```bash
+   pip install debugpy
+   ```
+
+2. Start the server in debug mode:
+
+   ```bash
+   langgraph dev --debug-port 5678
+   ```
+
+3. Configure your IDE:
+
+   - **VS Code**: Add this launch configuration:
+     ```json
+     {
+       "name": "Attach to LangGraph",
+       "type": "debugpy",
+       "request": "attach",
+       "connect": {
+                "host": "0.0.0.0",
+                "port": 5678
+            },
+     }
+     ```
+   - **PyCharm**: Use "Attach to Process" and select the langgraph process
+
+4. Set breakpoints in your graph code and start debugging.
+
+## CLI options
+
+```bash
+langgraph dev [OPTIONS]
+Options:
+  --debug-port INTEGER         Enable remote debugging on specified port
+  --no-browser                 Skip opening browser on startup
+  --n-jobs-per-worker INTEGER  Maximum concurrent jobs per worker process
+  --config PATH               Custom configuration file path
+  --no-reload                 Disable code hot reloading
+  --port INTEGER              HTTP server port (default: 8000)
+  --host TEXT                 HTTP server host (default: localhost)
+```
+
+## License
+
+This project is licensed under the Elastic License 2.0 - see the [LICENSE](./LICENSE) file for details.

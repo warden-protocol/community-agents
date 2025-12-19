@@ -1,0 +1,2 @@
+[console_scripts]
+langgraph-verify-graphs = langgraph_api.graph:verify_graphs

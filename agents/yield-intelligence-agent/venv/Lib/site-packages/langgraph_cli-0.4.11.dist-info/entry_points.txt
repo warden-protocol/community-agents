@@ -1,0 +1,2 @@
+[console_scripts]
+langgraph = langgraph_cli.cli:cli
