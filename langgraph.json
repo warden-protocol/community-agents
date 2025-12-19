@@ -2,5 +2,12 @@
   "entrypoint": "agents.onchain-risk-monitor-agent.src.agent.server:app",
   "runtime": "python",
   "python_version": "3.11",
-  "project_root": "agents/onchain-risk-monitor-agent"
+  "project_root": "agents/onchain-risk-monitor-agent",
+  "dependencies": [
+    "fastapi",
+    "uvicorn",
+    "requests",
+    "langgraph",
+    "langchain-core"
+  ]
 }
