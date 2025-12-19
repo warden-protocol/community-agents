@@ -2,7 +2,7 @@
 from pydantic import BaseModel, Field
 from dotenv import load_dotenv
 
-from src.agent.graph import build_graph
+from agent.graph import build_graph
 
 # load environment variables from .env
 load_dotenv()
