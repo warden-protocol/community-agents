@@ -26,7 +26,7 @@ Each agent in the [`agents/`](agents) directory is completely self-sufficient an
 - **[weather-agent](agents/weather-agent)**: Beginner-friendly weather agent (less complex) **<- recommended for new agent developers**
 - **[coingecko-agent](agents/coingecko-agent)**: CoinGecko agent for cryptocurrency data analysis (more complex)
 - **[portfolio-agent](agents/portfolio-agent)**: Portfolio agent for cryptocurrency wallet performance analysis (more complex)
-- **Onchain Risk & Anomaly Monitor Agent**: Detects transaction spikes, large outflows, and on-chain anomalies and returns structured risk reports via API.
+- **[onchain-risk-monitor-agent](agents/onchain-risk-monitor-agent)**: Detects transaction spikes, large outflows, and on-chain anomalies and returns structured risk reports via API.
 
 
 ## Requirements
