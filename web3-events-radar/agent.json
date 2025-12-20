@@ -1,0 +1,7 @@
+{
+  "name": "Web3 Events Radar",
+  "description": "Daily briefing agent aggregating protocol events, governance votes, token sales, and funding activity.",
+  "author": "Gtee",
+  "tags": ["web3", "governance", "funding", "events"],
+  "entrypoint": "agent.js"
+}
