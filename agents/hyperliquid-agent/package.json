@@ -1,0 +1,48 @@
+{
+  "name": "coingecko-agent",
+  "version": "1.0.0",
+  "description": "CoinGecko agent for cryptocurrency data analysis.",
+  "private": true,
+  "type": "module",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "clean": "rimraf build",
+    "prebuild": "yarn lint",
+    "build": "tsc -p tsconfig.json",
+    "lint": "eslint src",
+    "test": "vitest run unit --config tests/vitest.config.ts",
+    "prettier": "prettier \"src/**/*.{ts,mts}\" --write",
+    "prettier:check": "prettier \"src/**/*.{ts,mts}\" --check"
+  },
+  "dependencies": {
+    "tslib": "~2.8",
+    "@langchain/core": "^0.3.78",
+    "@langchain/langgraph": "^0.4.9",
+    "@langchain/openai": "^0.6.16",
+    "@langchain/anthropic": "^0.3.31",
+    "@langchain/mcp-adapters": "^0.6.0",
+    "@coingecko/coingecko-mcp": "^2.2.0",
+    "dotenv": "^16.4.7",
+    "langchain": "^0.3.36",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "tsx": "^4.20.6",
+    "@eslint/js": "~9.17",
+    "@types/node": "~20",
+    "@typescript-eslint/parser": "~8.19",
+    "@vitest/coverage-v8": "~2.1",
+    "@vitest/eslint-plugin": "~1.1",
+    "eslint-config-prettier": "~9.1",
+    "eslint": "~9.17",
+    "globals": "~15.14",
+    "prettier": "~3.4",
+    "rimraf": "~6.0",
+    "ts-api-utils": "~2.0",
+    "typescript-eslint": "~8.19",
+    "typescript": "~5.7",
+    "vitest": "~2.1"
+  }
+}
