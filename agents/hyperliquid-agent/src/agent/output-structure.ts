@@ -10,11 +10,11 @@ export const ResponseSchema = z.object({
         apr: z.number().describe('Annualized funding rate as APR percentage'),
       }),
     )
-    .optional()
+    .nullable()
     .describe('Funding rate data if applicable'),
   analysis: z
     .string()
-    .optional()
+    .nullable()
     .describe('Additional analysis or insights about the funding rates'),
   confidence: z
     .enum(['high', 'medium', 'low'])
