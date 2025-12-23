@@ -1,88 +1,109 @@
-import { SystemPrompt } from './system-prompt';
-import { ResponseSchema } from './output-structure';
-import { MultiServerMCPClient } from '@langchain/mcp-adapters';
 import { ChatOpenAI } from '@langchain/openai';
 import { createReactAgent } from '@langchain/langgraph/prebuilt';
 import zod from 'zod';
 import { AgentResponse, Logger } from '../common';
+import { SystemPrompt } from './system-prompt';
+import { ResponseSchema } from './output-structure';
+import { getHyperliquidTools } from './tools';
 
-export async function runCoinGeckoAgent(
-  questions: string[],
-  options: {
-    modelName?: string;
-    temperature?: number;
-    systemPrompt?: string;
-    responseSchema?: zod.Schema;
-    delayBetweenQuestionsMs?: number;
-  } = {},
-): Promise<AgentResponse[]> {
-  const {
-    modelName = 'gpt-4o-mini',
-    temperature = 0,
-    systemPrompt = SystemPrompt,
-    responseSchema = ResponseSchema,
-    delayBetweenQuestionsMs = 500,
-  } = options;
+export interface AgentOptions {
+  modelName?: string;
+  temperature?: number;
+  systemPrompt?: string;
+  responseSchema?: zod.Schema;
+  delayBetweenQuestionsMs?: number;
+}
 
-  const logger = new Logger('CoinGeckoAgent');
-  logger.info('Starting...');
-  const mcpClient = new MultiServerMCPClient({
-    mcpServers: {
-      'coingecko-mcp': {
-        command: 'npx',
-        args: ['-y', '@coingecko/coingecko-mcp'],
-        env: process.env,
-      },
-    },
-  });
+const DEFAULT_OPTIONS: Required<AgentOptions> = {
+  modelName: 'gpt-4o-mini',
+  temperature: 0,
+  systemPrompt: SystemPrompt,
+  responseSchema: ResponseSchema,
+  delayBetweenQuestionsMs: 500,
+};
+
+/**
+ * Create the Hyperliquid agent with configured LLM and tools
+ */
+function createAgent(options: Required<AgentOptions>) {
   const model = new ChatOpenAI({
-    modelName,
-    temperature,
+    modelName: options.modelName,
+    temperature: options.temperature,
   });
 
-  const agent = createReactAgent({
+  return createReactAgent({
     llm: model,
-    tools: await mcpClient.getTools(),
-    responseFormat: responseSchema as any,
+    tools: getHyperliquidTools(),
+    responseFormat: options.responseSchema as any,
   });
+}
+
+/**
+ * Process a single question through the agent
+ */
+async function processQuestion(
+  agent: ReturnType<typeof createReactAgent>,
+  question: string,
+  systemPrompt: string,
+): Promise<AgentResponse> {
+  const response = await agent.invoke({
+    messages: [
+      { role: 'system', content: systemPrompt },
+      { role: 'user', content: question },
+    ],
+  });
+
+  return { question, response };
+}
+
+/**
+ * Run the Hyperliquid funding rate agent with a list of questions
+ */
+export async function runHyperliquidAgent(
+  questions: string[],
+  options: AgentOptions = {},
+): Promise<AgentResponse[]> {
+  const config = { ...DEFAULT_OPTIONS, ...options };
+  const logger = new Logger('HyperliquidAgent');
+
+  logger.info('Starting...');
+
+  const agent = createAgent(config);
 
   logger.info('Running question processing');
 
-  const results = [];
+  const results: AgentResponse[] = [];
+
   for (let i = 0; i < questions.length; i++) {
     const question = questions[i];
-    logger.info(
-      `[${i + 1}/${questions.length}] New question to answer: '${question}'`,
-    );
+    const questionNum = `[${i + 1}/${questions.length}]`;
+
+    logger.info(`${questionNum} New question to answer: '${question}'`);
+
     try {
-      const response = await agent.invoke({
-        messages: [
-          {
-            role: 'system',
-            content: systemPrompt,
-          },
-          { role: 'user', content: question },
-        ],
-      });
-      results.push({ question, response });
-      logger.info(
-        `[${i + 1}/${questions.length}] Question answered successfully`,
-      );
-      if (i < questions.length - 1 && delayBetweenQuestionsMs > 0) {
-        logger.info(
-          `[${i + 1}/${questions.length}] Delaying for ${delayBetweenQuestionsMs}ms`,
-        );
-        await new Promise((resolve) =>
-          setTimeout(resolve, delayBetweenQuestionsMs),
-        );
-      }
+      const result = await processQuestion(agent, question, config.systemPrompt);
+      results.push(result);
+      logger.info(`${questionNum} Question answered successfully`);
     } catch (error) {
-      logger.error('Agent response error:', error.message);
-      results.push({ question, response: `ERROR: ${error.message}` });
+      const errorMessage = (error as Error).message;
+      logger.error('Agent response error:', errorMessage);
+      results.push({
+        question,
+        response: `ERROR: ${errorMessage}`,
+      } as any);
+    }
+
+    // Add delay between questions (except for the last one)
+    if (i < questions.length - 1 && config.delayBetweenQuestionsMs > 0) {
+      logger.info(`${questionNum} Delaying for ${config.delayBetweenQuestionsMs}ms`);
+      await new Promise((resolve) => setTimeout(resolve, config.delayBetweenQuestionsMs));
     }
   }
 
-  await mcpClient.close();
   logger.info('Finished Agent');
   return results;
 }
+
+export * from './types';
+export * from './api';
+export { getHyperliquidTools } from './tools';
