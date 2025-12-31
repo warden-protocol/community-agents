@@ -2,7 +2,7 @@
 
 This is a collection of **Warden Community Agents and Tools** built with TypeScript or Python.
 
-💫 The [Agent Builder Incentive Programme](https://wardenprotocol.org/blog/agent-builder-incentive-programme) is live! 
+💫 The [Agent Builder Incentive Programme](https://wardenprotocol.org/blog/agent-builder-incentive-programme) is live!
 [Register now](https://docs.google.com/forms/d/e/1FAIpQLSdwTR0BL8-T3LLbJt6aIyjuEYjMAmJPMdwffwHcyW6gskDQsg/viewform) and get paid for building agents! Up to $10,000 in incentives for each agent in the Top 10 in the first month.
 
 ## 📚 Documentation
@@ -14,10 +14,11 @@ If you get stuck or you need to get in touch, join the [`#developers`](https://d
 ## 🤖 Example Agents
 
 Each agent in the [`agents/`](agents) directory is completely self-sufficient and comes with its own:
+
 - Dependencies and devDependencies
 - Configuration files
 - Build scripts
-- Tests  (excluding starter templates)
+- Tests (excluding starter templates)
 
 ## Available Agents
 
@@ -26,6 +27,7 @@ Each agent in the [`agents/`](agents) directory is completely self-sufficient an
 - **[weather-agent](agents/weather-agent)**: Beginner-friendly weather agent (less complex) **<- recommended for new agent developers**
 - **[coingecko-agent](agents/coingecko-agent)**: CoinGecko agent for cryptocurrency data analysis (more complex)
 - **[portfolio-agent](agents/portfolio-agent)**: Portfolio agent for cryptocurrency wallet performance analysis (more complex)
+- **[Yield-Optimization-Agent](agents/Yield-Optimization-Agent)**: AI-powered agent for finding the best and safest staking opportunities across multiple DeFi protocols and chains (more complex)
 
 ## Requirements
 
@@ -52,7 +54,6 @@ We'll soon launch **Warden Studio**—a platform where you can register and mone
 Awesome agents and tools built by the community! Add yours by submitting a PR to this README file.
 
 **Format:** `[Project Name](link): Short agent description`
-
 
 ### Agents
 
