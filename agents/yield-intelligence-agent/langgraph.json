@@ -1,0 +1,14 @@
+{
+  "$schema": "https://langchain-ai.github.io/langgraph/schema.json",
+  "graphs": {
+    "yield_agent": {
+      "path": "./src/yield_agent/graph.py:create_yield_agent",
+      "description": "Cross-Chain Yield Intelligence Agent for discovering and ranking DeFi yield opportunities across multiple chains"
+    }
+  },
+  "env": ".env",
+  "python_version": "3.11",
+  "dependencies": [
+    "."
+  ]
+}
