@@ -1,0 +1,195 @@
+/**
+ * Output schema for agent responses
+ * Defines the structure of agent responses using Zod
+ */
+
+import { z } from "zod";
+
+export const ResponseSchema = z.object({
+  answer: z
+    .string()
+    .describe(
+      "The main response to the user. MUST include safety warnings when transaction is present."
+    ),
+  step: z
+    .enum([
+      "token_lookup",
+      "token_confirmation",
+      "protocol_discovery",
+      "protocol_selection",
+      "amount_input",
+      "transaction_ready",
+      "quick_mode_complete",
+      "error",
+    ])
+    .describe("Current step in the workflow"),
+
+  mode: z
+    .enum(["interactive", "quick"])
+    .default("interactive")
+    .describe("Agent mode"),
+
+  tokenInfo: z
+    .object({
+      name: z.string(),
+      symbol: z.string(),
+      address: z.string(),
+      chain: z.string(),
+      chainId: z.number(),
+      marketCap: z.number().nullable().optional(),
+      price: z.number().nullable().optional(),
+      verified: z.boolean().nullable().optional(),
+      warnings: z.array(z.string()).nullable().optional(),
+    })
+    .nullable()
+    .optional(),
+
+  protocols: z
+    .array(
+      z.object({
+        address: z.string(),
+        name: z.string(),
+        protocol: z.string(),
+        chainId: z.number(),
+        chainName: z.string(),
+        apy: z.number(),
+        tvl: z.number(),
+        safetyScore: z.object({
+          overall: z.enum(["very_safe", "safe", "moderate", "risky"]),
+          score: z.number(),
+          warnings: z.array(z.string()).nullable().optional(),
+        }),
+      })
+    )
+    .nullable()
+    .optional(),
+
+  approvalTransaction: z
+    .object({
+      to: z.string().describe("Token contract address (for approval)"),
+      data: z.string().describe("Encoded approve() transaction data"),
+      value: z.string().describe("ETH value (always 0 for ERC20 approvals)"),
+      gasLimit: z
+        .string()
+        .nullable()
+        .optional()
+        .describe("Estimated gas limit"),
+      gasPrice: z.string().nullable().optional().describe("Gas price"),
+      chainId: z.number().describe("Chain ID"),
+      tokenAddress: z.string().describe("Token address being approved"),
+      spender: z.string().describe("Protocol/vault address to approve"),
+      amount: z.string().describe("Amount to approve (in wei)"),
+      type: z.literal("approve").describe("Transaction type"),
+      safetyWarning: z
+        .string()
+        .describe("Mandatory safety warning about verifying transaction"),
+    })
+    .nullable()
+    .optional()
+    .describe("Approval transaction if token approval is needed"),
+
+  transaction: z
+    .object({
+      to: z.string().describe("Contract address to interact with"),
+      data: z.string().describe("Encoded transaction data"),
+      value: z.string().describe("ETH value (if native token)"),
+      gasLimit: z
+        .string()
+        .nullable()
+        .optional()
+        .describe("Estimated gas limit"),
+      gasPrice: z.string().nullable().optional().describe("Gas price"),
+      chainId: z.number().describe("Chain ID"),
+      protocol: z.string().describe("Protocol name"),
+      action: z.enum(["deposit", "stake"]).describe("Action type"),
+      tokenIn: z.object({
+        address: z.string(),
+        symbol: z.string(),
+        amount: z.string().describe("Human-readable amount"),
+        amountWei: z.string().describe("Amount in wei"),
+      }),
+      tokenOut: z.object({
+        address: z.string(),
+        symbol: z.string(),
+      }),
+      estimatedGas: z
+        .string()
+        .nullable()
+        .optional()
+        .describe("Estimated gas cost in USD"),
+      slippage: z.number().nullable().optional().describe("Slippage tolerance"),
+      type: z.literal("deposit").describe("Transaction type"),
+      safetyWarning: z
+        .string()
+        .describe("Mandatory safety warning about verifying transaction"),
+    })
+    .nullable()
+    .optional()
+    .describe("Deposit/stake transaction"),
+
+  executionOrder: z
+    .array(z.enum(["approve", "deposit"]))
+    .nullable()
+    .optional()
+    .describe("Order in which transactions should be executed"),
+
+  totalGasEstimate: z
+    .string()
+    .nullable()
+    .optional()
+    .describe("Total estimated gas for all transactions"),
+
+  validationErrors: z
+    .array(z.string())
+    .nullable()
+    .optional()
+    .describe("Input validation errors"),
+
+  warnings: z
+    .array(z.string())
+    .nullable()
+    .optional()
+    .describe("General warnings"),
+
+  confidence: z.enum(["high", "medium", "low"]).describe("Confidence level"),
+});
+
+export type AgentResponseSchema = z.infer<typeof ResponseSchema>;
+
+/**
+ * Helper function to ensure safety warning is always included
+ */
+export function ensureSafetyWarning(
+  response: AgentResponseSchema
+): AgentResponseSchema {
+  const safetyWarning =
+    "⚠️ CRITICAL: This transaction object was generated by an AI agent. Please verify all details (token address, protocol address, amount, chain) before executing. Double-check on block explorer and protocol website. This is not financial advice.";
+
+  // Ensure approval transaction has warning
+  if (
+    response.approvalTransaction &&
+    !response.approvalTransaction.safetyWarning
+  ) {
+    response.approvalTransaction.safetyWarning = safetyWarning;
+  }
+
+  // Ensure deposit transaction has warning
+  if (response.transaction && !response.transaction.safetyWarning) {
+    response.transaction.safetyWarning = safetyWarning;
+  }
+
+  // Also ensure answer includes warning
+  if (
+    (response.approvalTransaction || response.transaction) &&
+    !response.answer.includes("CRITICAL")
+  ) {
+    const executionNote = response.approvalTransaction
+      ? "\n\n⚠️ IMPORTANT: You must execute the approval transaction FIRST, then wait for confirmation before executing the deposit transaction."
+      : "";
+    response.answer +=
+      "\n\n⚠️ CRITICAL: This transaction object was generated by an AI agent. Please verify all details before executing. This is not financial advice." +
+      executionNote;
+  }
+
+  return response;
+}
