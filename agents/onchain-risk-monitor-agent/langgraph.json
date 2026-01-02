@@ -1,0 +1,5 @@
+{
+  "entrypoint": "src.agent.server:app",
+  "runtime": "python",
+  "python_version": "3.11"
+}
