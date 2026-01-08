@@ -26,6 +26,8 @@ Each agent in the [`agents/`](agents) directory is completely self-sufficient an
 - **[weather-agent](agents/weather-agent)**: Beginner-friendly weather agent (less complex) **<- recommended for new agent developers**
 - **[coingecko-agent](agents/coingecko-agent)**: CoinGecko agent for cryptocurrency data analysis (more complex)
 - **[portfolio-agent](agents/portfolio-agent)**: Portfolio agent for cryptocurrency wallet performance analysis (more complex)
+- **[portfolio-manager-agent](agents/portfolio-manager-agent)**: Smart, adaptive crypto portfolio agent that analyzes market data and user preferences to build dynamic investment portfolios.
+
 
 ## Requirements
 
