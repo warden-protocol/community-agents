@@ -1,0 +1,292 @@
+{
+  "info": {
+    "name": "Yield Agent API",
+    "description": "Collection of API requests for the Yield Optimization Agent",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health & Info",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/health",
+              "host": ["{{base_url}}"],
+              "path": ["health"]
+            }
+          }
+        },
+        {
+          "name": "Get Supported Chains",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/chains",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "chains"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Agent",
+      "item": [
+        {
+          "name": "Agent Query - Find USDC Staking",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"Find staking opportunities for USDC on Ethereum\",\n  \"options\": {\n    \"modelName\": \"gpt-4o-mini\",\n    \"temperature\": 0\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/agent/query",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "agent", "query"]
+            }
+          }
+        },
+        {
+          "name": "Agent Query - ETH on Arbitrum",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"What protocols can I stake ETH on Arbitrum?\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/agent/query",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "agent", "query"]
+            }
+          }
+        },
+        {
+          "name": "Batch Query",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"queries\": [\n    \"Find staking for USDC\",\n    \"What protocols support ETH on Arbitrum?\"\n  ],\n  \"options\": {\n    \"delayBetweenQuestionsMs\": 2000\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/agent/batch",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "agent", "batch"]
+            }
+          }
+        },
+        {
+          "name": "Quick Transaction - Aave USDC",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tokenAddress\": \"0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48\",\n  \"chainId\": 1,\n  \"protocolName\": \"aave\",\n  \"amount\": \"100\",\n  \"userAddress\": \"0x2a360629a7332e468b2d30dD0f76e5c41D6cEaA9\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/agent/quick",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "agent", "quick"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tokens",
+      "item": [
+        {
+          "name": "Search Token - USDC",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/tokens/search?query=USDC",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "tokens", "search"],
+              "query": [
+                {
+                  "key": "query",
+                  "value": "USDC"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Search Token - ETH",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/tokens/search?query=ETH",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "tokens", "search"],
+              "query": [
+                {
+                  "key": "query",
+                  "value": "ETH"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Token Info - USDC",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/tokens/info?token=USDC&chainId=1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "tokens", "info"],
+              "query": [
+                {
+                  "key": "token",
+                  "value": "USDC"
+                },
+                {
+                  "key": "chainId",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Token Info - By Address",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/tokens/info?token=0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48&chainId=1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "tokens", "info"],
+              "query": [
+                {
+                  "key": "token",
+                  "value": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+                },
+                {
+                  "key": "chainId",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Protocols",
+      "item": [
+        {
+          "name": "Discover Protocols - Single Chain",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tokenAddress\": \"0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48\",\n  \"chainId\": 1,\n  \"multiChain\": false\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/protocols/discover",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "protocols", "discover"]
+            }
+          }
+        },
+        {
+          "name": "Discover Protocols - Multi Chain",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tokenAddress\": \"0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48\",\n  \"multiChain\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/protocols/discover",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "protocols", "discover"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Transactions",
+      "item": [
+        {
+          "name": "Generate Transaction Bundle",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userAddress\": \"0x2a360629a7332e468b2d30dD0f76e5c41D6cEaA9\",\n  \"tokenAddress\": \"0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48\",\n  \"protocolAddress\": \"0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9\",\n  \"protocolName\": \"aave-v3\",\n  \"chainId\": 1,\n  \"amount\": \"100000000\",\n  \"tokenSymbol\": \"USDC\",\n  \"decimals\": 6\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/transactions/generate",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "transactions", "generate"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ]
+}
