@@ -1,0 +1,15 @@
+{
+  "$schema": "https://langchain-ai.github.io/langgraph/schemas/langgraph.json",
+  "graphs": {
+    "zenguard": {
+      "file": "./src/graph/workflow.ts",
+      "graph": "zenGuardWorkflow"
+    }
+  },
+  "env": ".env",
+  "dependencies": ["package.json"],
+  "runtime": {
+    "python_version": "3.11",
+    "node_version": "20"
+  }
+}

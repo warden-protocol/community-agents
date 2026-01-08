@@ -1,0 +1,44 @@
+{
+  "name": "zenguard-agent",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "start:prod": "node dist/server.js",
+    "start:api": "ts-node src/server.ts",
+    "start:cli": "ts-node src/index.ts",
+    "dev": "ts-node src/index.ts",
+    "dev:api": "ts-node src/server.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["warden", "langgraph", "crypto", "ai-agent", "sentiment-analysis"],
+  "author": "@xxxaak__",
+  "license": "MIT",
+  "description": "AI-powered emotional guardian that protects crypto traders from panic-driven decisions",
+  "dependencies": {
+    "@langchain/anthropic": "^1.3.3",
+    "@langchain/core": "^1.1.8",
+    "@langchain/google-genai": "^2.1.3",
+    "@langchain/langgraph": "^1.0.7",
+    "@langchain/openai": "^1.2.0",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.0.3",
+    "@types/uuid": "^10.0.0",
+    "@wardenprotocol/warden-agent-kit-core": "^0.0.32",
+    "body-parser": "^2.2.1",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.2.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3",
+    "uuid": "^13.0.0",
+    "viem": "^2.43.5",
+    "zod": "^4.3.5"
+  },
+  "devDependencies": {
+    "prettier": "^3.7.4"
+  }
+}

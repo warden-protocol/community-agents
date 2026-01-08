@@ -58,6 +58,7 @@ Awesome agents and tools built by the community! Add yours by submitting a PR to
 ### Agents
 
 - [Travel DeFi Agent](https://github.com/Joshua15310/travel-defi-agent): LangGraph agent for travel planning and expense optimization using Gemini AI and DeFi strategies.
+- [ZenGuard Agent](agents/zenguard-agent): AI emotional guardian that protects crypto traders from panic-driven decisions using sentiment analysis and Warden Protocol integration.
 
 - [Cross-Chain Yield Intelligence Agent](https://github.com/rudazy/warden-yield-agent): AI agent that finds and ranks the best DeFi yield opportunities across 7 blockchain networks
 
