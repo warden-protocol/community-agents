@@ -1,191 +1,325 @@
-import express from "express";
-import cors from "cors";
-import bodyParser from "body-parser";
-import rateLimit from "express-rate-limit";
-import { HumanMessage, BaseMessage } from "@langchain/core/messages";
-import { zenGuardWorkflow } from "./graph/workflow";
-import { randomUUID } from "crypto";
-import dotenv from "dotenv";
+import express from 'express';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import { createZenGuardWorkflow } from './graph/workflow';
+import { HumanMessage } from '@langchain/core/messages';
+import dotenv from 'dotenv';
+import { v4 as uuidv4 } from 'uuid';
 
 dotenv.config();
-
 const app = express();
-app.use(cors());
+const port = process.env.PORT || 3000;
+
+app.use(cors({ origin: '*' }));
+// Note: cors() middleware already handles OPTIONS preflight requests
 app.use(bodyParser.json());
 
-const PORT = process.env.PORT || 3000;
+// --- Middleware: API Key Authentication (Soft Mode for Debugging) ---
+// Warden Studio sends 'x-api-key' header.
+// In debug mode: warn on mismatch but allow request to proceed
+app.use((req, res, next) => {
+  const envKey = process.env.API_KEY;
+  const reqKey = req.header('x-api-key');
 
-// Rate Limiting Configuration
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // 100 requests per 15 min per IP
-  standardHeaders: true,
-  legacyHeaders: false,
+  if (envKey && reqKey && reqKey !== envKey) {
+    console.warn(`⚠️ API Key mismatch - allowing request for debugging (got: ${reqKey?.substring(0,4)}...)`);
+  } else if (reqKey) {
+    console.log(`🔑 Request received with Key: ${reqKey.substring(0,4)}...`);
+  } else {
+    console.log(`📨 Request received without API Key (path: ${req.path})`);
+  }
+  // Always allow request to proceed (soft auth for debugging)
+  next();
 });
 
-// Apply rate limiting globally
-app.use(limiter);
-
-// Session Configuration
-const SESSION_TTL = 30 * 60 * 1000; // 30 minutes
-const MAX_SESSIONS = 1000;
-const CLEANUP_INTERVAL = 5 * 60 * 1000; // 5 minutes
-
-// Session-based Memory Store
-const sessions = new Map<string, BaseMessage[]>();
-const sessionLastActive = new Map<string, number>();
-
-// Session Cleanup Function
-const cleanupExpiredSessions = () => {
-  const now = Date.now();
-  let cleanedCount = 0;
-
-  for (const [sessionId, lastActive] of sessionLastActive.entries()) {
-    if (now - lastActive > SESSION_TTL) {
-      sessions.delete(sessionId);
-      sessionLastActive.delete(sessionId);
-      cleanedCount++;
-    }
-  }
-
-  if (cleanedCount > 0) {
-    console.log(`🧹 Cleaned ${cleanedCount} expired sessions. Active: ${sessions.size}`);
-  }
-};
-
-// Start cleanup interval
-setInterval(cleanupExpiredSessions, CLEANUP_INTERVAL);
-
-// Helper: Remove oldest session if at capacity
-const enforceSessionLimit = () => {
-  if (sessions.size >= MAX_SESSIONS) {
-    let oldestId: string | null = null;
-    let oldestTime = Infinity;
-
-    for (const [sessionId, lastActive] of sessionLastActive.entries()) {
-      if (lastActive < oldestTime) {
-        oldestTime = lastActive;
-        oldestId = sessionId;
-      }
-    }
-
-    if (oldestId) {
-      sessions.delete(oldestId);
-      sessionLastActive.delete(oldestId);
-      console.log(`⚠️ Max sessions reached. Removed oldest: ${oldestId.slice(0, 8)}...`);
-    }
-  }
-};
-
-// Health Check Endpoint (Required by Warden Agent Hub)
-app.get("/health", (req, res) => {
+// --- 1. GET /assistants (The Validation Handshake) ---
+// CRITICAL: Must return { "assistants": [...] } structure
+app.get('/assistants', (req, res) => {
   res.json({
-    status: "healthy",
-    agent: "ZenGuard",
-    version: "1.0.0",
-    activeSessions: sessions.size,
-    maxSessions: MAX_SESSIONS,
-    sessionTTL: `${SESSION_TTL / 60000} minutes`,
+    assistants: [{
+      assistant_id: "zenguard",
+      graph_id: "zenguard",
+      config: {},
+      metadata: {
+        name: "ZenGuard",
+        description: "AI Psychological Firewall for Warden Protocol",
+        created_at: new Date().toISOString()
+      }
+    }]
   });
 });
 
-// Main Chat Endpoint (Stateful)
-app.post("/api/chat", async (req, res) => {
+// 2. GET /assistants/:id
+app.get('/assistants/:id', (req, res) => {
+  res.json({
+    assistant_id: req.params.id,
+    graph_id: "zenguard",
+    config: {},
+    metadata: {
+      name: "ZenGuard",
+      created_at: new Date().toISOString()
+    }
+  });
+});
+
+// --- Thread Management Endpoints ---
+
+// 3. POST /threads - Create a new thread
+app.post('/threads', (req, res) => {
+  const threadId = uuidv4();
+  console.log(`📝 Creating new thread: ${threadId}`);
+  res.json({
+    thread_id: threadId,
+    created_at: new Date().toISOString(),
+    metadata: {}
+  });
+});
+
+// 4. GET /threads/:thread_id - Get thread info
+app.get('/threads/:thread_id', (req, res) => {
+  console.log(`📖 Getting thread: ${req.params.thread_id}`);
+  res.json({
+    thread_id: req.params.thread_id,
+    created_at: new Date().toISOString(),
+    metadata: {},
+    values: {}
+  });
+});
+
+// 5. POST /threads/search - Search threads
+app.post('/threads/search', (req, res) => {
+  console.log(`🔍 Searching threads`);
+  res.json({
+    threads: []
+  });
+});
+
+// 6. GET /threads/:thread_id/state - Get thread state
+app.get('/threads/:thread_id/state', (req, res) => {
+  console.log(`📊 Getting thread state: ${req.params.thread_id}`);
+  res.json({
+    values: {},
+    next: [],
+    config: {},
+    metadata: {}
+  });
+});
+
+// 6b. POST /threads/:thread_id/history - Get thread history
+app.post('/threads/:thread_id/history', (req, res) => {
+  console.log(`📜 History request for thread: ${req.params.thread_id}`);
+
+  // Return empty array (LangGraph SDK expects array format)
+  res.json([]);
+});
+
+// 6c. GET /threads/:thread_id/history - Get thread history (alternative)
+app.get('/threads/:thread_id/history', (req, res) => {
+  console.log(`📜 History GET request for thread: ${req.params.thread_id}`);
+
+  // Return empty array (LangGraph SDK expects array format)
+  res.json([]);
+});
+
+// --- Run Execution Endpoints ---
+
+// 7. POST /threads/:thread_id/runs - Create a run (async style, but we execute sync)
+app.post('/threads/:thread_id/runs', async (req, res) => {
   try {
-    const { message, sessionId: providedSessionId } = req.body;
+    console.log(`\n🏃 Incoming Run Request for thread: ${req.params.thread_id}`);
 
-    if (!message) {
-      return res.status(400).json({ error: "Message is required" });
+    const inputPayload = req.body.input || req.body;
+    let userText = "Hello";
+
+    if (inputPayload.messages && Array.isArray(inputPayload.messages)) {
+      const lastMsg = inputPayload.messages[inputPayload.messages.length - 1];
+      userText = typeof lastMsg === 'string' ? lastMsg : lastMsg.content;
+    } else if (typeof inputPayload === 'string') {
+      userText = inputPayload;
+    } else if (req.body.message) {
+      userText = req.body.message;
     }
 
-    // Generate or use provided sessionId
-    const sessionId = providedSessionId || randomUUID();
+    console.log(`🗣️ User Input: "${userText.substring(0, 50)}..."`);
 
-    // Retrieve or initialize session history
-    if (!sessions.has(sessionId)) {
-      enforceSessionLimit(); // Check capacity before adding new session
-      sessions.set(sessionId, []);
-      console.log(`\n>>> [API] New session created: ${sessionId}`);
-    }
-
-    // Update last active timestamp
-    sessionLastActive.set(sessionId, Date.now());
-
-    const history = sessions.get(sessionId)!;
-
-    console.log(`>>> [API] Session ${sessionId.slice(0, 8)}... | Message: "${message}"`);
-
-    // Add user message to history
-    history.push(new HumanMessage(message));
-
-    // Invoke workflow with FULL conversation history
-    const result = await zenGuardWorkflow.invoke({
-      messages: history,
+    const workflow = createZenGuardWorkflow();
+    const result = await workflow.invoke({
+      messages: [new HumanMessage(userText)]
     });
 
-    // Get AI response and add to history
-    const aiResponse = result.messages[result.messages.length - 1];
-    history.push(aiResponse);
-
-    const responseText =
-      typeof aiResponse.content === "string"
-        ? aiResponse.content
-        : JSON.stringify(aiResponse.content);
-
-    console.log(`>>> [API] Response sent. History length: ${history.length}`);
+    const lastMsg = result.messages[result.messages.length - 1];
+    const runId = uuidv4();
 
     res.json({
-      response: responseText,
-      sessionId: sessionId,
-      historyLength: history.length,
-      metrics: result.metrics,
-      interventionLevel: result.interventionLevel,
-      wardenIntent: result.wardenIntent || null,
+      run_id: runId,
+      thread_id: req.params.thread_id,
+      status: "completed",
+      created_at: new Date().toISOString(),
+      outputs: {
+        messages: [{
+          type: "ai",
+          content: lastMsg.content,
+          additional_kwargs: {
+            risk_index: result.metrics?.irrationalityIndex,
+            warden_action: result.wardenIntent ? "TRIGGERED" : "NONE"
+          }
+        }]
+      },
+      metadata: {
+        risk_index: result.metrics?.irrationalityIndex
+      }
     });
+
   } catch (error: any) {
-    console.error("[API Error]", error.message);
-    res.status(500).json({ error: "Internal Server Error" });
+    console.error('❌ Error:', error);
+    res.status(500).json({ error: error.message });
   }
 });
 
-// Clear Session Endpoint
-app.delete("/api/session/:sessionId", (req, res) => {
-  const { sessionId } = req.params;
+// 8. POST /threads/:thread_id/runs/stream - SSE Streaming endpoint
+app.post('/threads/:thread_id/runs/stream', async (req, res) => {
+  // Set SSE headers
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
 
-  if (sessions.has(sessionId)) {
-    sessions.delete(sessionId);
-    sessionLastActive.delete(sessionId);
-    console.log(`>>> [API] Session ${sessionId.slice(0, 8)}... deleted.`);
-    res.json({ success: true, message: `Session ${sessionId} cleared.` });
-  } else {
-    res.status(404).json({ error: "Session not found" });
+  try {
+    // Improved input parsing
+    let userText = "Hello";
+    const inputPayload = req.body.input || req.body;
+
+    if (inputPayload.messages && Array.isArray(inputPayload.messages)) {
+      const lastMsg = inputPayload.messages[inputPayload.messages.length - 1];
+      if (typeof lastMsg === 'string') {
+        userText = lastMsg;
+      } else if (lastMsg && typeof lastMsg === 'object') {
+        const rawContent = lastMsg.content || lastMsg.text;
+        userText = typeof rawContent === 'string' ? rawContent : JSON.stringify(rawContent || lastMsg);
+      }
+    } else if (typeof inputPayload === 'string') {
+      userText = inputPayload;
+    } else if (inputPayload.content) {
+      userText = inputPayload.content;
+    }
+
+    console.log(`🔄 Stream Request for thread: ${req.params.thread_id}`);
+    console.log(`📝 User Input (parsed): "${userText}"`);
+
+    // Invoke workflow
+    const workflow = createZenGuardWorkflow();
+    const result = await workflow.invoke({ messages: [new HumanMessage(userText)] });
+
+    const lastMsg = result.messages[result.messages.length - 1];
+    const riskIndex = result.metrics?.irrationalityIndex || 0.05;
+
+    // Build response data with message ID and run ID
+    const messageId = uuidv4();
+    const runId = uuidv4();
+    const responseData = {
+      id: messageId,
+      type: "ai",
+      content: lastMsg.content,
+      additional_kwargs: {
+        risk_index: riskIndex,
+        warden_action: result.wardenIntent ? "TRIGGERED" : "NONE"
+      }
+    };
+
+    // Send metadata event (LangGraph standard)
+    res.write(`event: metadata\n`);
+    res.write(`data: ${JSON.stringify({ run_id: runId })}\n\n`);
+
+    // Send messages event (array format for Agent Chat compatibility)
+    res.write(`event: messages\n`);
+    res.write(`data: ${JSON.stringify([responseData])}\n\n`);
+
+    // Send end event
+    res.write(`event: end\n`);
+    res.write(`data: {}\n\n`);
+
+    res.end();
+
+  } catch (error: any) {
+    console.error('❌ Stream Error:', error.message);
+    res.write(`event: error\n`);
+    res.write(`data: ${JSON.stringify({ error: error.message })}\n\n`);
+    res.end();
   }
 });
 
-// List Sessions Endpoint (for debugging)
-app.get("/api/sessions", (req, res) => {
-  const now = Date.now();
-  const sessionList = Array.from(sessions.entries()).map(([id, messages]) => ({
-    sessionId: id,
-    messageCount: messages.length,
-    lastActive: sessionLastActive.get(id),
-    expiresIn: `${Math.round((SESSION_TTL - (now - (sessionLastActive.get(id) || 0))) / 60000)} minutes`,
-  }));
-  res.json({ sessions: sessionList, total: sessions.size });
+// --- 9. POST /runs/wait (The Chat Execution) ---
+// Handles standard LangGraph input format: { input: { messages: [...] } }
+app.post(['/runs/wait', '/threads/:thread_id/runs/wait'], async (req, res) => {
+  try {
+    console.log(`\n📩 Incoming Run Request`);
+
+    // 1. Parse Input
+    const inputPayload = req.body.input || req.body;
+    let userText = "Hello";
+
+    if (inputPayload.messages && Array.isArray(inputPayload.messages)) {
+        const lastMsg = inputPayload.messages[inputPayload.messages.length - 1];
+        userText = typeof lastMsg === 'string' ? lastMsg : lastMsg.content;
+    } else if (typeof inputPayload === 'string') {
+        userText = inputPayload;
+    } else if (req.body.message) {
+        userText = req.body.message; // Legacy fallback
+    }
+
+    console.log(`🗣️ User Input: "${userText.substring(0, 50)}..."`);
+
+    // 2. Invoke ZenGuard Logic
+    const workflow = createZenGuardWorkflow();
+    const result = await workflow.invoke({
+      messages: [new HumanMessage(userText)]
+    });
+
+    const lastMsg = result.messages[result.messages.length - 1];
+
+    // 3. Format Response (Standard LangGraph Schema)
+    // This ensures Studio can parse the reply
+    res.json({
+      id: uuidv4(),
+      status: "success",
+      outputs: {
+        // Studio expects 'messages' inside outputs
+        messages: [
+            {
+                type: "ai",
+                content: lastMsg.content,
+                additional_kwargs: {
+                    risk_index: result.metrics?.irrationalityIndex,
+                    warden_action: result.wardenIntent ? "TRIGGERED" : "NONE"
+                }
+            }
+        ]
+      },
+      metadata: {
+         risk_index: result.metrics?.irrationalityIndex
+      }
+    });
+
+  } catch (error: any) {
+    console.error('❌ Error:', error);
+    res.status(500).json({ error: error.message });
+  }
 });
 
-app.listen(PORT, () => {
-  console.log(`
-  ╔═══════════════════════════════════════════════════════════╗
-  ║              🧘 ZenGuard API Server Running               ║
-  ╠═══════════════════════════════════════════════════════════╣
-  ║  POST   /api/chat              - Chat (with memory)       ║
-  ║  DELETE /api/session/:id       - Clear session            ║
-  ║  GET    /api/sessions          - List all sessions        ║
-  ║  GET    /health                - Health check             ║
-  ╠═══════════════════════════════════════════════════════════╣
-  ║  Session TTL: ${SESSION_TTL / 60000} min | Max: ${MAX_SESSIONS} | Cleanup: ${CLEANUP_INTERVAL / 60000} min   ║
-  ║  Server: http://localhost:${PORT}                          ║
-  ╚═══════════════════════════════════════════════════════════╝
-  `);
+// --- Info & Health Endpoints ---
+
+// GET /info - Service information (required by Agent Chat)
+app.get('/info', (req, res) => {
+  console.log(`ℹ️ Info endpoint called`);
+  res.json({
+    version: "1.0.0",
+    name: "ZenGuard Agent",
+    description: "AI Psychological Firewall for Warden Protocol"
+  });
+});
+
+// GET /health - Health check
+app.get('/health', (req, res) => res.json({ status: 'ok', version: 'LangGraph-Std-1.0' }));
+
+app.listen(port, () => {
+  console.log(`🛡️ ZenGuard Standard Server running on port ${port}`);
 });
