@@ -1,0 +1,8 @@
+{
+  "node_version": "20",
+  "graphs": {
+    "defi_risk_scanner": "./src/graph/index.ts:createScannerWorkflow"
+  },
+  "env": ".env",
+  "dependencies": ["."]
+}
