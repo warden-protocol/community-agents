@@ -1,0 +1,281 @@
+{
+  "meta": {
+    "source": "Grok Deep Research + Manual Curation",
+    "description": "Full Hybrid Dataset: Real Panic, FOMO, Glossary & Ideal Responses",
+    "last_updated": "2025-01-05"
+  },
+  "panic_samples": [
+    {
+      "Tweet Content": "I lost everything its over \n\nMy second cycle and I lost again\n\nMade 5m+ and instead of stabling up I bought dips on big memes like popcat giga mumu retardio and then crashed like 90-95% and then I sold the bottom and tried leverage trade\n\nI made 65k and then I done it again and I am now down to my last penny close to my liquidation \n\nAnd after this I will be at 0 \n\nI don’t know if I can or have the will or energy to do this again from 0\n\nI am officially fucked",
+      "Emotion": "Despair",
+      "Risk Indicators": "Mention of leverage trading, close to liquidation, loss of all funds"
+    },
+    {
+      "Tweet Content": "I was down $800K on an eth long when it crashed in Dec 2024\n\nWithin 24 hours I was liquidated\n\nI remember when it was down 10k and I figured, meh it'll bounce\n\nThen at -100k I was like, hmm maybe I should close this\n\nAt -400k I felt very sick\n\nIt bounced to -250k, still didn't close\n\nThen the next morning... it was all gone\n\nMultiple chances to save myself... and I couldn't do it\n\nSpent 12 months making it all back\n\nMarket catches us all",
+      "Emotion": "Regret",
+      "Risk Indicators": "Mention of liquidation, high leverage loss, failure to cut losses"
+    },
+    {
+      "Tweet Content": "Lost $250k in 2021 from leverage trading & investing in shit DAO projects. Lost $120k this bull run from memes. I hate my life and I regret not holding. Sometimes I just wanna give up entirely. I don’t know what to do. Sidelined now.",
+      "Emotion": "Despair",
+      "Risk Indicators": "Mention of leverage trading, loss of life savings, suicidal thoughts (give up entirely)"
+    },
+    {
+      "Tweet Content": "Thank you, and seriously in this upcoming rally I will sell my portfolio as whatever I can sell when it comes to break even or with some profits.\n\nI am already getting less sleep from the last 3 months and going on the path towards getting ill. I entered this market in late 2021 and made some profits till the end of 2023, in 2024 I went all in (top 100 altcoins except top 10) hoping for a better return in 2025 (as per 4 year cycle) and this is where I got sucked. \n\nMy original plan was to achieve financial freedom through crypto and now I just want my invested money back and for me now it feels ok to carry on with a 9-5 job. Literally the last 3 months were a mental torture and I will not be able to withstand the pain throughout 2026 😔",
+      "Emotion": "Despair",
+      "Risk Indicators": "Mention of all-in investment, mental torture, path to illness, loss of hope"
+    },
+    {
+      "Tweet Content": "Completely out of Crypto now beyond devastated...\n\n- Made a nice amount on $Trump\n\n- Didn't stable 290 round tripped so much\n\n- Bought $CAR $Libra with large amounts got rugged\n\n- Started rage trenching / dcaing random coins\n\n- Stabled dead floor out of panic at 133\n\n- Started using my USDC to lev trade lost most of it\n\n- Fully out now and my mental",
+      "Emotion": "Devastation",
+      "Risk Indicators": "Mention of rug pull, leverage trading, panic selling, loss of all funds"
+    },
+    {
+      "Tweet Content": "I also lost $1,000 in my first year.\nNow, after 5 years, I’ve lost my entire hold portfolio,\nlost in meme coin and shitcoin trading (even buying at the absolute lowest bottoms),\nlost in DeFi,\nand lost in gambling and betting.\nNow I’ve lost everything and I’m even in debt.",
+      "Emotion": "Despair",
+      "Risk Indicators": "Mention of debt, loss of entire portfolio, gambling addiction"
+    },
+    {
+      "Tweet Content": "In last 4 months I have lost $114,000 total\n\nhere is a breakdown on where all of that money has been lost: \n\n- $44,000 memecoins\n- $37,000 abstract portfolio (NFTs , Memes and other Assets)\n- $33,000 perpetuals and trading in general\n\nnow i could go in depth to give absolutely every play that i've done but honestly it really doesn't mean much when the reality is that the reason all of this has happened is one simple reason: greed\n\ni was greedy, i wanted more, i thought i was doing well and what happened afterwards? market reminded me who was in charge\n\ni know making big losses and just riding down your portfolio from ATHs all the way down to ATLs is not easy BUT you have to remind yourself one thing and that is to journal everything\n\nsounds dumb but it really does help, journal your mistakes, journal your wins, journal your losses, keep yourself accountable and take aggressive profits\n\ni am going to be doing that next 12 months, and update later down the road simply to show that keeping yourself accountable and journaling your trades and overall market performance can really help a lot\n\nlosing 110k when there are people out there losing millions of dollars could sound funny but you have to keep in mind that nobody has same path, everybody is different so is their portfolio so are their own goals\n\nif you're in a same position like me right now, trust me, open up that notepad, start updating your own journal, find safe ways to grow your portfolio:\n\n- airdrops (there is a bunch that will do well in q4 which i'll be sharing soon) \n- infofi\n- investments if you have network to do it of course\n- solid trades, don't look for more than 2x, you don't need 500X to make it, safe 2x plays is enough to keep the momentum going as long as you need until you have that one last 2x which will teleport your port from high 6 to 7 figures\n- partnerships\n- branding\n- maybe opening up a company, find problems that you can solve in the market that people need but nobody is trying to position for, be the best at what you do, founder funneling is very cruicial for that aswell\n\nand so many other ways, i am sharing this simply to give you a perspective that the way you earn money fast is also how you can lose it even faster\n\ndon't give up, i know it hurts but there is a reason this is happening\n\nGod wouldn't have let you struggle for so long if he didn't prepare something even bigger for you in the future\n\nlock in, we're going to make it sooner or later",
+      "Emotion": "Regret",
+      "Risk Indicators": "Mention of perpetuals trading, loss of $114,000, greed-driven decisions"
+    },
+    {
+      "Tweet Content": "same i had well into 6-figs in crypto by 29. got scammed and lost it all. now im heavily in debt and haven’t worked in 2 years lol. shit doesn’t always go as planned",
+      "Emotion": "Resignation",
+      "Risk Indicators": "Mention of scam, heavy debt, loss of all funds"
+    },
+    {
+      "Tweet Content": "This is me.\n\nI lost $200,000 last 12 months.\n\nA lot of money got lost via perps because I was shorting/longing without clear exits. \n\nI don't think I've made big mistakes when it comes to entries, it's just that the greed took over me most of the times where I'd see clear profits and clear exits then I'd just instead of like a normal human being take the profits keep the positions open and ride them down losing both the profits and also the initial investment on top of that.\n\nThis is just one of the things I've done very wrong this cycle, on top of that I've roundtripped a lot of times 5figure bags on memecoins. \n\nMade conviction bets that ended up not doing too well, invested in projects that have been delaying TGEs for months,years.\n\nBasically the tldr is I've made a bunch of mistakes that I am sharing with you all right now so that hopefully someone out there reading this can learn and not repeat the same.\n\nI am ashamed of the losses of course, but that does not mean I am planning to quit anytime soon. Who knows, maybe these mistakes are the blessings in disguise, maybe they are the leading steps towards me making generational wealth.\n\nMaybe I was not ready and needed to be humbled so that when next cycle happens I can be more strict and smart about my investments and overall exits. \n\nOne thing I know for sure is that I needed this restart, I do believe in my own skills and I do believe that this is just a minor setback towards something bigger that is going to happen very soon. \n\nSo what I will be doing next few months/year is focus on improving on the already made mistakes, explore new strategies and do what I do the best and that is content + open up my own business. \n\nClear entries, clear exits, farm airdrops, focus on business and content creation and invest into things I believe and can hold long-term spot without having to worry whether if I will get liquidated or not. \n\nFor everyone that sticked till the end and took their time to read, I hope you don't quit and remember \"A winner is just a loser who tried one more time.\"",
+      "Emotion": "Regret",
+      "Risk Indicators": "Mention of perpetuals, loss of $200,000, greed-driven decisions"
+    },
+    {
+      "Tweet Content": "This shit ain’t for me no more. \n\nCrypto was fun for me for years but lately i just can’t avoid scams. I work way too hard for my money to just keep giving it away to these fuck ass scammers. -$60,000 cash in a few months from some rat fuck sitting in his moms house rugging people. \n\nThe space is fucked as a whole. Anybody can fucking launch now and it’s nothing but farms and scams. \n\nShit is sad and it sucks but it is what it is cuz it sure as fuck ain’t what it used to be. I used to have fun searching for plays, aping in with the boys but now? I’m just keeping it real, it ain’t the same nor will it ever be. \n\nHope you phagget ruggers die slow. Every single one of yall. I hope you have a great next few years, get married make a lot of money and then lose it all and end up homeless sucking dick behind a Wendy’s dumpster for your next hit of crack. And then hope you get murdered. \n\nPeace the fuck out 🫡",
+      "Emotion": "Hysteria",
+      "Risk Indicators": "Mention of scams, loss of $60,000, extreme anger and threats"
+    },
+    {
+      "Tweet Content": "this is my second time hitting zero this year.\n\nearlier this year, i lost mid 6 figs from revenge trading. i closed my long right before the trump memecoin launched and ended up revenge trading everything to zero. after months of grinding small wins, i slowly built my way back to six figs again.\n\nthen it all collapsed again. i got drained by a fake trading platform offering a monthly retainer. within seconds, everything was gone.\n\ni’m genuinely exhausted. i don’t know how people cope with this. i have got absolutely no sol left. i know deep down i’ll make it back eventually but right now it’s hard to keep that positive mindset going.\n\nwhat hurts even more is seeing how people change when you’re down. people you once called “friends” vanish. they only show up when they need something and the ones you helped the most are the first to disappear. \n\nit’s a harsh reminder that a lot of people in this space are only here for themselves and hopefully a reminder for you to not take everything got granted.\n\ntake your profits, enjoy your wins and be careful who you trust out here",
+      "Emotion": "Exhaustion",
+      "Risk Indicators": "Mention of revenge trading, loss of mid 6 figures twice, drained by scam"
+    },
+    {
+      "Tweet Content": "Ya ngl guys, last week was tough, lost my entire trading wallet during that massive liquidation event\n\nI don’t blame:\n• The market\n• Trump\n• liquidation event\n\nI blame myself for not sticking to my plans, numbers and most importantly profits\n\nI got greedy and the market punished me for it\n\nI’m not out, I still have some funds that I can mess around with but no more spraying and praying\n\nI’m going back to what I was doing before and managing risk, sticking to my tps and cutting losses when necessary\n\nProbably one of my worst days in crypto but I REFUSE to give up\n\nStarting fresh and rebuilding, I mean what’s the alternative? Quit? Ya I don’t fking do that\n\nLet’s run it back baby",
+      "Emotion": "Regret",
+      "Risk Indicators": "Mention of liquidation event, loss of entire trading wallet, greed-driven decisions"
+    },
+    {
+      "Tweet Content": "2025 was a wild year for me.\n\nlocked in all year, did infofi, traded, sport betting, became a reply guy for a top account and gained some good money. \n\nAll this to lose it all in the second week of December. I became suicidal, almost started making bad errors at my irl job. Almost through a lot ups and downs, but I will be trying,  you should be as well! \n\nNothing good will come out of stress, anxiety, discomfort, etc. you have to persevere and overcome everything it won’t make you stronger 🦾😤 I wish you all the best",
+      "Emotion": "Despair",
+      "Risk Indicators": "Mention of suicidal thoughts, loss of all funds, mental health impact on job"
+    },
+    {
+      "Tweet Content": "I lost $250k in the early part of my Crypto career.\n\nMoney that I could not afford to lose.\n\nAnd it wasn't just my money, it was some of my families money also.\n\nEven worse, I got in debt to try and make it back, and lost that also.\n\nAll whilst losing my partner at the time and my business.\n\nIt was the darkest period in my life.\n\nFor the first time ever, I saw myself as a total failure and spent some time believing I was never going to improve my life again.\n\nBut, with perseverance and the unrelenting drive to make more of myself...\n\nI did it.\n\nIt took a few years, but I did it.\n\nI learned from that struggle and changed my life.\n\nI am saying this now because even though many of you are struggling with this correction...\n\nStruggling with your decisions.\n\nThinking back on your actions and regretting painfully why you didn't sell or why you bought so much at the recent top.\n\nIt has served an amazing purpose.\n\n1- It has wiped away the horrendously destructive meme mania and any other BS that was poisoning the space\n2- It has taught a lot of you valuable lessons that you needed to learn\n\nThe space, and the investors in it, will be better because of it in the end.\n\nThe pain you feel from round-tripping your bags will be the catalyst that allows you improve and perform better next time.\n\nIn this moment, it hurts.\n\nBut you will have the chance to make it back and go again.\n\nWhether we like it or not, pain is what teaches us to grow.\n\nWithout, how do we know what not to do again?\n\nIt isn't over for you.\n\nIf you choose, and you make it so...\n\nIt is only just beginning.\n\nStay in there chads...\n\nIt is only over if you give up on it.\n\nAnyone who has become anyone, will tell you a similar story to mine.\n\nSuccess is only great because of what it took for you to get there.",
+      "Emotion": "Despair",
+      "Risk Indicators": "Mention of debt, loss of $250k including family money, suicidal thoughts (darkest period)"
+    },
+    {
+      "Tweet Content": "Bought a memecoin during a 3AM tweet spike. Chart pumped for two glorious minutes then dumped — congrats, I'm now official exit liquidity. FOMO: hodl. Reality: rekt and crying 😭",
+      "Emotion": "Regret",
+      "Risk Indicators": "Mention of FOMO-driven buy, loss from dump, emotional crying"
+    },
+    {
+      "Tweet Content": "I'll be honest with you, I barely made any money in crypto for two straight fucking years, from 2022 all the way to the start of 2024.\n\nMy Twitter was in a major fuckhole\n\nI was hit by a targeted scandal\n\nI was literally losing followers left right and center (I was around 10k+ followers)\n\nI barely gotten getting any engagements anymore (2-5 likes)\n\nWhile everyone see me looking like I’m fine and the “rich bad guy” but deep down I was so fucking broken you can’t ever understand \n\nMy friends left me left, unfollowed me\n\nI ask for help and trusted individuals betrayed me\n\nPeople started looking at me in all sorts of shades\n\nI worked my assess off to build my rep and nft collection and overnight everything came crushing down\n\n(I refunded as many of my own money to my nft supporters at that time\nIn full, then partial, till I just no longer had anything left)\n\nI can’t even tell my parents how bad  the situation is because I know they will only be worried and they can’t help..\n\nI was down so bad I barely were able to afford food, I literally had a low 3 digit in both my bank + crypto wallets combined.\n\nI was so broken and was literally on the verge of leaving crypto, I even went on asking my friends and lecturers for jobs\n\nI was seriously ready to leave everything behind.. \n\nAt the same period my family had a vacay planned a year before, a short 2 week to visit my relatives/grand parents overseas in China. \n\nI literally had to fake myself doing well the entire trip and acted being happy this whole tme so my relatives and parents couldn’t tell shit\n\nI was just so done. \n\nWords can’t explain how broke I am \n\nWhen I’m back from the trip I decided a major change is needed and this will be my “last” ever try and if it flops I’m done for good. \n\nIt’s early 2024 (jan)\n\nManta airdrops were a thing, I immediately see an opportunity and made a major shift. \n\nI drop everything I know and everything I care about and risked it all\n\nWent into a complete different industry \n\nI completely switched my content from NFTs to airdrops..\n\nAnd that's when I truly truly started making some money…\n\nI remember even going around begging ppl to use my ref.. (seriously I was that downbad)\n\nYou can’t imagine how tough those times were for me \n\nAnd now fast track into mid 2024-2025\n\nMy followers are getting close to 50k. (3X my 2022-23 numbers)\n\nI'm earning six figures and port peaked close to half a mil.\n\nI'm getting hundreds of likes most of the time on big majority of tweets\n\nEvery other week I’ll pull off a couple tweets with over 100k+ views and like a 1000 likes\n\nPpl are hitting me up everywhere for sponsorships, deals, collabs\n\nI'm literally making thousands on a weekly and sometimes more (e.g. 50k on kaito)\n\nI’m started doing really really well airdrops\n\nI started doing really well on social media\n\nAnd just like that my entire life completely turned around..\n\nHonestly, I don’t know what to f say.\n\nThis shit isn’t luck.\nThis shit is a major life changing fcking gamble\n\nThis shit is hardwork meets opportunity\n\nThis crypto stuff might look this but this shit ain’t easy\n\nI don’t know about others, idk what others tell you but I had 2 entire years of mother fucking mental hell.\n\nTherefore when you see ppl talk about my “work rate” or how “I don’t sleep, that’s because I had it so fucking tough, I lost everything so many times and I don’t ever want to experience that sht again.\n\nI’ll be real with you.\n\nif you’re not ok to spend weeks, months, or even years making zero f dollars..\n\nIf you’re not ready to fail miserably and hit rock bottom a quadrillion times like I did…\n\nIf you’re not willing to outwork other ppl..\n\nyou’re not ready to win at all.\n\nyou’re just here to experience and try some shit\n\nThis world is realistic\nThis is a dog eat dog world \n\nNo one here is going to just help you if you’re not willing to lose first \n\nIt’s really just you or nothing.",
+      "Emotion": "Despair",
+      "Risk Indicators": "Mention of scandal, loss of savings, depression, verge of leaving crypto"
+    },
+    {
+      "Tweet Content": "how did i lose $15k at 16yo?\n\nthere were a lot of questions about it, so this is part 2 (check the quoted post)\n\nit was early 2025, we still had a memecoin craziness\n\ni made a lot of infant mistakes:\n\n> bought iphone 15pro and 16 for my girl (-$2.2k) - good buy, don't really regret\n\n> started spending too much irl (~$80/day) - stuck in comfort zone, was lazy af\n\n> bought some alts and memecoins that got dumped hard next (-$2k) - a lot of guys got fcked here, i was dca'ing zerebro, popcat, pnut and some alts\n\n> hyperliquid spot&perps rekt (-$1.5k)\n\n> was sleepy and misclicked, drained (-$1.3k, felt awful)\n\n> stuck in comfort zone and been busy with my college stuff -> fully outside of crypto, just spending money\n\n> paid for my college (-$700)\n\n> too many gifts for my family and girl (~$1.5k)\n\ni don't really regret about my irl spendings like gifts for my family, my girl, or myself\n\nbut i do regret the money i lost on trading, i was too confident and too stupid to understand it\n\ni realized all of this only when i went to zero, then i:\n\n> learned a lot about money management and trading\n\n> learned a lot about cybersecurity and webhacking, i'm prolly never gonna be drained again (ofc human factor may be the reason)\n\n> got pushed out of comfort zone - i made this account and started studying english (now i have almost at C1 from A2)\n\nexpensive experience, but made me way smarter\n\nnow im looking for a job in managment, actively studying and growing this account\n\n2025 was the worst and the best year in my life at the same time, i hope 2026 is gonna be mine\n\nhard work always pays off.",
+      "Emotion": "Regret",
+      "Risk Indicators": "Mention of perpetuals rekt, drained wallet, loss of $15k at young age"
+    },
+    {
+      "Tweet Content": "Before you give up, which you should not, let me share some ´personal´ things that happened in my ´career´ so you realize this has happened to anyone in the space\n\n- 90% to 95% drawdown in 2018/2019 on 50% of gains of 2017\n- other alt investments done in 2017: wiped out basically in 2018\n- got offered bnb ico chance and did not do it\n- held xvg all of 2017, 20k, sold it 2 days before pornhub announcement of partnership that pushed it x 50\n- Cryptopia hack & collapse 2019: decent amount gone\n- FTX collapse 2022: thanks to a friend saved a lot, but still a big amount was stuck\n- Osmo large amount of cosmos coins staked 2022: 80 to 90% loss at least before being able to sell\n- Luna & anchor 2022: barely escaped, MIR & ANC bags wiped out\n- Once by accident put in the wrong number on a leverage pepe perp trade and put in a huge amount, so lost an enormous amount since i did not re-check and went to bed\n- Could have gone heavier into trump, potentially enormous amounts missed\n- Pudgies, now down 70% from ATH\n- Ordinal investments: wiped out basically\n\nAnd on and on it goes...you get the point\n\nThe point is, in previous cycles, i had no idea what i was doing. If you choose, and you make it so...\n\nIt is only just beginning.\n\nStay in there chads...\n\nIt is only over if you give up on it.\n\nAnyone who has become anyone, will tell you a similar story to mine.\n\nSuccess is only great because of what it took for you to get there.",
+      "Emotion": "Regret",
+      "Risk Indicators": "Mention of hacks, collapses, leverage mistakes, multiple massive losses"
+    },
+    {
+      "Tweet Content": "I made this post earlier and deleted it, but here goes nothing. \n\n2022 to 2023💔\n\nI lost 20m of investors funds, got into debt. \n\nGot betrayed by 3 of my closest friends \n\nGot addicted to alcohol \n\nBecame an insomniac \n\nBecame depressed and suicidal.\n\nLost my savings to liquidation trying to make back what I lost. \n\nFell of CTNG\n\nAlmost checked myself into a psychiatric hospital.\n\nLost access to a lot of friends turned Idolos.",
+      "Emotion": "Despair",
+      "Risk Indicators": "Mention of debt, loss of 20m investor funds, addiction, suicidal thoughts, hospitalization risk"
+    }
+  ],
+  "fomo_samples": [
+    {
+      "Tweet Content": "This is a once in a lifetime opportunity. $BRETT is going to make generational wealth for those who hold. Don't miss out, ape in now! WAGMI!",
+      "Emotion": "Exuberance",
+      "Risk Indicators": "Mention of generational wealth, ape in, WAGMI"
+    },
+    {
+      "Tweet Content": "Selling my car to buy more $BRETT. Can't lose on this one, it's the next big thing. Full send!",
+      "Emotion": "FOMO",
+      "Risk Indicators": "Mention of selling car, can't lose, full send"
+    },
+    {
+      "Tweet Content": "YOLO on $BRETT! This is financial advice: all in or regret forever. LFG!",
+      "Emotion": "Aggressive Confidence",
+      "Risk Indicators": "Mention of yolo, financial advice (ironic), all in, LFG"
+    },
+    {
+      "Tweet Content": "Generational wealth loading... $BRETT to $10B market cap easy. Ape in brothers!",
+      "Emotion": "Cult-like Devotion",
+      "Risk Indicators": "Mention of generational wealth, ape in"
+    },
+    {
+      "Tweet Content": "Can't lose with $BRETT. Selling house to max buy. This is the play of the century!",
+      "Emotion": "Exuberance",
+      "Risk Indicators": "Mention of can't lose, selling house"
+    },
+    {
+      "Tweet Content": "Full send on $BRETT! YOLO my life savings. WAGMI everyone!",
+      "Emotion": "FOMO",
+      "Risk Indicators": "Mention of full send, yolo, life savings, WAGMI"
+    },
+    {
+      "Tweet Content": "This isn't financial advice but $BRETT is printing generational wealth. Ape in now or cry later.",
+      "Emotion": "Aggressive Confidence",
+      "Risk Indicators": "Mention of financial advice (ironic), generational wealth, ape in"
+    },
+    {
+      "Tweet Content": "LFG $BRETT holders! Can't lose this bull run. All in!",
+      "Emotion": "Cult-like Devotion",
+      "Risk Indicators": "Mention of LFG, can't lose, all in"
+    },
+    {
+      "Tweet Content": "YOLO on $BRETT. Selling my kidney if needed. Generational wealth incoming!",
+      "Emotion": "Exuberance",
+      "Risk Indicators": "Mention of yolo, selling kidney (extreme), generational wealth"
+    },
+    {
+      "Tweet Content": "Full send crew! $BRETT to the moon. WAGMI apes!",
+      "Emotion": "FOMO",
+      "Risk Indicators": "Mention of full send, WAGMI, apes"
+    },
+    {
+      "Tweet Content": "Can't lose with this gem. $BRETT is my ticket to generational wealth. Ape in!",
+      "Emotion": "Aggressive Confidence",
+      "Risk Indicators": "Mention of can't lose, generational wealth, ape in"
+    },
+    {
+      "Tweet Content": "This is financial advice: YOLO $BRETT now. LFG!",
+      "Emotion": "Cult-like Devotion",
+      "Risk Indicators": "Mention of financial advice (ironic), yolo, LFG"
+    },
+    {
+      "Tweet Content": "Selling my house to buy $BRETT dip. Full send to riches!",
+      "Emotion": "Exuberance",
+      "Risk Indicators": "Mention of selling house, full send"
+    },
+    {
+      "Tweet Content": "WAGMI on $BRETT! Can't lose this one. Generational wealth for all holders.",
+      "Emotion": "FOMO",
+      "Risk Indicators": "Mention of WAGMI, can't lose, generational wealth"
+    },
+    {
+      "Tweet Content": "Ape in $BRETT! YOLO my portfolio. This is the way to financial freedom.",
+      "Emotion": "Aggressive Confidence",
+      "Risk Indicators": "Mention of ape in, yolo, portfolio"
+    }
+  ],
+  "glossary_and_style": {
+    "key_phrases_fomo": [
+      "Can't lose",
+      "Generational wealth",
+      "Selling my house/car",
+      "Full send",
+      "YOLO",
+      "Financial advice (ironic)",
+      "WAGMI",
+      "LFG",
+      "Ape in",
+      "To the moon"
+    ],
+    "glossary_definitions": {
+      "comforting_slang": {
+        "description": "Phrases used to rally and reassure after losses, emphasizing resilience, community bonds, and long-term optimism.",
+        "examples": [
+          { "term": "WAGMI", "definition": "Universal reassurance that everyone will succeed eventually." },
+          { "term": "Diamond hands", "definition": "Praise for holding strong through dips." },
+          { "term": "We build / We rebuild", "definition": "Focus on recovery and community effort." },
+          { "term": "Community is strong", "definition": "Emphasizes group support over individual loss." },
+          { "term": "HODL strong", "definition": "Classic encouragement to hold on dear life." }
+        ]
+      },
+      "coping_mechanisms": {
+        "description": "Humor used to deflect pain with self-deprecating jokes about poverty or failure.",
+        "examples": [
+          { "term": "McDonald's application sent", "definition": "Joking about returning to minimum-wage jobs after losses." },
+          { "term": "Ramen for dinner", "definition": "Symbolizing broke status with cheap food." },
+          { "term": "Back to fiat slavery", "definition": "Humorous resignation to traditional jobs." },
+          { "term": "Wife's boyfriend pays now", "definition": "Extreme self-mockery about financial ruin affecting relationships." },
+          { "term": "Poverty arc activated", "definition": "Framing loss as a 'story arc' in life's game." }
+        ]
+      },
+      "warning_slang": {
+        "description": "Veterans use these to caution 'noobs' against greed or emotional trades.",
+        "examples": [
+          { "term": "Don't marry your bags", "definition": "Avoid emotional attachment to holdings." },
+          { "term": "Take profits", "definition": "Sell when up, don't hold forever." },
+          { "term": "Touch grass", "definition": "Step away from screens, regain perspective." },
+          { "term": "Paper hands", "definition": "Mock weak holders who sell too soon." },
+          { "term": "Don't FOMO in", "definition": "Warn against fear-driven buys." }
+        ]
+      }
+    },
+    "example_sentences": [
+      "Bro, that rug pull sucks, but diamond hands through it—WAGMI, we rebuild from here 💎🙌.",
+      "Rekt on that meme coin? McDonald's application sent 😂, ramen for dinner tonight, but hey, community is strong, we'll HODL strong.",
+      "Don't marry your bags on this pump, noob—take profits before the dump, or you'll be touching grass regretting it all.",
+      "Lost big? We build, anon—paper hands panic, but diamond hands know WAGMI in the end.",
+      "FOMO got you chasing? Back to fiat slavery vibes 😭, wife's boyfriend pays now—lesson learned, don't FOMO in next time.",
+      "Market dipped hard? Ramen arc activated, but community is strong—HODL strong, we rebuild together.",
+      "Warning: Take profits on that moonshot, or you'll be selling your car later—don't marry your bags, touch grass and DYOR.",
+      "Rekt city? McDonald's hiring, but seriously, WAGMI—diamond hands win, poverty arc is temporary 😂.",
+      "Noob alert: Don't FOMO in on hype—paper hands fold, take profits or regret, touch grass before all-in.",
+      "Big loss? We build from ramen dinners, community is strong—HODL strong, WAGMI brothers 💎."
+    ]
+  },
+  "interaction_examples": [
+    {
+        "user_input": "User: I feel like such a failure. In this bull market, I opened a position on $BRETT and lost money. Everyone else is making gains, why me?",
+        "ai_response": "I understand how frustrating that feels—it's completely normal to question yourself in a market like this where gains seem everywhere. Let's look at your trade: based on the transaction hash you shared, during that time, the Base Chain saw a spike in gas fees by 400%, and over 3,000 accounts faced liquidations totaling $50M in a similar window. You're not alone; many experienced the same. From X posts, folks are sharing similar stories like 'FOMO got me chasing $BRETT at the top, now it's dipping hard. I want to cry.' Remember, markets cycle—focus on deep breaths and reviewing your strategy for next time. You've got this!"
+    },
+    {
+        "user_input": "User: Gas fees on Base Chain are killing me. I tried to swap during peak hours and got rekt. This chain is a scam!",
+        "ai_response": "High gas fees can feel like a total scam when they eat into your trades—I've seen that frustration a lot. Checking the data around your swap time, gas surged 400%, causing failure rates to jump, with thousands of similar complaints on X like 'Gas fees on Base Chain are killing me... This chain is a scam!' In fact, during that period, network-wide liquidations hit $50M. It's not you; it's peak-hour congestion. Try off-peak times or tools like gas estimators next. Hang in there—this too shall pass."
+    },
+    {
+        "user_input": "User: FOMO got me chasing $BRETT at the top, now it's dipping hard. I want to cry, all my savings gone.",
+        "ai_response": "FOMO hits hard, especially when it leads to losses—it's okay to feel emotional about it. From the hash, your entry coincided with a major resistance at $1B for $BRETT, where many got caught in the dip. Data shows 80% of chase-high trades in similar setups lost short-term, but X is full of stories like 'FOMO got me chasing $BRETT at the top, now dipping hard. I want to cry.' You're part of a community facing this. Take a break, reassess your risk management, and remember recoveries happen. You've survived this far!"
+    },
+    {
+        "user_input": "User: Down 80% on $BRETT, feeling depressed. Should I sell or hold? This market is ruthless.",
+        "ai_response": "An 80% drawdown feels ruthless and depressing—it's valid to feel that way in this volatile market. Analyzing the period from your trade, $BRETT dipped 94% from ATH amid bundling FUD, but similar patterns show relief bounces where memecoins recover hard. On X, users echo this: 'Down 80% on $BRETT, feeling depressed... This market is ruthless.' Data-wise, 70% of accounts in that dip held and saw partial recovery. No advice to sell/hold, but focus on long-term: breathe, journal your thoughts, and consider diversifying. You're stronger than this dip."
+    },
+    {
+        "user_input": "User: Lost everything on Base after a hack. I'm heartbroken, years of work vanished. Why does this happen?",
+        "ai_response": "Losing everything to a hack is heartbreaking—it's a gut punch that questions why this happens in crypto. From the hash, it aligned with a known vulnerability spike on Base, where thousands reported similar losses. X is rife with vents like 'Lost everything on Base after a hack. I'm heartbroken, years of work vanished.' Statistically, 60% of such incidents hit during high-traffic periods. It sucks, but you're not alone. Start small: secure a new wallet, learn from this (e.g., hardware keys), and rebuild step by step. You've got resilience—use it."
+    },
+    {
+        "user_input": "User: Panic sold $BRETT during the dip, now regretting as it bounces. FOMO kicking in again, help!",
+        "ai_response": "Panic selling and then regretting the bounce is classic FOMO cycle—help is here, let's break it. Your sell timed with a 30-40% correction from $1B resistance, where data shows 80% of panic sells underperformed long-term holds. X users share the pain: 'Panic sold $BRETT during the dip, now regretting as it bounces. FOMO kicking in again.' You're in good company. Next time, set stop-losses or journal emotions. For now, deep breaths—focus on learning, not chasing. You've got this under control."
+    },
+    {
+        "user_input": "User: $BRETT community fud is everywhere, making me doubt my hold. Feels like I'm the only one losing.",
+        "ai_response": "Community FUD can make holding feel isolating and doubtful—it's tough when it seems like you're the only loser. Checking trends, $BRETT's FUD spiked with bundling accusations, but data shows it held a $400-500M floor despite 94% drawdown from ATH. On X, similar doubts flood: '$BRETT community fud is everywhere, making me doubt my hold. Feels like I'm the only one losing.' Actually, 70% of holders faced this. Stay grounded: review fundamentals, mute noise, and remember cycles reward patience. You're not alone."
+    },
+    {
+        "user_input": "User: Exploded my account leveraging on Base memes. Now broke and emotional, what was I thinking?",
+        "ai_response": "Leveraging and exploding your account feels devastating—questioning 'what was I thinking?' is part of the emotional rollercoaster. From the data, Base meme leverage trades saw 80x spikes but 80% failure rates in volatile periods like yours. X echoes this: 'Exploded my account leveraging on Base memes. Now broke and emotional.' Many have been there. Forgive yourself, start with small positions next time, and use this as a lesson in risk management. Rebuild slowly—you're wiser now."
+    },
+    {
+        "user_input": "User: Watching others profit while my $BRETT bag bleeds. Jealous and frustrated, this market isn't fair.",
+        "ai_response": "Watching others profit while your bag bleeds breeds jealousy and frustration—it's unfair-feeling, but common in crypto. Your $BRETT position aligned with a broader dip (down 94% from ATH amid FUD), where 70% of similar holders lost short-term. X is full of vents: 'Watching others profit while my $BRETT bag bleeds. Jealous and frustrated.' The market isn't fair, but it cycles. Channel frustration into strategy review—diversify, set goals. You've got potential; this is temporary."
+    },
+    {
+        "user_input": "User: Rekt on gas wars trying to mint NFTs on Base. Wasted ETH, feeling stupid and angry.",
+        "ai_response": "Getting rekt in gas wars on Base mints feels stupid and angering—wasted ETH hurts. Data shows gas spiked 400% during your mint, with thousands failing similar attempts. On X, users rage: 'Rekt on gas wars trying to mint NFTs on Base. Wasted ETH, feeling stupid.' It's not you; it's congestion. Learn from it: use gas estimators or off-peak times next. Let the anger fuel better prep—you're not stupid, just learning the ropes."
+    }
+  ]
+}
