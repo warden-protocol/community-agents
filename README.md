@@ -31,19 +31,20 @@ Each agent in the [`agents/`](agents) directory is completely self-sufficient an
 
 When building your agent for the incentive programme, you can implement any Web3 or Web2 workflowand any custom functionality. Your Agent can connect to APIs, use databases, tools, and so on.
 
-Please keep in mind the following requirements and technical limitations:
+**To qualify for rewards**, please keep in mind the following requirements and technical limitations:
 
 - At the moment, you must use [LangGraph](https://www.langchain.com/langgraph). Support for more frameworks is coming soon.
-- You can [deploy your Agent on LangGraph Cloud or on your own infrastructure ([learn moregit a](docs/deploy-an-agent.md)).
+- You can deploy your Agent on LangGraph Cloud or on your own infrastructure ([learn more](docs/deploy-an-agent.md)).
 - Make sure that your Agent is accessible through an API. **No UI is required**.
 - Make sure that you only have one Agent per LangGraph instance to keep your Agents separated.
-- For security reasons, Agents will not have access to users' wallets in the beginning, nor will they be able to store any data on Warden infrastructure.
+- For security reasons, Agents will not have access to users' wallets, nor will they be able to store any data on Warden infrastructure. These limitations will be removed in the next phase of Warden Agent Hub in the beginning of 2026.
 
-We'll soon launch **Warden Studio**—a platform where you can register and monetize your Agent. Once it's available, you'll be able to add your Agent directly there, providing just the following:
+> [!IMPORTANT]
+> We'll soon launch **Warden Studio**—a platform where you can register and monetize your Agent. Once it's available, you'll be able to add your Agent directly there, providing just the following:
+> - Your agent's API URL and API key
+> - The name, description, and skills
+> - The avatar
 
-- Your agent's API URL and API key
-- The name, description, and skills
-- The avatar
 
 ![Registering an Agent in Warden Studio](images/warden-studio.png)
 
@@ -58,6 +59,13 @@ Awesome agents and tools built by the community! Add yours by submitting a PR to
 
 - [Travel DeFi Agent](https://github.com/Joshua15310/travel-defi-agent): LangGraph agent for travel planning and expense optimization using Gemini AI and DeFi strategies.
 - [Recurring Executor Agent](https://github.com/savagelysubtle/Hackathon2): AI-powered DeFi portfolio automation with natural language control. Features autonomous rebalancing, price-based triggers, 24/7 monitoring, interactive web dashboard, agent chat, multi-user wallet connection, and real-time updates. Built with LangGraph + Warden Agent Kit + Next.js. [Live Demo](https://hackathon2-agent.vercel.app/) ✅
+
+- [Cross-Chain Yield Intelligence Agent](https://github.com/rudazy/warden-yield-agent): AI agent that finds and ranks the best DeFi yield opportunities across 7 blockchain networks
+- [Portfolio Manager Agent](https://github.com/0xnald/portfolio-manager-agent): AI-powered crypto portfolio agent that adapts allocations in real time based on market data and natural language inputs
+- [Web3 ICO & Funding Tracker Agent](https://github.com/Mrgtee/web3-ico-funding-tracker): An AI agent for tracking Web3 funding rounds, ICOs, TGEs, token claims, and crypto news from live sources
+
+
+- [Hyperliquid Agent](https://github.com/sudeepb02/hyperliquid-agent-warden): An AI-powered agent that analyzes funding rates on the Hyperliquid perpetual futures exchange. Get real-time funding rate data, identify arbitrage opportunities, and understand market trends.
 
 ### Tools & Resources
 
