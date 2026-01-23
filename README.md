@@ -7,9 +7,11 @@ This is a collection of **Warden Community Agents and Tools** built with TypeScr
 To qualify for rewards, you need to do the following:
 
 - [Register for the programme](https://docs.google.com/forms/d/e/1FAIpQLSdwTR0BL8-T3LLbJt6aIyjuEYjMAmJPMdwffwHcyW6gskDQsg/viewform)
-- Explore the examples and build your own Agent meeting the [technical requirements](#technical-requirements)
-- [Publish your agent on Warden](#publish-your-agent)
+- Explore the docs and examples and build your own Agent meeting the requirements
+- Publish your agent on Warden
 - Submit a PR, listing your agent in this README, under [Community Agents and Tools](#-community-agents-and-tools).
+
+To learn more, see the sections below.
 
 ## 📚 Documentation
 
