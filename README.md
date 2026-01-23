@@ -2,8 +2,14 @@
 
 This is a collection of **Warden Community Agents and Tools** built with TypeScript or Python.
 
-💫 The [Agent Builder Incentive Programme](https://wardenprotocol.org/blog/agent-builder-incentive-programme) is live! 
-[Register now](https://docs.google.com/forms/d/e/1FAIpQLSdwTR0BL8-T3LLbJt6aIyjuEYjMAmJPMdwffwHcyW6gskDQsg/viewform) and get paid for building agents! Up to $10,000 in incentives for each agent in the Top 10 in the first month.
+💫 The [Agent Builder Incentive Programme](https://wardenprotocol.org/blog/agent-builder-incentive-programme) is live! Register now and get paid for building agents! Up to $10,000 in incentives for each agent in the Top 10 in the first month.
+
+To qualify for rewards, you need to do the following:
+
+- [Register for the programme](https://docs.google.com/forms/d/e/1FAIpQLSdwTR0BL8-T3LLbJt6aIyjuEYjMAmJPMdwffwHcyW6gskDQsg/viewform)
+- Explore the examples and build your own Agent meeting the [technical requirements](#technical-requirements)
+- [Publish your agent on Warden](publish-your-agent)
+- Submit a pull request to this repository, listing your agent in this README, under [Community Agents and Tools](#-community-agents-and-tools).
 
 ## 📚 Documentation
 
@@ -19,7 +25,7 @@ Each agent in the [`agents/`](agents) directory is completely self-sufficient an
 - Build scripts
 - Tests  (excluding starter templates)
 
-## Available Agents
+The following agents are available:
 
 - **[langgraph-quick-start](agents/langgraph-quick-start)**: LangGraph starter template in TypeScript (easiest)
 - **[langgraph-quick-start-py](agents/langgraph-quick-start-py)**: LangGraph starter template in Python (easiest)
@@ -27,24 +33,32 @@ Each agent in the [`agents/`](agents) directory is completely self-sufficient an
 - **[coingecko-agent](agents/coingecko-agent)**: CoinGecko agent for cryptocurrency data analysis (more complex)
 - **[portfolio-agent](agents/portfolio-agent)**: Portfolio agent for cryptocurrency wallet performance analysis (more complex)
 
-## Requirements
+## Technical Requirements
 
-When building your agent for the incentive programme, you can implement any Web3 or Web2 workflowand any custom functionality. Your Agent can connect to APIs, use databases, tools, and so on.
+When building your agent for the incentive programme, you can implement any Web3 or Web2 workflow and any custom functionality. Your Agent can connect to APIs, use databases, tools, and so on.
 
 **To qualify for rewards**, please keep in mind the following requirements and technical limitations:
 
-- At the moment, you must use [LangGraph](https://www.langchain.com/langgraph). Support for more frameworks is coming soon.
-- You can deploy your Agent on LangGraph Cloud or on your own infrastructure ([learn more](docs/deploy-an-agent.md)).
-- Make sure that your Agent is accessible through an API. **No UI is required**.
+- Currently, you must use [LangGraph](https://www.langchain.com/langgraph). Support for more frameworks is coming soon.
+- You can host your Agent on LangGraph Cloud or on your own infrastructure. ([learn more](docs/deploy-an-agent.md)).
+- Make sure that your agent is accessible through an API. **No UI is required**.
 - Make sure that you only have one Agent per LangGraph instance to keep your Agents separated.
-- For security reasons, Agents will not have access to users' wallets, nor will they be able to store any data on Warden infrastructure. These limitations will be removed in the next phase of Warden Agent Hub in the beginning of 2026.
+- For security reasons, agents will not have access to users' wallets, nor will they be able to store any data on Warden infrastructure. These limitations will be removed in the next phase of the Warden Agent Hub.
+
+## Publish Your Agent
+
+After deploying your agent, publish it through [Warden Studio](https://studio.wardenprotocol.org)—our platform for agent developers.
+
+Provide the following information:
+
+- Your agent's API URL and API key
+- The name, description, skills, and avatar
+- The preferred billing model (per inference or free)
 
 > [!IMPORTANT]
-> We'll soon launch **Warden Studio**—a platform where you can register and monetize your Agent. Once it's available, you'll be able to add your Agent directly there, providing just the following:
-> - Your agent's API URL and API key
-> - The name, description, and skills
-> - The avatar
+> Make sure your Warden account holds at least **1 USDC on Base** to pay the registration fee and **ETH on Base** to pay the gas fee. The developer account in Warden Studio automatically connects with your Warden account using the same credentials.
 
+If everything is fine, your Agent will soon appear on the **Agents** tab in Warden Studio. You'll also see the Agent on [Warden](https://app.wardenprotocol.org/auth): just open the **Agent Hub** and check the **Community** tab.
 
 ![Registering an Agent in Warden Studio](images/warden-studio.png)
 
@@ -54,16 +68,12 @@ Awesome agents and tools built by the community! Add yours by submitting a PR to
 
 **Format:** `[Project Name](link): Short agent description`
 
-
 ### Agents
 
 - [Travel DeFi Agent](https://github.com/Joshua15310/travel-defi-agent): LangGraph agent for travel planning and expense optimization using Gemini AI and DeFi strategies.
-
 - [Cross-Chain Yield Intelligence Agent](https://github.com/rudazy/warden-yield-agent): AI agent that finds and ranks the best DeFi yield opportunities across 7 blockchain networks
 - [Portfolio Manager Agent](https://github.com/0xnald/portfolio-manager-agent): AI-powered crypto portfolio agent that adapts allocations in real time based on market data and natural language inputs
 - [Web3 ICO & Funding Tracker Agent](https://github.com/Mrgtee/web3-ico-funding-tracker): An AI agent for tracking Web3 funding rounds, ICOs, TGEs, token claims, and crypto news from live sources
-
-
 - [Hyperliquid Agent](https://github.com/sudeepb02/hyperliquid-agent-warden): An AI-powered agent that analyzes funding rates on the Hyperliquid perpetual futures exchange. Get real-time funding rate data, identify arbitrage opportunities, and understand market trends.
 
 ### Tools & Resources
