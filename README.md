@@ -45,6 +45,9 @@ When building your agent for the incentive programme, you can implement any Web3
 - Make sure that you only have one Agent per LangGraph instance to keep your Agents separated.
 - For security reasons, agents will not have access to users' wallets, nor will they be able to store any data on Warden infrastructure. These limitations will be removed in the next phase of the Warden Agent Hub.
 
+> [!IMPORTANT]
+> To publish your Agent, you **do not need to build a UI**. The only thing required is an **API URL**, which is **automatically available** once you deploy your Agent.
+
 ## Publish Your Agent
 
 After deploying your agent, publish it through [Warden Studio](https://studio.wardenprotocol.org)—our platform for agent developers.
