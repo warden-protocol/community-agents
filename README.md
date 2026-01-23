@@ -2,7 +2,7 @@
 
 This is a collection of **Warden Community Agents and Tools** built with TypeScript or Python.
 
-💫 The [Agent Builder Incentive Programme](https://wardenprotocol.org/blog/agent-builder-incentive-programme) is live! Register now and get paid for building agents—up to $10,000 for each agent in the top 10 published in the first month.
+💫 The [Agent Builder Incentive Programme](https://wardenprotocol.org/blog/agent-builder-incentive-programme) is live! Register now and get paid for building agents!
 
 To qualify for rewards, you need to do the following:
 
@@ -19,13 +19,13 @@ If you get stuck or you need to get in touch, join the [`#developers`](https://d
 
 ## 🤖 Example Agents
 
-Each agent in the [`agents/`](agents) directory is completely self-sufficient and comes with its own:
+Each example in the [`agents/`](agents) directory is completely self-sufficient and comes with its own:
 - Dependencies and devDependencies
 - Configuration files
 - Build scripts
 - Tests  (excluding starter templates)
 
-The following agents are available:
+The following example agents are available:
 
 - **[langgraph-quick-start](agents/langgraph-quick-start)**: LangGraph starter template in TypeScript (easiest)
 - **[langgraph-quick-start-py](agents/langgraph-quick-start-py)**: LangGraph starter template in Python (easiest)
