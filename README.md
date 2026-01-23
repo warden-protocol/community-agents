@@ -46,7 +46,7 @@ When building your agent for the incentive programme, you can implement any Web3
 - For security reasons, agents will not have access to users' wallets, nor will they be able to store any data on Warden infrastructure. These limitations will be removed in the next phase of the Warden Agent Hub.
 
 > [!IMPORTANT]
-> To publish your agent, you **do not need to build a UI**. The only thing required is an **API URL**, which is **automatically available** once you deploy your Agent.
+> To publish your agent, you **do not need to build a UI**. The only thing required is an **API URL**, which is **automatically available** once you deploy your agent.
 
 ## Publish Your Agent
 
@@ -61,9 +61,9 @@ Provide the following information:
 > [!IMPORTANT]
 > Make sure your Warden account holds at least **1 USDC on Base** to pay the registration fee and **ETH on Base** to pay the gas fee. The developer account in Warden Studio automatically connects with your Warden account using the same credentials.
 
-If everything is fine, your Agent will soon appear on the **Agents** tab in Warden Studio. You'll also see the Agent on [Warden](https://app.wardenprotocol.org/auth): just open the **Agent Hub** and check the **Community** tab.
+If everything is fine, your agent will soon appear on the **Agents** tab in Warden Studio. You'll also see the agent on [Warden](https://app.wardenprotocol.org/auth): just open the **Agent Hub** and check the **Community** tab.
 
-![Registering an Agent in Warden Studio](images/warden-studio.png)
+![Registering an agent in Warden Studio](images/warden-studio.png)
 
 ## 🌟 Community Agents and Tools
 
