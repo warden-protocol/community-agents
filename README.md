@@ -9,7 +9,7 @@ To qualify for rewards, you need to do the following:
 - [Register for the programme](https://docs.google.com/forms/d/e/1FAIpQLSdwTR0BL8-T3LLbJt6aIyjuEYjMAmJPMdwffwHcyW6gskDQsg/viewform)
 - Explore our examples and build your own agent meeting the [requirements](#technical-requirements)
 - Publish your agent on Warden through [Warden Studio](#publish-your-agent)
-- Submit a PR, listing your agent in this README, under [Community Agents and Tools](#-community-agents-and-tools).
+- Submit a PR, listing your agent in this README, under [Community Agents and Tools](#-community-agents-and-tools)
 
 ## 📚 Documentation
 
@@ -46,7 +46,7 @@ When building your agent for the incentive programme, you can implement any Web3
 - For security reasons, agents will not have access to users' wallets, nor will they be able to store any data on Warden infrastructure. These limitations will be removed in the next phase of the Warden Agent Hub.
 
 > [!IMPORTANT]
-> To publish your Agent, you **do not need to build a UI**. The only thing required is an **API URL**, which is **automatically available** once you deploy your Agent.
+> To publish your agent, you **do not need to build a UI**. The only thing required is an **API URL**, which is **automatically available** once you deploy your Agent.
 
 ## Publish Your Agent
 
