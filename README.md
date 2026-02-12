@@ -78,7 +78,7 @@ Awesome agents and tools built by the community! Add yours by submitting a PR to
 - [Portfolio Manager Agent](https://github.com/0xnald/portfolio-manager-agent): AI-powered crypto portfolio agent that adapts allocations in real time based on market data and natural language inputs
 - [Web3 ICO & Funding Tracker Agent](https://github.com/Mrgtee/web3-ico-funding-tracker): An AI agent for tracking Web3 funding rounds, ICOs, TGEs, token claims, and crypto news from live sources
 - [Hyperliquid Agent](https://github.com/sudeepb02/hyperliquid-agent-warden): An AI-powered agent that analyzes funding rates on the Hyperliquid perpetual futures exchange. Get real-time funding rate data, identify arbitrage opportunities, and understand market trends.
-- [Terminal AI](https://github.com/ogeth777/TERMINALAI): Autonomous crypto agent on Base providing real-time market forensics, risk analysis, and whale tracking.
+- [Terminal AI](https://github.com/ogeth777/TERMINAL_AI_V2): Autonomous crypto agent on Base providing real-time market forensics, risk analysis, and whale tracking.
 
 ### Tools & Resources
 
